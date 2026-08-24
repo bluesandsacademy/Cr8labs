@@ -108,19 +108,18 @@ export function ImmersiveZone() {
         </svg>
 
         {/* What you're diving toward: the headset photo, scaling up as you scroll.
-            transform-origin is set to where the ring-light actually sits in this
-            source image (right-of-center), matching the radial gradient center
-            below, so the zoom pushes toward the lens instead of the frame's dead
-            center - the current asset is composed off-center; a centered
-            replacement would make this closer to 50% 50%. */}
+            transform-origin matches where the ring-light actually centers in this
+            source image (this asset is composed dead-center, unlike the first
+            version), so the zoom pushes straight into the lens rather than off to
+            one side. */}
         <div
           ref={headsetWrapRef}
           className="absolute inset-0 z-10"
-          style={{ transformOrigin: "55% 45%" }}
+          style={{ transformOrigin: "50% 48%" }}
         >
           <Image
-            src="/brand/hero-immersive-bg.png"
-            alt="A person from behind putting on a VR headset, concentric rings of warm golden light radiating from the lens into a dark, softly lit void"
+            src="/brand/hero-headset.png"
+            alt="An unworn VR headset resting in darkness, concentric rings of warm golden light radiating outward from it into a dark, softly lit void"
             fill
             sizes="100vw"
             priority
@@ -130,13 +129,13 @@ export function ImmersiveZone() {
 
         {/* What you arrive in: an abstract continuation of the same ring-light,
             crossfaded in once the dive is underway, so there's never a hard cut
-            from "photo" to "abstract glow". */}
+            from "photo" to "abstract glow". Centered to match the photo above. */}
         <div
           ref={insideGlowRef}
           className="absolute inset-0 z-20 opacity-0"
           style={{
             background:
-              "radial-gradient(circle at 55% 45%, rgba(245,166,35,0.32) 0%, rgba(44,39,108,0.6) 40%, rgba(23,19,15,0.98) 78%)",
+              "radial-gradient(circle at 50% 48%, rgba(245,166,35,0.32) 0%, rgba(44,39,108,0.6) 40%, rgba(23,19,15,0.98) 78%)",
           }}
           aria-hidden="true"
         />

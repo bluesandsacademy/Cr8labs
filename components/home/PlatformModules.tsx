@@ -1,0 +1,81 @@
+import { Button } from "@/components/ui/Button";
+
+const MODULES: { name: string; description: string }[] = [
+  {
+    name: "Interactive Books",
+    description: "Printed titles with a full digital layer that lifts off the page when scanned.",
+  },
+  {
+    name: "AR Experiences",
+    description:
+      "Scan a page, a poster, a product or a room, and watch the subject assemble itself in front of you.",
+  },
+  {
+    name: "VR Learning",
+    description: "Places you can enter and move through, for headset and for browser.",
+  },
+  {
+    name: "Virtual Science Labs",
+    description:
+      "Practical experiments a student can run alone or as a class, with no equipment and no risk.",
+  },
+  {
+    name: "AI Learning Companion",
+    description:
+      "A tutor that follows the curriculum, adapts to a learner's pace, and reports to the teacher rather than around her.",
+  },
+  {
+    name: "Teacher Studio",
+    description: "Where a teacher builds an immersive lesson without writing code.",
+  },
+  {
+    name: "Creator Platform",
+    description:
+      "Where a student builds their own experience, which is where the ambition stops being ours and becomes theirs.",
+  },
+  {
+    name: "Analytics",
+    description: "What was understood, what was not, and what to do about it before the term ends.",
+  },
+];
+
+export function PlatformModules() {
+  return (
+    <section className="px-8 py-20 md:px-16 md:py-28">
+      <div className="mx-auto max-w-160">
+        <p className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-widest text-adire">
+          The platform
+        </p>
+        <h2 className="font-display text-[32px] font-semibold leading-tight text-ink md:text-[40px]">
+          One platform. Many worlds.
+        </h2>
+        <p className="mt-5 max-w-140 font-sans text-[17px] leading-relaxed text-body">
+          A printed page, a phone, a headset, a classroom display and a cloud that remembers what
+          each learner did. Eight parts, built to work together and built to work alone.
+        </p>
+      </div>
+
+      <div className="mx-auto mt-14 grid max-w-260 grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        {MODULES.map((module) => (
+          <div key={module.name} className="flex gap-3">
+            <div className="relative mt-1.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-[1.5px] border-adire">
+              <div className="h-1.25 w-1.25 rounded-full bg-adire" />
+            </div>
+            <div>
+              <h3 className="font-display text-[17px] font-semibold text-ink">{module.name}</h3>
+              <p className="mt-1.5 font-sans text-[14px] leading-relaxed text-body">
+                {module.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mx-auto mt-14 max-w-160">
+        <Button href="/platform" variant="dark">
+          See how the platform fits together
+        </Button>
+      </div>
+    </section>
+  );
+}

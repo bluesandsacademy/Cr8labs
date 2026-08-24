@@ -17,4 +17,33 @@ describe("Home page", () => {
       )
     ).toBeInTheDocument();
   });
+
+  it("renders the rest of the docx home content between the immersive zone and the footer", () => {
+    render(<Home />);
+    expect(
+      screen.getByRole("heading", { level: 2, name: "One platform. Many worlds." })
+    ).toBeInTheDocument();
+    expect(screen.getByText("Interactive Books")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Where our work runs" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "Built in Africa. Designed for African realities. Made for global use.",
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "The next generation will not learn the way the last one did",
+      })
+    ).toBeInTheDocument();
+  });
+
+  it("does not crash on the now-duplicated 'Book a demo' CTA across nav, hero and closing sections", () => {
+    render(<Home />);
+    const demoLinks = screen.getAllByRole("link", { name: "Book a demo" });
+    expect(demoLinks.length).toBeGreaterThanOrEqual(3);
+  });
 });
