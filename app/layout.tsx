@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ojuju, switzer, jetbrainsMono } from "./fonts";
+import { ojuju, generalSans, jetbrainsMono } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${ojuju.variable} ${switzer.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${ojuju.variable} ${generalSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

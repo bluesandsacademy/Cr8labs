@@ -42,7 +42,7 @@
   --color-disabled: var(--color-disabled);
 
   --font-display: var(--font-ojuju);
-  --font-sans: var(--font-switzer);
+  --font-sans: var(--font-general-sans);
   --font-mono: var(--font-jetbrains-mono);
 }
 
@@ -50,6 +50,10 @@ body {
   background: var(--color-bone);
   color: var(--color-ink);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Regular (400) read as too thin/washed out in practice, even where contrast
+     math technically passed. Headings and buttons already set their own
+     explicit weight, so this only affects plain body copy that didn't. */
+  font-weight: 500;
 }
 
 /* Two-ring focus treatment used by every interactive element, light-background variant. */

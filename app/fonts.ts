@@ -15,13 +15,16 @@ export const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-export const switzer = localFont({
+// General Sans (Fontshare), not Switzer: Switzer read too thin/washed out at
+// body sizes in practice. Same boutique-foundry bar, but a rounder, inkier
+// default presence.
+export const generalSans = localFont({
   src: [
-    { path: "./fonts/switzer/Switzer-Regular.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/switzer/Switzer-Medium.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/switzer/Switzer-Semibold.woff2", weight: "600", style: "normal" },
-    { path: "./fonts/switzer/Switzer-Bold.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/general-sans/GeneralSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/general-sans/GeneralSans-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/general-sans/GeneralSans-Semibold.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/general-sans/GeneralSans-Bold.woff2", weight: "700", style: "normal" },
   ],
-  variable: "--font-switzer",
+  variable: "--font-general-sans",
   display: "swap",
 });
