@@ -15,3 +15,14 @@ if (typeof window !== "undefined" && !window.matchMedia) {
     dispatchEvent: () => false,
   });
 }
+
+// jsdom also has no ResizeObserver. Components that measure real layout (e.g. the
+// immersive zone sizing itself off measured content height) only need this to not
+// throw under test - the geometry itself isn't meaningfully testable in jsdom.
+if (typeof window !== "undefined" && !window.ResizeObserver) {
+  window.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}

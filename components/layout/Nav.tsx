@@ -73,7 +73,7 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
 
       <div
         data-testid="nav-links"
-        className={`${open ? "flex animate-[nav-menu-in_180ms_ease-out]" : "hidden"} absolute left-0 right-0 top-full flex-col gap-5 border-t px-8 py-6 shadow-lg xl:static xl:flex xl:animate-none xl:flex-row xl:items-center xl:gap-6.5 xl:border-none xl:p-0 xl:shadow-none ${
+        className={`${open ? "flex animate-[nav-menu-in_180ms_ease-out]" : "hidden"} absolute left-0 right-0 top-full flex-col gap-5 border-t px-8 py-6 shadow-lg xl:static xl:flex xl:animate-none xl:flex-row xl:items-center xl:gap-6.5 xl:border-none xl:bg-transparent xl:p-0 xl:shadow-none ${
           isDark ? "border-adire-light/30 bg-adire-dark" : "border-border-light bg-bone"
         }`}
       >

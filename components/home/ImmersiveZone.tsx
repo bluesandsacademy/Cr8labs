@@ -12,29 +12,52 @@ gsap.registerPlugin(ScrollTrigger);
 export function ImmersiveZone() {
   const zoneRef = useRef<HTMLElement | null>(null);
   const bgRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
   const heroSceneRef = useRef<HTMLDivElement | null>(null);
   const trustSceneRef = useRef<HTMLDivElement | null>(null);
+
+  // The background pins via plain CSS `position: sticky`, not GSAP's `pin`. GSAP's
+  // pin wraps its target in a synthetic spacer div; because the background was
+  // previously absolutely positioned (for its own inset-x-0 sizing), that spacer's
+  // measured size collapsed to zero width, and so did the background inside it -
+  // verified with a real browser, not just reasoned about. Sticky has no such trap
+  // and every browser already implements it correctly. GSAP stays in charge of the
+  // scene fades below, which don't have this problem.
+  //
+  // A sticky element stays pinned for (containing block height - its own height).
+  // We want it pinned for exactly as long as the two scenes take to scroll past, so
+  // the zone's height is set to (measured content height + background height) from
+  // the real DOM, not a guessed vh figure - and re-measured on resize.
+  useEffect(() => {
+    const updateZoneHeight = () => {
+      if (!zoneRef.current || !contentRef.current || !bgRef.current) return;
+      const contentHeight = contentRef.current.offsetHeight;
+      const bgHeight = bgRef.current.offsetHeight;
+      zoneRef.current.style.height = `${contentHeight + bgHeight}px`;
+    };
+
+    updateZoneHeight();
+
+    const resizeObserver = new ResizeObserver(updateZoneHeight);
+    if (contentRef.current) resizeObserver.observe(contentRef.current);
+    window.addEventListener("resize", updateZoneHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateZoneHeight);
+    };
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // The fixed background only pins/scrubs for visitors who haven't asked for
-      // reduced motion. Under reduced motion (or when the query can't be evaluated,
-      // e.g. very old browsers) everything just renders in normal document flow.
+      // Only the scrubbed fade/rise is gated behind reduced-motion. The sticky
+      // background itself never moves or animates - it just stays put - so it
+      // isn't the kind of motion this preference is about, and keeping it avoids
+      // an SSR/client mismatch we'd otherwise get from toggling layout mode on a
+      // client-only media query.
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Background stays pinned for exactly as long as the two scenes take to
-        // scroll past, measured from the real DOM (not a guessed vh number) - pin
-        // duration = zone's rendered height, since the background is absolutely
-        // positioned and contributes nothing to that height itself.
-        ScrollTrigger.create({
-          trigger: zoneRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          pin: bgRef.current,
-          pinSpacing: false,
-        });
-
         for (const sceneRef of [heroSceneRef, trustSceneRef]) {
           gsap.fromTo(
             sceneRef.current,
@@ -60,7 +83,7 @@ export function ImmersiveZone() {
 
   return (
     <section ref={zoneRef} className="relative bg-adire-dark">
-      <div ref={bgRef} className="absolute inset-x-0 top-0 z-0 h-dvh overflow-hidden">
+      <div ref={bgRef} className="sticky top-0 z-0 h-dvh w-full overflow-hidden">
         <svg className="absolute inset-0 z-20 opacity-[0.06] mix-blend-overlay" width="100%" height="100%" aria-hidden="true">
           <filter id="immersive-noise">
             <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} stitchTiles="stitch" />
@@ -81,7 +104,7 @@ export function ImmersiveZone() {
         />
       </div>
 
-      <div className="relative z-10">
+      <div ref={contentRef} className="absolute inset-x-0 top-0 z-10">
         <div ref={heroSceneRef} className="flex min-h-dvh items-center">
           <Hero />
         </div>
