@@ -52,6 +52,8 @@ export default function FontLab() {
         rel="stylesheet"
         href="https://api.fontshare.com/v2/css?f[]=tanker@400&f[]=chubbo@700&f[]=panchang@800&f[]=sharpie@700&display=swap"
       />
+      {/* Single-page font load is the point here - this page IS the experiment. */}
+      {/* eslint-disable-next-line @next/next/no-page-custom-font */}
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Titan+One&display=swap"
