@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { RingDivider } from "@/components/ui/RingDivider";
 
@@ -60,7 +61,17 @@ export function Footer() {
     <footer className="bg-ink text-bone">
       <RingDivider />
       <div className="mx-auto grid max-w-360 grid-cols-1 gap-12 px-8 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] md:px-16">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
+          <Link href="/" className="focus-ring-dark flex w-fit items-center gap-2.75 rounded-[3px]">
+            <Image
+              src="/brand/cr8lab-mark.png"
+              alt="CR8LAB mark"
+              width={320}
+              height={206}
+              className="h-7 w-auto brightness-0 invert opacity-90"
+            />
+            <span className="font-display text-[19px] font-bold text-bone">CR8LAB</span>
+          </Link>
           <p className="max-w-70 font-sans text-[14px] leading-relaxed text-bone/80">
             CR8LAB is a creative technology company building immersive learning platforms,
             spatial computing experiences and interactive stories. Made in Africa, built to

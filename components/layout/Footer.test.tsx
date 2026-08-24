@@ -3,6 +3,13 @@ import { render, screen } from "@testing-library/react";
 import { Footer } from "./Footer";
 
 describe("Footer", () => {
+  it("renders the brand mark linking back home", () => {
+    render(<Footer />);
+    const mark = screen.getByAltText("CR8LAB mark");
+    const homeLink = mark.closest("a");
+    expect(homeLink).toHaveAttribute("href", "/");
+  });
+
   it("renders the footer statement with the CR8LAB brand name", () => {
     render(<Footer />);
     expect(
