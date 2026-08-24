@@ -14,12 +14,12 @@ const TILES: string[] = [
 
 export function Industries() {
   return (
-    <section className="px-8 py-20 md:px-16 md:py-28">
-      <div className="mx-auto max-w-160">
-        <h2 className="font-display text-[32px] font-semibold leading-tight text-ink md:text-[40px]">
+    <section className="border-t border-border-light px-8 py-16 md:px-16 md:py-20">
+      <div className="grid grid-cols-1 gap-x-16 gap-y-4 lg:grid-cols-[1fr_1.2fr]">
+        <h2 className="font-display text-[34px] font-semibold leading-[1.08] text-ink md:text-[46px]">
           Where our work runs
         </h2>
-        <p className="mt-5 max-w-140 font-sans text-[17px] leading-relaxed text-body">
+        <p className="self-center font-sans text-[17px] leading-relaxed text-body md:text-[19px]">
           We started in classrooms because that is the hardest room to hold. The same technology
           now runs in galleries, showrooms, training centres and campaigns.
         </p>
@@ -28,7 +28,7 @@ export function Industries() {
       {/* Ring-outlined pills instead of a grid of bordered rectangles - the same
           circular language as everything else, and a flowing wrap instead of a
           rigid grid so it reads as one connected set, not a table of chips. */}
-      <div className="mx-auto mt-12 flex max-w-260 flex-wrap gap-3">
+      <div className="mt-12 flex flex-wrap gap-3">
         {TILES.map((tile, i) => {
           const accent = ACCENTS[i % ACCENTS.length];
           return (

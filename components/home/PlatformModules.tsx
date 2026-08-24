@@ -43,26 +43,28 @@ const MODULES: { name: string; description: string }[] = [
 
 export function PlatformModules() {
   return (
-    <section className="relative overflow-hidden px-8 py-20 md:px-16 md:py-28">
+    <section className="relative overflow-hidden border-t border-border-light px-8 py-16 md:px-16 md:py-20">
       <div
         className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full border-28 border-danfo/6"
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-160">
-        <p className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-widest text-adire">
-          The platform
-        </p>
-        <h2 className="font-display text-[32px] font-semibold leading-tight text-ink md:text-[40px]">
-          One platform. Many worlds.
-        </h2>
-        <p className="mt-5 max-w-140 font-sans text-[17px] leading-relaxed text-body">
+      <div className="relative grid grid-cols-1 gap-x-16 gap-y-4 lg:grid-cols-[1fr_1.2fr]">
+        <div>
+          <p className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-widest text-adire">
+            The platform
+          </p>
+          <h2 className="font-display text-[34px] font-semibold leading-[1.08] text-ink md:text-[46px]">
+            One platform. Many worlds.
+          </h2>
+        </div>
+        <p className="self-center font-sans text-[17px] leading-relaxed text-body md:text-[19px]">
           A printed page, a phone, a headset, a classroom display and a cloud that remembers what
           each learner did. Eight parts, built to work together and built to work alone.
         </p>
       </div>
 
-      <div className="relative mx-auto mt-14 grid max-w-260 grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="relative mt-14 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
         {MODULES.map((module, i) => {
           const accent = ACCENTS[i % ACCENTS.length];
           return (
@@ -93,7 +95,7 @@ export function PlatformModules() {
         })}
       </div>
 
-      <div className="relative mx-auto mt-14 max-w-160">
+      <div className="relative mt-14">
         <Button href="/platform" variant="dark">
           See how the platform fits together
         </Button>

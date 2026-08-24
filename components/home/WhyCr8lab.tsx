@@ -18,19 +18,19 @@ const PILLARS: { lead: string; rest: string; accent: string }[] = [
 
 export function WhyCr8lab() {
   return (
-    <section className="relative overflow-hidden px-8 py-20 md:px-16 md:py-28">
+    <section className="relative overflow-hidden border-t border-border-light px-8 py-16 md:px-16 md:py-20">
       <div
         className="pointer-events-none absolute -bottom-48 -right-24 h-120 w-120 rounded-full border-9 border-laterite/5"
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-160">
-        <h2 className="font-display text-[32px] font-semibold leading-tight text-ink md:text-[40px]">
+      <div className="relative max-w-200">
+        <h2 className="font-display text-[34px] font-semibold leading-[1.08] text-ink md:text-[46px]">
           Built in Africa. Designed for African realities. Made for global use.
         </h2>
       </div>
 
-      <div className="relative mx-auto mt-12 grid max-w-260 grid-cols-1 gap-10 md:grid-cols-3">
+      <div className="relative mt-12 grid grid-cols-1 gap-10 md:grid-cols-3">
         {PILLARS.map((pillar) => (
           <div key={pillar.lead}>
             {/* Not a 01/02/03 marker - these three don't run in any order that

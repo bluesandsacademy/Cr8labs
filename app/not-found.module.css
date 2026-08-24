@@ -97,7 +97,8 @@
 
 .h1 {
   font-family: var(--font-display);
-  font-weight: 800;
+  /* 700 is Clash Display's heaviest weight; 800 would silently fall back */
+  font-weight: 700;
   font-size: 64px;
   line-height: 0.94;
   letter-spacing: -0.02em;

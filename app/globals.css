@@ -41,7 +41,7 @@
   --color-border-light: var(--color-border-light);
   --color-disabled: var(--color-disabled);
 
-  --font-display: var(--font-ojuju);
+  --font-display: var(--font-clash-display);
   --font-sans: var(--font-general-sans);
   --font-mono: var(--font-jetbrains-mono);
 }
