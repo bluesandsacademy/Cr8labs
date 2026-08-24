@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/Button";
 
+const ACCENTS = ["#F5A623", "#2C276C", "#B6502E", "#8F87CF"];
+
 const MODULES: { name: string; description: string }[] = [
   {
     name: "Interactive Books",
@@ -41,8 +43,13 @@ const MODULES: { name: string; description: string }[] = [
 
 export function PlatformModules() {
   return (
-    <section className="px-8 py-20 md:px-16 md:py-28">
-      <div className="mx-auto max-w-160">
+    <section className="relative overflow-hidden px-8 py-20 md:px-16 md:py-28">
+      <div
+        className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full border-28 border-danfo/6"
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto max-w-160">
         <p className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-widest text-adire">
           The platform
         </p>
@@ -55,23 +62,38 @@ export function PlatformModules() {
         </p>
       </div>
 
-      <div className="mx-auto mt-14 grid max-w-260 grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-        {MODULES.map((module) => (
-          <div key={module.name} className="flex gap-3">
-            <div className="relative mt-1.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-[1.5px] border-adire">
-              <div className="h-1.25 w-1.25 rounded-full bg-adire" />
-            </div>
-            <div>
-              <h3 className="font-display text-[17px] font-semibold text-ink">{module.name}</h3>
+      <div className="relative mx-auto mt-14 grid max-w-260 grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {MODULES.map((module, i) => {
+          const accent = ACCENTS[i % ACCENTS.length];
+          return (
+            <div key={module.name}>
+              {/* A ring-badge monogram, not a generic bullet or stock icon - each
+                  module's mark is just its own initial, framed the same way every
+                  icon in this system is framed. */}
+              <div
+                className="relative flex h-13 w-13 items-center justify-center rounded-full border-2"
+                style={{ borderColor: accent }}
+              >
+                <div
+                  className="absolute inset-2 rounded-full border opacity-40"
+                  style={{ borderColor: accent }}
+                />
+                <span className="font-display text-[19px] font-bold" style={{ color: accent }}>
+                  {module.name[0]}
+                </span>
+              </div>
+              <h3 className="mt-4 font-display text-[17px] font-semibold text-ink">
+                {module.name}
+              </h3>
               <p className="mt-1.5 font-sans text-[14px] leading-relaxed text-body">
                 {module.description}
               </p>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      <div className="mx-auto mt-14 max-w-160">
+      <div className="relative mx-auto mt-14 max-w-160">
         <Button href="/platform" variant="dark">
           See how the platform fits together
         </Button>

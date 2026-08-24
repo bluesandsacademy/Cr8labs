@@ -1,3 +1,5 @@
+const ACCENTS = ["#F5A623", "#2C276C", "#B6502E"];
+
 const TILES: string[] = [
   "Education",
   "Museums and culture",
@@ -23,15 +25,23 @@ export function Industries() {
         </p>
       </div>
 
-      <div className="mx-auto mt-12 grid max-w-260 grid-cols-2 gap-3 sm:grid-cols-3">
-        {TILES.map((tile) => (
-          <div
-            key={tile}
-            className="rounded-[3px] border border-border bg-bone px-5 py-4 font-sans text-[14px] font-medium text-ink"
-          >
-            {tile}
-          </div>
-        ))}
+      {/* Ring-outlined pills instead of a grid of bordered rectangles - the same
+          circular language as everything else, and a flowing wrap instead of a
+          rigid grid so it reads as one connected set, not a table of chips. */}
+      <div className="mx-auto mt-12 flex max-w-260 flex-wrap gap-3">
+        {TILES.map((tile, i) => {
+          const accent = ACCENTS[i % ACCENTS.length];
+          return (
+            <div
+              key={tile}
+              className="flex items-center gap-2.5 rounded-full border-[1.5px] bg-bone px-5 py-3 font-sans text-[14px] font-medium text-ink"
+              style={{ borderColor: accent }}
+            >
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: accent }} />
+              {tile}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
