@@ -34,6 +34,26 @@ describe("Button", () => {
     expect(screen.getByRole("link", { name: "Go" })).toHaveClass("bg-bone");
   });
 
+  it("gives ghost a bone border on the dark theme instead of ink", () => {
+    render(
+      <Button href="/x" variant="ghost" theme="dark">
+        Go
+      </Button>
+    );
+    const link = screen.getByRole("link", { name: "Go" });
+    expect(link).toHaveClass("border-bone");
+    expect(link).not.toHaveClass("border-ink");
+  });
+
+  it("keeps ghost's ink border on the default light theme", () => {
+    render(
+      <Button href="/x" variant="ghost">
+        Go
+      </Button>
+    );
+    expect(screen.getByRole("link", { name: "Go" })).toHaveClass("border-ink");
+  });
+
   it("merges an extra className on top of its own variant classes", () => {
     render(
       <Button href="/x" variant="primary" className="w-full">

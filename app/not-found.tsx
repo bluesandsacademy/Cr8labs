@@ -53,12 +53,9 @@ export default function NotFound() {
             <Button href="/work" variant="primary" theme="dark">
               See the work
             </Button>
-            <a
-              href="/contact"
-              className="focus-ring-dark inline-block rounded-[3px] border-[1.5px] border-bone px-6.5 py-[13.5px] font-sans text-[15px] font-semibold text-bone transition-opacity duration-150 ease-out hover:opacity-80"
-            >
+            <Button href="/contact" variant="ghost" theme="dark">
               Get in touch
-            </a>
+            </Button>
           </div>
         </div>
       </div>

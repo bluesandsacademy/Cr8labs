@@ -21,4 +21,17 @@ describe("TrustBar", () => {
     expect(screen.getByText("countries")).toBeInTheDocument();
     expect(screen.getByText("interactive experiences")).toBeInTheDocument();
   });
+
+  it("uses bone text on the dark theme instead of ink, since it now sits on a dark background", () => {
+    render(<TrustBar theme="dark" />);
+    const stat = screen.getByText("[100]+");
+    expect(stat).toHaveClass("text-bone");
+    expect(stat).not.toHaveClass("text-ink");
+  });
+
+  it("defaults to the light theme", () => {
+    render(<TrustBar />);
+    const stat = screen.getByText("[100]+");
+    expect(stat).toHaveClass("text-ink");
+  });
 });

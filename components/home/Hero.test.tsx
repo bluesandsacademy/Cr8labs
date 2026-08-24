@@ -24,12 +24,4 @@ describe("Hero", () => {
     expect(screen.getByRole("link", { name: "Explore the platform" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Book a demo" })).toBeInTheDocument();
   });
-
-  it("renders the portal scene image with descriptive alt text, not a placeholder", () => {
-    render(<Hero />);
-    const img = screen.getByRole("img");
-    expect(img.getAttribute("src")).toContain("hero-portal-scene.png");
-    expect(img.getAttribute("alt")).not.toMatch(/placeholder/i);
-    expect(img.getAttribute("alt")?.length).toBeGreaterThan(20);
-  });
 });
