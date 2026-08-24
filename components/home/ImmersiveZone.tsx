@@ -13,21 +13,19 @@ export function ImmersiveZone() {
   const zoneRef = useRef<HTMLElement | null>(null);
   const bgRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const headsetWrapRef = useRef<HTMLDivElement | null>(null);
+  const insideGlowRef = useRef<HTMLDivElement | null>(null);
+  const vignetteRef = useRef<HTMLDivElement | null>(null);
   const heroSceneRef = useRef<HTMLDivElement | null>(null);
   const trustSceneRef = useRef<HTMLDivElement | null>(null);
 
-  // The background pins via plain CSS `position: sticky`, not GSAP's `pin`. GSAP's
-  // pin wraps its target in a synthetic spacer div; because the background was
-  // previously absolutely positioned (for its own inset-x-0 sizing), that spacer's
-  // measured size collapsed to zero width, and so did the background inside it -
-  // verified with a real browser, not just reasoned about. Sticky has no such trap
-  // and every browser already implements it correctly. GSAP stays in charge of the
-  // scene fades below, which don't have this problem.
-  //
-  // A sticky element stays pinned for (containing block height - its own height).
-  // We want it pinned for exactly as long as the two scenes take to scroll past, so
-  // the zone's height is set to (measured content height + background height) from
-  // the real DOM, not a guessed vh figure - and re-measured on resize.
+  // The background pins via plain CSS `position: sticky`, not GSAP's `pin` (see the
+  // git history on this file for why - GSAP's pin wraps its target in a synthetic
+  // spacer that collapsed to zero width for an absolutely-positioned element,
+  // verified with a real browser). A sticky element stays pinned for exactly
+  // (containing block height - its own height), so the zone's height is set to
+  // (measured content height + background height) from the real DOM, re-measured
+  // on resize, rather than a guessed vh figure.
   useEffect(() => {
     const updateZoneHeight = () => {
       if (!zoneRef.current || !contentRef.current || !bgRef.current) return;
@@ -48,33 +46,45 @@ export function ImmersiveZone() {
     };
   }, []);
 
+  // One master timeline, scrubbed to how far the visitor has scrolled through the
+  // zone (not per-element triggers): the headset zooms in as if the camera is
+  // diving toward its lens, the headline recedes early, the photo crossfades into
+  // an abstract "inside the lens" glow partway through, then the trust bar arrives
+  // once we're through. Choreographing it as fractions of one timeline keeps the
+  // sequence's relative timing intact regardless of how tall the zone ends up
+  // being on a given screen. No `pin` is used here either - just tweening opacity/
+  // scale on plain elements, the same low-risk pattern the scene fades already used
+  // successfully.
   useEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // Only the scrubbed fade/rise is gated behind reduced-motion. The sticky
-      // background itself never moves or animates - it just stays put - so it
-      // isn't the kind of motion this preference is about, and keeping it avoids
-      // an SSR/client mismatch we'd otherwise get from toggling layout mode on a
-      // client-only media query.
+      // The sticky background itself is never gated behind reduced motion (it
+      // doesn't move on its own, so it isn't "motion" in the sense this preference
+      // targets), but the whole dive sequence - zoom, crossfade, fades - very much
+      // is, so it's skipped entirely: reduced-motion visitors see the headset at
+      // rest, the inside glow never appears, and both scenes are simply visible.
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        for (const sceneRef of [heroSceneRef, trustSceneRef]) {
-          gsap.fromTo(
-            sceneRef.current,
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: zoneRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        });
+
+        tl.to(headsetWrapRef.current, { scale: 2.2, ease: "none" }, 0)
+          .to(heroSceneRef.current, { opacity: 0, y: -40, ease: "none" }, 0)
+          .to(vignetteRef.current, { opacity: 0, ease: "none" }, 0.2)
+          .to(insideGlowRef.current, { opacity: 1, ease: "none" }, 0.18)
+          .to(headsetWrapRef.current, { opacity: 0, ease: "none" }, 0.32)
+          .fromTo(
+            trustSceneRef.current,
             { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              ease: "none",
-              scrollTrigger: {
-                trigger: sceneRef.current,
-                start: "top 85%",
-                end: "top 45%",
-                scrub: true,
-              },
-            }
+            { opacity: 1, y: 0, ease: "none" },
+            0.45
           );
-        }
       });
     }, zoneRef);
 
@@ -84,22 +94,41 @@ export function ImmersiveZone() {
   return (
     <section ref={zoneRef} className="relative bg-adire-dark">
       <div ref={bgRef} className="sticky top-0 z-0 h-dvh w-full overflow-hidden">
-        <svg className="absolute inset-0 z-20 opacity-[0.06] mix-blend-overlay" width="100%" height="100%" aria-hidden="true">
+        <svg className="absolute inset-0 z-30 opacity-[0.06] mix-blend-overlay" width="100%" height="100%" aria-hidden="true">
           <filter id="immersive-noise">
             <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} stitchTiles="stitch" />
           </filter>
           <rect width="100%" height="100%" filter="url(#immersive-noise)" />
         </svg>
-        <Image
-          src="/brand/hero-immersive-bg.png"
-          alt="A person from behind putting on a VR headset, concentric rings of warm golden light radiating from the lens into a dark, softly lit void"
-          fill
-          sizes="100vw"
-          priority
-          className="object-cover"
-        />
+
+        {/* What you're diving toward: the headset photo, scaling up as you scroll. */}
+        <div ref={headsetWrapRef} className="absolute inset-0 z-10">
+          <Image
+            src="/brand/hero-immersive-bg.png"
+            alt="A person from behind putting on a VR headset, concentric rings of warm golden light radiating from the lens into a dark, softly lit void"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover"
+          />
+        </div>
+
+        {/* What you arrive in: an abstract continuation of the same ring-light,
+            crossfaded in once the dive is underway, so there's never a hard cut
+            from "photo" to "abstract glow". */}
         <div
-          className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(10,8,20,0.8)_0%,rgba(10,8,20,0.4)_45%,rgba(10,8,20,0.05)_70%)]"
+          ref={insideGlowRef}
+          className="absolute inset-0 z-20 opacity-0"
+          style={{
+            background:
+              "radial-gradient(circle at 55% 45%, rgba(245,166,35,0.32) 0%, rgba(44,39,108,0.6) 40%, rgba(23,19,15,0.98) 78%)",
+          }}
+          aria-hidden="true"
+        />
+
+        <div
+          ref={vignetteRef}
+          className="absolute inset-0 z-20 bg-[linear-gradient(90deg,rgba(10,8,20,0.8)_0%,rgba(10,8,20,0.4)_45%,rgba(10,8,20,0.05)_70%)]"
           aria-hidden="true"
         />
       </div>
