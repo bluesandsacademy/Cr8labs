@@ -38,18 +38,18 @@ Status: approved. Source of truth for the design decisions below is the publishe
 
 ### Type
 
-- **Display** (headings): **Ojuju**, Google Fonts, a variable Afro-grotesque font by Chisaokwu Joboson / Ụdị Foundry (Lagos), inspired by Dogon masquerade dancers. Weights used: 600, 700 (800 available if a heavier moment is needed later). Used with restraint; headings only, never body copy.
-- **Body**: **Switzer**, Fontshare (Indian Type Foundry), free commercial license. Deliberately not Inter/Space Grotesk/any top-5 AI-default font. Weights: 400, 500, 600, 700.
+- **Display** (headings): **Titan One**, Google Fonts (Rodrigo Fuenzalida), self-hosted. A rounded poster black: friendly but loud, matching the mark's rounded ring construction. Single weight, declared across the whole 100-900 range in `app/fonts.ts` so semibold/bold heading classes resolve to it exactly instead of triggering synthetic bold. Headings only, never body copy. Supersedes Ojuju (canvas-era choice, revised 2026-08-24 in-browser: too thin/low-presence at real sizes) and the interim Clash Display.
+- **Body**: **General Sans**, Fontshare (Indian Type Foundry), free commercial license, self-hosted. Weights: 400, 500, 600, 700; body default is 500 (400 read washed-out in practice). Deliberately not Inter/Space Grotesk/any top-5 AI-default font. Supersedes Switzer (same revision).
 - **Data/labels**: **JetBrains Mono**, Google Fonts. Reserved strictly for genuine data (stat numerals, technical labels); never decorative eyebrows. Weights: 500, 600, 700.
 
-Type scale (see `design/cr8lab-brand-system/Typography.dc.html` for full detail):
-- H1: Ojuju 700, 52–66px depending on context (hero uses larger), line-height ~1.0–1.05
-- H2: Ojuju 600, 34px
-- H3: Ojuju 600, 24px
-- H4: Switzer 600, 18px
-- Body large: Switzer 400, 17–18px
-- Body: Switzer 400, 15–16px
-- Caption: Switzer 400, 13px
+Type scale (canvas reference `design/cr8lab-brand-system/Typography.dc.html` predates the font revision; sizes hold, faces as above):
+- H1: Titan One, 52–66px depending on context (hero uses larger), line-height ~1.0–1.05
+- H2: Titan One, 34px
+- H3: Titan One, 24px
+- H4: General Sans 600, 18px
+- Body large: General Sans 500, 17–18px
+- Body: General Sans 500, 15–16px
+- Caption: General Sans 400–500, 13px
 - Kicker/label (functional wayfinding only, never decorative): JetBrains Mono 500, 11px, uppercase, tracked
 
 ## Signature motif: the ring
