@@ -1,0 +1,76 @@
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.watermark {
+  position: absolute;
+  top: -260px;
+  left: -220px;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  border: 54px solid var(--color-ink);
+  opacity: 0.035;
+  pointer-events: none;
+}
+
+.watermark::after {
+  content: "";
+  position: absolute;
+  inset: 90px;
+  border-radius: 50%;
+  border: 24px solid var(--color-ink);
+  opacity: 0.6;
+}
+
+.portal {
+  position: relative;
+  background: var(--color-adire-dark);
+  overflow: hidden;
+  min-height: 320px;
+}
+
+.portalClip {
+  clip-path: polygon(7% 0, 100% 0, 100% 100%, 0 100%);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glow {
+  position: absolute;
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.3) 0%, rgba(245, 166, 35, 0) 62%);
+  filter: blur(2px);
+}
+
+.seam {
+  position: absolute;
+  top: -4%;
+  left: 4.5%;
+  width: 22px;
+  height: 108%;
+  background: repeating-linear-gradient(120deg, var(--color-danfo) 0 11px, var(--color-ink) 11px 22px);
+  box-shadow: 0 0 26px 4px rgba(0, 0, 0, 0.28);
+  z-index: 1;
+}
+
+.caption {
+  position: absolute;
+  left: 44px;
+  bottom: 30px;
+  right: 44px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--color-adire-caption);
+  line-height: 1.55;
+}
