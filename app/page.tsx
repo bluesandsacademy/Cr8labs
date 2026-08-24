@@ -1,6 +1,7 @@
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Reveal } from "@/components/ui/Reveal";
+import { PageBackground } from "@/components/home/PageBackground";
 import { ImmersiveZone } from "@/components/home/ImmersiveZone";
 import { Manifesto } from "@/components/home/Manifesto";
 import { SectionTeaser } from "@/components/home/SectionTeaser";
@@ -13,78 +14,99 @@ import { CommunitySection } from "@/components/home/CommunitySection";
 import { ClosingCta } from "@/components/home/ClosingCta";
 
 /**
- * Section rhythm is deliberate: loud sections (dark bands, imagery, the dial)
- * alternate with quiet text-led ones so the page breathes instead of droning.
- * Each loud section carries a distinct device derived from the ring mark:
- * manifesto ring fragment, platform dial, adire band, portal arch, dashed
- * orbit, satellite cluster, closing glow.
+ * One fixed background for the whole page (PageBackground); everything else
+ * is transparent and arrives over it. Each section wrapper declares the world
+ * tone it wants beneath it, and the background crossfades to that tone as the
+ * section comes in, so the page never cuts from one color to another. Loud
+ * sections (dial, arch, orbit, cluster) alternate with quiet text-led ones.
  */
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      {/* Fixed, not sticky: sticky still occupies its own space in normal flow,
-          which pushed the immersive zone down and left the nav sitting on the
-          page's plain body background instead of floating over the dark hero
-          from the very first frame - fixed removes it from flow entirely, so
-          the zone starts at the true top of the page and the nav overlays it. */}
+      <PageBackground />
+
+      {/* Fixed, not sticky: sticky would occupy its own space in normal flow
+          and push the opening scene down; fixed removes it from flow so the
+          nav floats over the world from the very first frame. */}
       <div className="fixed inset-x-0 top-0 z-50">
         <Nav theme="dark" />
       </div>
 
-      {/* The immersive zone is its own continuous scroll-driven sequence and
-          isn't wrapped in Reveal - everything after it gets a considered
-          fade-and-rise into view instead of appearing flat and static. */}
-      <ImmersiveZone />
+      <main className="relative z-10">
+        {/* The opening dive is its own scroll-driven sequence and isn't
+            wrapped in Reveal; everything after it fades and rises in. */}
+        <ImmersiveZone />
 
-      <Reveal>
-        <Manifesto />
-      </Reveal>
+        <div data-tone="light">
+          <Reveal>
+            <Manifesto />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <PlatformModules />
-      </Reveal>
+        <div data-tone="light">
+          <Reveal>
+            <PlatformModules />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <SectionTeaser
-          heading="Eight products, one library"
-          body="Buy one, or run the whole stack. Everything shares the same content library, so a scene built for a book works in the lab, the headset and the classroom display without being made twice."
-          cta={{ label: "Browse products", href: "/products" }}
-        />
-      </Reveal>
+        <div data-tone="light">
+          <Reveal>
+            <SectionTeaser
+              heading="Eight products, one library"
+              body="Buy one, or run the whole stack. Everything shares the same content library, so a scene built for a book works in the lab, the headset and the classroom display without being made twice."
+              cta={{ label: "Browse products", href: "/products" }}
+            />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <Industries />
-      </Reveal>
+        <div data-tone="adire">
+          <Reveal>
+            <Industries />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <ProofSection />
-      </Reveal>
+        <div data-tone="light">
+          <Reveal>
+            <ProofSection />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <LabsSection />
-      </Reveal>
+        <div data-tone="ink">
+          <Reveal>
+            <LabsSection />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <WhyCr8lab />
-      </Reveal>
+        <div data-tone="light">
+          <Reveal>
+            <WhyCr8lab />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <SectionTeaser
-          heading="We publish what we learn"
-          body="Very few creative technology companies show their working. We publish research on learning science, spatial computing, digital publishing and AI in the classroom, including the results that did not go our way."
-          cta={{ label: "Read the research", href: "/research" }}
-        />
-      </Reveal>
+        <div data-tone="light">
+          <Reveal>
+            <SectionTeaser
+              heading="We publish what we learn"
+              body="Very few creative technology companies show their working. We publish research on learning science, spatial computing, digital publishing and AI in the classroom, including the results that did not go our way."
+              cta={{ label: "Read the research", href: "/research" }}
+            />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <CommunitySection />
-      </Reveal>
+        <div data-tone="light">
+          <Reveal>
+            <CommunitySection />
+          </Reveal>
+        </div>
 
-      <Reveal>
-        <ClosingCta />
-      </Reveal>
+        <div data-tone="ink">
+          <Reveal>
+            <ClosingCta />
+          </Reveal>
+        </div>
 
-      <Footer />
+        <Footer />
+      </main>
     </div>
   );
 }

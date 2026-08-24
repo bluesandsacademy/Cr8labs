@@ -1,9 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+
+/**
+ * The home page's fixed background writes the current world tone to
+ * `<html data-tone>` as sections crossfade beneath the nav. Following it here
+ * lets a dark-themed nav flip to ink text over bone sections instead of
+ * vanishing bone-on-bone. Pages without a background never set it, so the
+ * `theme` prop alone decides there.
+ */
+function useDocumentTone() {
+  const [tone, setTone] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const read = () => setTone(root.dataset.tone);
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(root, { attributes: true, attributeFilter: ["data-tone"] });
+    return () => observer.disconnect();
+  }, []);
+
+  return tone;
+}
 
 const NAV_LINKS: { label: string; href: string }[] = [
   { label: "Platform", href: "/platform" },
@@ -19,7 +41,8 @@ const NAV_LINKS: { label: string; href: string }[] = [
 
 export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
   const [open, setOpen] = useState(false);
-  const isDark = theme === "dark";
+  const documentTone = useDocumentTone();
+  const isDark = documentTone === "light" ? false : theme === "dark";
 
   const linkColor = isDark ? "text-bone" : "text-body";
   const linkHoverColor = isDark ? "hover:text-white" : "hover:text-ink";
@@ -35,9 +58,11 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
           width={320}
           height={206}
           priority
-          className={`h-6.5 w-auto ${isDark ? "brightness-0 invert opacity-90" : ""}`}
+          className={`h-6.5 w-auto transition-[filter,opacity] duration-500 ${isDark ? "brightness-0 invert opacity-90" : ""}`}
         />
-        <span className={`font-display text-[21px] font-bold ${isDark ? "text-bone" : "text-ink"}`}>
+        <span
+          className={`font-display text-[21px] font-bold transition-colors duration-500 ${isDark ? "text-bone" : "text-ink"}`}
+        >
           CR8LAB
         </span>
       </Link>
@@ -82,7 +107,7 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
             key={link.href}
             href={link.href}
             onClick={() => setOpen(false)}
-            className={`rounded-[3px] text-[12px] font-semibold uppercase tracking-wide ${linkColor} ${linkHoverColor} ${focusRing}`}
+            className={`rounded-[3px] text-[12px] font-semibold uppercase tracking-wide transition-colors duration-500 ${linkColor} ${linkHoverColor} ${focusRing}`}
           >
             {link.label}
           </Link>

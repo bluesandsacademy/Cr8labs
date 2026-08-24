@@ -20,7 +20,7 @@ const TILES: string[] = [
  */
 export function Industries() {
   return (
-    <section className="relative overflow-hidden bg-adire-dark px-8 py-16 md:px-16 md:py-24">
+    <section className="relative overflow-hidden px-8 py-16 md:px-16 md:py-24">
       <div
         className="pointer-events-none absolute -right-40 -top-56 h-130 w-130 rounded-full border-[3px] border-adire-light/15"
         aria-hidden="true"
