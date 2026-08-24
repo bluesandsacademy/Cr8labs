@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import styles from "./Hero.module.css";
 
@@ -35,26 +36,15 @@ export function Hero() {
         <div className={styles.portal}>
           <div className={styles.seam} aria-hidden="true" />
           <div className={styles.portalClip}>
-            <div className={styles.glow} aria-hidden="true" />
-            <svg
-              width="280"
-              height="280"
-              viewBox="0 0 380 380"
-              fill="none"
-              aria-hidden="true"
-              className="relative md:h-95 md:w-95"
-            >
-              <circle cx="190" cy="190" r="158" stroke="#4A4494" strokeWidth="2" />
-              <circle cx="190" cy="190" r="118" stroke="#F3ECDE" strokeWidth="2.5" />
-              <circle cx="190" cy="190" r="80" stroke="#4A4494" strokeWidth="2" />
-              <circle cx="190" cy="190" r="44" stroke="#F5A623" strokeWidth="3" />
-              <circle cx="190" cy="190" r="14" fill="#F5A623" />
-            </svg>
+            <Image
+              src="/brand/hero-portal-scene.png"
+              alt="A child's hands beside an open picture book, a scene of a tree and a small house assembling in three dimensions out of glowing rings of light above the page"
+              fill
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              priority
+              className="object-cover"
+            />
           </div>
-          <p className={styles.caption}>
-            Placeholder: Envato-sourced AR render, a scene assembling in 3D off a scanned book
-            page. Camera pushes through the lens as the visitor scrolls.
-          </p>
         </div>
       </div>
     </section>
