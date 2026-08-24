@@ -3,64 +3,48 @@
    Candidates load straight from the CDNs here (fine for a throwaway lab page;
    the winner gets self-hosted properly like the others).
 
-   Round 2: Tanker led round 1, so this is Tanker plus five in the same
-   heavy/poster/playful family. */
+   Round 3: Titan One led round 2, so this is Titan One plus its three
+   closest cousins in the rounded-poster-black family. */
 
 const CANDIDATES: { name: string; family: string; note: string; weight: number }[] = [
   {
-    name: "Tanker (round 1 leader)",
-    family: "'Tanker', sans-serif",
-    note: "The reference. One heavy poster weight, loud and inky.",
-    weight: 400,
-  },
-  {
-    name: "Chubbo",
-    family: "'Chubbo', sans-serif",
-    note: "Rounder and friendlier than Tanker, same chunky mass. The most playful of the set.",
-    weight: 700,
-  },
-  {
-    name: "Panchang",
-    family: "'Panchang', sans-serif",
-    note: "Blockier and more squared-off. Heavy tech-poster energy, least playful, most engineered.",
-    weight: 800,
-  },
-  {
-    name: "Sharpie",
-    family: "'Sharpie', sans-serif",
-    note: "Marker-drawn feel. Loud with a hand-made streak; the biggest personality swing.",
-    weight: 700,
-  },
-  {
-    name: "Shrikhand",
-    family: "'Shrikhand', serif",
-    note: "Fat, bouncy, high-energy with a subtle swash character. Distinctive and joyful.",
-    weight: 400,
-  },
-  {
-    name: "Titan One",
+    name: "Titan One (round 2 leader)",
     family: "'Titan One', sans-serif",
-    note: "Rounded poster black. Sits between Tanker's loudness and Chubbo's friendliness.",
+    note: "The reference. Rounded poster black, single weight, friendly but loud.",
     weight: 400,
+  },
+  {
+    name: "Paytone One",
+    family: "'Paytone One', sans-serif",
+    note: "Slightly narrower and more upright than Titan. A touch more grown-up, same warmth.",
+    weight: 400,
+  },
+  {
+    name: "Lilita One",
+    family: "'Lilita One', sans-serif",
+    note: "Bouncier, with a bit of storybook energy. The most playful of the three.",
+    weight: 400,
+  },
+  {
+    name: "Baloo 2",
+    family: "'Baloo 2', sans-serif",
+    note: "The practical pick: nearly the same rounded mass, but a full weight range instead of one - headings at every size could stay in-family.",
+    weight: 800,
   },
 ];
 
 export default function FontLab() {
   return (
     <div className="min-h-dvh bg-adire-dark px-8 py-16 md:px-16">
-      <link
-        rel="stylesheet"
-        href="https://api.fontshare.com/v2/css?f[]=tanker@400&f[]=chubbo@700&f[]=panchang@800&f[]=sharpie@700&display=swap"
-      />
       {/* Single-page font load is the point here - this page IS the experiment. */}
       {/* eslint-disable-next-line @next/next/no-page-custom-font */}
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Titan+One&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Titan+One&family=Paytone+One&family=Lilita+One&family=Baloo+2:wght@800&display=swap"
       />
 
       <p className="font-mono text-[11px] font-semibold uppercase tracking-widest text-adire-caption">
-        Font lab · round 2: Tanker and five cousins · temporary, delete after deciding
+        Font lab · round 3: Titan One and three cousins · temporary, delete after deciding
       </p>
 
       <div className="mt-10 flex flex-col gap-16">
