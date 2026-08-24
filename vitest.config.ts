@@ -12,6 +12,10 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "."),
+      // next/font/* modules are empty at runtime outside Next's own compiler
+      // (see test/mocks/next-font-*.ts for why); stand in with mocks for tests.
+      "next/font/google": path.resolve(__dirname, "./test/mocks/next-font-google.ts"),
+      "next/font/local": path.resolve(__dirname, "./test/mocks/next-font-local.ts"),
     },
   },
 });
