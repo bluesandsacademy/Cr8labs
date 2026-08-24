@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { clashDisplay, generalSans, jetbrainsMono } from "./fonts";
+import { titanOne, generalSans, jetbrainsMono } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${clashDisplay.variable} ${generalSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${titanOne.variable} ${generalSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

@@ -1,18 +1,14 @@
 import { JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
-// Clash Display (Fontshare), replacing Ojuju as the display face on the user's
-// call: same boutique-foundry bar, but bold/sharp creative-studio confidence
-// instead of Ojuju's masquerade quirk. Weights map to the old usage: 600 for
-// section headings, 700 for the hero and major statements (500 available for
-// quieter display moments).
-export const clashDisplay = localFont({
-  src: [
-    { path: "./fonts/clash-display/ClashDisplay-Medium.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/clash-display/ClashDisplay-Semibold.woff2", weight: "600", style: "normal" },
-    { path: "./fonts/clash-display/ClashDisplay-Bold.woff2", weight: "700", style: "normal" },
-  ],
-  variable: "--font-clash-display",
+// Titan One, the chosen display face: rounded poster black, friendly but loud.
+// It ships in exactly one weight, so the face is declared to cover the whole
+// 100-900 range - every font-semibold/font-bold heading resolves to this same
+// file as an exact match instead of the browser synthesizing a fake bold on
+// top of an already-black face (which distorts it).
+export const titanOne = localFont({
+  src: [{ path: "./fonts/titan-one/TitanOne-Regular.woff2", weight: "100 900", style: "normal" }],
+  variable: "--font-titan-one",
   display: "swap",
 });
 
