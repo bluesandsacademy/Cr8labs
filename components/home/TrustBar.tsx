@@ -37,9 +37,11 @@ export function TrustBar({ theme = "light" }: { theme?: "light" | "dark" }) {
         Built for Africa. Designed for the world. Running on technology we own.
       </p>
 
-      <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-8 md:mt-14 md:grid-cols-4">
+      {/* One column on phones: "[20,000]+" at display size is wider than half
+          a 390px screen and pushed the whole page into horizontal scroll. */}
+      <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 md:mt-14 md:grid-cols-4">
         {STATS.map((stat) => (
-          <div key={stat.label} className="flex flex-col gap-2">
+          <div key={stat.label} className="flex min-w-0 flex-col gap-2">
             <div
               className={`font-mono text-[36px] font-bold leading-none md:text-[52px] ${
                 isDark ? "text-bone" : "text-ink"

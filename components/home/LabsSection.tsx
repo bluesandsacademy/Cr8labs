@@ -9,7 +9,9 @@ import { Button } from "@/components/ui/Button";
  */
 export function LabsSection() {
   return (
-    <section className="relative overflow-hidden px-8 py-16 md:px-16 md:py-24">
+    // A full-height scene, not a strip: the ink world needs room to settle
+    // before the next section starts pulling it back toward bone.
+    <section className="relative flex min-h-[80dvh] flex-col justify-center overflow-hidden px-8 py-16 md:px-16 md:py-24">
       <div className="grid grid-cols-1 items-center gap-x-20 gap-y-12 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="relative order-last mx-auto w-full max-w-100 lg:order-first">
           <div

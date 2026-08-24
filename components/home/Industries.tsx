@@ -20,7 +20,9 @@ const TILES: string[] = [
  */
 export function Industries() {
   return (
-    <section className="relative overflow-hidden px-8 py-16 md:px-16 md:py-24">
+    // A full-height scene, not a strip: the indigo world needs room to settle
+    // before the next section starts pulling it back toward bone.
+    <section className="relative flex min-h-[80dvh] flex-col justify-center overflow-hidden px-8 py-16 md:px-16 md:py-24">
       <div
         className="pointer-events-none absolute -right-40 -top-56 h-130 w-130 rounded-full border-[3px] border-adire-light/15"
         aria-hidden="true"
