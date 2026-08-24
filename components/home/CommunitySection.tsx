@@ -1,5 +1,5 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { MediaSlot } from "@/components/ui/MediaSlot";
 
 /**
  * Community = ecosystem, so the image cluster is literally that: one large
@@ -26,10 +26,15 @@ export function CommunitySection() {
         </div>
 
         <div className="relative mx-auto w-full max-w-95">
-          <MediaSlot
-            className="aspect-square w-full rounded-full"
-            caption="Placeholder: young creators building an AR scene together"
-          />
+          <div className="relative aspect-square w-full overflow-hidden rounded-full">
+            <Image
+              src="/brand/community-creators.png"
+              alt="Three teenagers collaborating at a maker-space workbench under a warm pendant lamp, pointing at a phone on a small tripod beside a laptop, sketches and robot parts on the bench"
+              fill
+              sizes="(min-width: 1024px) 380px, 90vw"
+              className="object-cover"
+            />
+          </div>
           <span
             className="absolute -left-4 top-[12%] h-10 w-10 rounded-full bg-danfo"
             aria-hidden="true"
