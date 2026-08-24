@@ -1,5 +1,5 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { MediaSlot } from "@/components/ui/MediaSlot";
 
 /**
  * Labs is the experimental arm, so it borrows the 404 page's language of
@@ -20,10 +20,15 @@ export function LabsSection() {
             className="pointer-events-none absolute -inset-12 rounded-full border border-dashed border-adire-light/20"
             aria-hidden="true"
           />
-          <MediaSlot
-            className="aspect-square w-full rounded-full"
-            caption="Placeholder: an African STEM world as a floating 3D diorama"
-          />
+          <div className="relative aspect-square w-full overflow-hidden rounded-full">
+            <Image
+              src="/brand/lab-world.png"
+              alt="A stylized 3D diorama of a West African lagoon community on a floating island of red earth: canoes, market stalls, a baobab tree and a solar microgrid under an indigo night sky"
+              fill
+              sizes="(min-width: 1024px) 400px, 90vw"
+              className="object-cover"
+            />
+          </div>
         </div>
 
         <div>

@@ -1,5 +1,5 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { MediaSlot } from "@/components/ui/MediaSlot";
 
 const ACCENTS = ["#F5A623", "#2C276C", "#B6502E", "#8F87CF"];
 
@@ -96,10 +96,15 @@ export function PlatformModules() {
             />
           ))}
           <div className="absolute inset-[26%] rounded-full border-2 border-adire p-2.5">
-            <MediaSlot
-              className="h-full w-full rounded-full"
-              caption="Placeholder: hands scanning an open book, 3D scene rising"
-            />
+            <div className="relative h-full w-full overflow-hidden rounded-full">
+              <Image
+                src="/brand/platform-scan.png"
+                alt="Hands holding a phone over an open picture book while a small 3D forest scene with a tree, a fox and a deer rises off the page in warm golden light"
+                fill
+                sizes="(min-width: 1024px) 340px, 1px"
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
 
