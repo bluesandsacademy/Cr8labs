@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ojuju:wght@600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_400_B64__) format('woff2');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_500_B64__) format('woff2');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_600_B64__) format('woff2');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: #17130F; text-decoration: none; }
+    .st-sheet { width: 1240px; background: #F3ECDE; font-family: 'Switzer', sans-serif; color: #17130F; padding: 56px 60px; display: flex; flex-direction: column; gap: 48px; }
+    .st-label { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6455; margin: 0 0 18px 0; }
+
+    .field-row { display: flex; gap: 20px; flex-wrap: wrap; }
+    .field { display: flex; flex-direction: column; gap: 7px; width: 220px; }
+    .field-tag { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #6b6455; }
+    .field-label { font-size: 13px; font-weight: 600; }
+    .field-input { font-family: 'Switzer', sans-serif; font-size: 14px; padding: 11px 13px; border-radius: 3px; background: #F3ECDE; border: 1.5px solid #C9BFA6; color: #17130F; }
+    .field-input::placeholder { color: #9C9484; }
+    .field-input.is-focus { border-color: #2C276C; box-shadow: 0 0 0 3px #F3ECDE, 0 0 0 6px #2C276C; }
+    .field-input.is-error { border-color: #B6502E; }
+    .field-input.is-success { border-color: #4F7355; }
+    .field-input.is-disabled { background: #EAE3D2; color: #9C9484; border-color: #DCD3BE; }
+    .field-msg { font-size: 12px; line-height: 1.4; }
+    .field-msg.error { color: #A34A28; }
+    .field-msg.success { color: #456B4B; }
+
+    .banner-col { display: flex; flex-direction: column; gap: 14px; }
+    .banner { display: flex; gap: 12px; padding: 16px 18px; border-radius: 4px; border-left: 3px solid; align-items: flex-start; }
+    .banner-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .banner-text { font-size: 14px; line-height: 1.5; }
+    .banner-title { font-weight: 600; margin: 0 0 2px 0; }
+    .banner.error { background: rgba(182,80,46,0.07); border-color: #B6502E; }
+    .banner.error .banner-dot { background: #B6502E; }
+    .banner.success { background: rgba(79,115,85,0.08); border-color: #4F7355; }
+    .banner.success .banner-dot { background: #4F7355; }
+    .banner.info { background: rgba(44,39,108,0.06); border-color: #2C276C; }
+    .banner.info .banner-dot { background: #2C276C; }
+
+    .btn-primary { font-family: 'Switzer', sans-serif; font-weight: 600; font-size: 15px; background: #F5A623; color: #17130F; padding: 15px 26px; border-radius: 3px; display: inline-flex; align-items: center; gap: 10px; }
+    .btn-primary.is-loading { opacity: 0.7; }
+    .btn-primary.is-disabled { background: #E8D9B8; color: #A99B78; }
+    .spinner { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(23,19,15,0.18); border-top-color: #17130F; flex-shrink: 0; }
+
+    .skeleton-block { display: flex; flex-direction: column; gap: 10px; width: 340px; }
+    .skeleton-line { height: 12px; border-radius: 3px; background: linear-gradient(90deg, #E8DFC9 0%, #F0E9D8 50%, #E8DFC9 100%); }
+
+    .empty-state { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 36px; background: #17130F; border-radius: 6px; max-width: 460px; }
+    .empty-badge { width: 52px; height: 52px; border-radius: 50%; border: 2px solid #6E67B8; position: relative; display: flex; align-items: center; justify-content: center; }
+    .empty-badge::after { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 1px solid #6E67B8; opacity: 0.4; }
+    .empty-badge svg { width: 18px; height: 18px; }
+    .empty-title { font-family: 'Ojuju', sans-serif; font-weight: 600; font-size: 19px; color: #F3ECDE; margin: 0; }
+    .empty-body { font-size: 14px; line-height: 1.55; color: #B9B2A4; margin: 0; }
+    .empty-cta { font-size: 13px; font-weight: 600; color: #F5A623; }
+  </style>
+</helmet>
+
+<div class="st-sheet">
+
+  <div>
+    <p class="st-label">Form states. Focus uses the same double-ring as buttons; error and success reuse Laterite and one added utility green rather than a generic red/green pair.</p>
+    <div class="field-row">
+      <div class="field">
+        <span class="field-tag">Default</span>
+        <span class="field-label">Email</span>
+        <input class="field-input" placeholder="you@school.edu">
+      </div>
+      <div class="field">
+        <span class="field-tag">Focus</span>
+        <span class="field-label">Email</span>
+        <input class="field-input is-focus" value="teacher@">
+      </div>
+      <div class="field">
+        <span class="field-tag">Error</span>
+        <span class="field-label">Email</span>
+        <input class="field-input is-error" value="teacher@school">
+        <span class="field-msg error">Enter a valid email address.</span>
+      </div>
+      <div class="field">
+        <span class="field-tag">Success</span>
+        <span class="field-label">Email</span>
+        <input class="field-input is-success" value="teacher@school.edu">
+        <span class="field-msg success">Looks good.</span>
+      </div>
+      <div class="field">
+        <span class="field-tag">Disabled</span>
+        <span class="field-label">Email</span>
+        <input class="field-input is-disabled" value="teacher@school.edu" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="st-label">Alerts</p>
+    <div class="banner-col">
+      <div class="banner error">
+        <div class="banner-dot"></div>
+        <div class="banner-text"><p class="banner-title">That didn't send</p>Try again, or write to <b>[hello@cr8lab.com]</b> and we will pick it up from there.</div>
+      </div>
+      <div class="banner success">
+        <div class="banner-dot"></div>
+        <div class="banner-text"><p class="banner-title">Message sent</p>We reply within two working days. If we need more first, we'll ask one or two questions.</div>
+      </div>
+      <div class="banner info">
+        <div class="banner-dot"></div>
+        <div class="banner-text"><p class="banner-title">Content packs updated</p>New offline packs are ready to download the next time each device connects.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="st-label">Loading and pending</p>
+    <div class="field-row" style="align-items: flex-start;">
+      <div class="field" style="width: auto;">
+        <span class="field-tag">Button, loading</span>
+        <span class="btn-primary is-loading"><span class="spinner"></span>Sending</span>
+      </div>
+      <div class="field" style="width: auto;">
+        <span class="field-tag">Button, disabled</span>
+        <span class="btn-primary is-disabled">Explore the platform</span>
+      </div>
+      <div class="field" style="width: auto;">
+        <span class="field-tag">Skeleton content</span>
+        <div class="skeleton-block">
+          <div class="skeleton-line" style="width: 60%;"></div>
+          <div class="skeleton-line" style="width: 95%;"></div>
+          <div class="skeleton-line" style="width: 85%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="st-label">Empty state</p>
+    <div class="empty-state">
+      <div class="empty-badge">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#F5A623" stroke-width="1.8" stroke-dasharray="4 3.4"/></svg>
+      </div>
+      <p class="empty-title">No match</p>
+      <p class="empty-body">Try a product name, a sector, or just tell us what you need.</p>
+      <a class="empty-cta" href="#">Get in touch &#8594;</a>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

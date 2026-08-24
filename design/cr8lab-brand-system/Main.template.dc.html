@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ojuju:wght@600;700&family=JetBrains+Mono:wght@500;600;700&display=swap">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_400_B64__) format('woff2');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_500_B64__) format('woff2');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_600_B64__) format('woff2');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_700_B64__) format('woff2');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #F3ECDE; }
+    a { color: #17130F; text-decoration: none; }
+    a:hover { color: #B6502E; }
+    /* buttons keep their own text color on hover; the generic link tint above is for plain text links only */
+    a.cr8-btn-primary:hover, a.cr8-btn-ghost:hover { color: #17130F; }
+    a.cr8-navcta:hover { color: #F3ECDE; }
+
+    .cr8-root { width: 1440px; background: #F3ECDE; font-family: 'Switzer', sans-serif; color: #17130F; position: relative; overflow: hidden; }
+
+    /* subtle paper grain across the whole canvas, for depth instead of a flat fill */
+    .cr8-grain { position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: multiply; pointer-events: none; z-index: 5; }
+
+    /* the mark is built from nested open rings; this echoes that at large scale, mostly off-canvas, on the side away from the portal's own rings */
+    .cr8-ring-watermark { position: absolute; top: -260px; left: -220px; width: 560px; height: 560px; border-radius: 50%; border: 54px solid #17130F; opacity: 0.035; z-index: 1; pointer-events: none; }
+    .cr8-ring-watermark::after { content: ""; position: absolute; inset: 90px; border-radius: 50%; border: 24px solid #17130F; opacity: 0.6; }
+
+    a.cr8-navcta:focus-visible, a.cr8-btn-primary:focus-visible, a.cr8-btn-ghost:focus-visible {
+      outline: none; box-shadow: 0 0 0 3px #F3ECDE, 0 0 0 6px #2C276C;
+    }
+
+    .cr8-ring-divider { display: flex; align-items: center; gap: 14px; padding: 0 64px; position: relative; z-index: 2; }
+    .cr8-ring-divider .line { flex: 1; height: 1px; background: #E4DAC4; }
+    .cr8-ring-divider .dot-ring { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #2C276C; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cr8-ring-divider .dot-ring::after { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #2C276C; }
+
+    .cr8-nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 64px; position: relative; z-index: 2; }
+    .cr8-brand { display: flex; align-items: center; gap: 11px; }
+    .cr8-brand img { height: 26px; width: auto; display: block; }
+    .cr8-wordmark { font-family: 'Ojuju', sans-serif; font-weight: 700; font-size: 21px; letter-spacing: 0.01em; }
+    .cr8-navlinks { display: flex; align-items: center; gap: 26px; }
+    .cr8-navlink { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #453F35; }
+    .cr8-navcta { font-family: 'Switzer', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; background: #17130F; color: #F3ECDE; padding: 11px 20px; border-radius: 3px; }
+
+    .cr8-hero { display: grid; grid-template-columns: 1.08fr 1fr; gap: 0; align-items: stretch; position: relative; z-index: 2; }
+    .cr8-hero-text { padding: 26px 60px 0 64px; display: flex; flex-direction: column; justify-content: center; }
+    .cr8-h1 { font-family: 'Ojuju', sans-serif; font-weight: 700; font-size: 66px; line-height: 1.01; letter-spacing: -0.015em; margin: 0 0 26px 0; max-width: 600px; }
+    .cr8-h1 .accent { color: #2C276C; }
+    .cr8-body { font-size: 18px; line-height: 1.6; color: #453F35; max-width: 440px; margin: 0 0 36px 0; font-weight: 400; }
+    .cr8-ctas { display: flex; align-items: center; gap: 14px; }
+    .cr8-btn-primary { font-family: 'Switzer', sans-serif; font-weight: 600; font-size: 15px; background: #F5A623; color: #17130F; padding: 15px 26px; border-radius: 3px; box-shadow: 0 10px 24px -12px rgba(245,166,35,0.55); }
+    .cr8-btn-ghost { font-family: 'Switzer', sans-serif; font-weight: 600; font-size: 15px; background: transparent; border: 1.5px solid #17130F; color: #17130F; padding: 13.5px 26px; border-radius: 3px; }
+
+    .cr8-portal-wrap { position: relative; }
+    .cr8-portal { position: absolute; inset: 0; background: #211D54; clip-path: polygon(7% 0, 100% 0, 100% 100%, 0 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .cr8-portal-glow { position: absolute; width: 640px; height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(245,166,35,0.30) 0%, rgba(245,166,35,0) 62%); filter: blur(2px); }
+    .cr8-seam { position: absolute; top: -4%; left: 4.5%; width: 22px; height: 108%; background: repeating-linear-gradient(120deg, #F5A623 0 11px, #17130F 11px 22px); box-shadow: 0 0 26px 4px rgba(0,0,0,0.28); }
+    .cr8-portal-caption { position: absolute; left: 44px; bottom: 30px; right: 44px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.02em; color: #A39CC9; line-height: 1.55; }
+
+    .cr8-trust { padding: 40px 64px 46px 64px; margin-top: 26px; position: relative; z-index: 2; }
+    .cr8-trust-line { font-size: 13px; font-weight: 500; color: #6b6455; margin: 0 0 28px 0; }
+    .cr8-stats { display: flex; gap: 64px; }
+    .cr8-stat-item { display: flex; flex-direction: column; gap: 6px; }
+    .cr8-stat-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 30px; color: #17130F; }
+    .cr8-stat-num .bracket { color: #B6502E; }
+    .cr8-stat-label { font-size: 12px; color: #6b6455; letter-spacing: 0.02em; }
+  </style>
+</helmet>
+
+<div class="cr8-root">
+
+  <svg class="cr8-grain" width="100%" height="100%">
+    <filter id="cr8-noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter>
+    <rect width="100%" height="100%" filter="url(#cr8-noise)"/>
+  </svg>
+
+  <div class="cr8-ring-watermark"></div>
+
+  <nav class="cr8-nav">
+    <div class="cr8-brand">
+      <img src="cr8lab-icon.png" alt="CR8LAB mark">
+      <div class="cr8-wordmark">CR8LAB</div>
+    </div>
+    <div class="cr8-navlinks">
+      <a class="cr8-navlink" href="#">Platform</a>
+      <a class="cr8-navlink" href="#">Products</a>
+      <a class="cr8-navlink" href="#">Solutions</a>
+      <a class="cr8-navlink" href="#">Work</a>
+      <a class="cr8-navlink" href="#">Labs</a>
+      <a class="cr8-navlink" href="#">Studio</a>
+      <a class="cr8-navlink" href="#">Research</a>
+      <a class="cr8-navlink" href="#">Community</a>
+      <a class="cr8-navcta" href="#">Book a demo</a>
+    </div>
+  </nav>
+
+  <div class="cr8-hero">
+    <div class="cr8-hero-text">
+      <h1 class="cr8-h1">The future of learning lives <span class="accent">beyond the page</span></h1>
+      <p class="cr8-body">CR8LAB builds experiences that join books, augmented reality, virtual reality, artificial intelligence and interactive storytelling into one platform. Knowledge you can hold, walk into and take apart.</p>
+      <div class="cr8-ctas">
+        <a class="cr8-btn-primary" href="#">Explore the platform</a>
+        <a class="cr8-btn-ghost" href="#">Book a demo</a>
+      </div>
+    </div>
+    <div class="cr8-portal-wrap">
+      <div class="cr8-seam"></div>
+      <div class="cr8-portal">
+        <div class="cr8-portal-glow"></div>
+        <svg width="380" height="380" viewBox="0 0 380 380" fill="none" style="position:relative;">
+          <circle cx="190" cy="190" r="158" stroke="#4A4494" stroke-width="2"/>
+          <circle cx="190" cy="190" r="118" stroke="#F3ECDE" stroke-width="2.5"/>
+          <circle cx="190" cy="190" r="80" stroke="#4A4494" stroke-width="2"/>
+          <circle cx="190" cy="190" r="44" stroke="#F5A623" stroke-width="3"/>
+          <circle cx="190" cy="190" r="14" fill="#F5A623"/>
+        </svg>
+      </div>
+      <div class="cr8-portal-caption">Placeholder: Envato-sourced AR render, a scene assembling in 3D off a scanned book page. Camera pushes through the lens as the visitor scrolls.</div>
+    </div>
+  </div>
+
+  <div class="cr8-ring-divider">
+    <div class="line"></div>
+    <div class="dot-ring"></div>
+    <div class="line"></div>
+  </div>
+
+  <div class="cr8-trust">
+    <p class="cr8-trust-line">Built for Africa. Designed for the world. Running on technology we own.</p>
+    <div class="cr8-stats">
+      <div class="cr8-stat-item">
+        <div class="cr8-stat-num"><span class="bracket">[100]</span>+</div>
+        <div class="cr8-stat-label">schools</div>
+      </div>
+      <div class="cr8-stat-item">
+        <div class="cr8-stat-num"><span class="bracket">[20,000]</span>+</div>
+        <div class="cr8-stat-label">students</div>
+      </div>
+      <div class="cr8-stat-item">
+        <div class="cr8-stat-num"><span class="bracket">[6]</span></div>
+        <div class="cr8-stat-label">countries</div>
+      </div>
+      <div class="cr8-stat-item">
+        <div class="cr8-stat-num"><span class="bracket">[250]</span>+</div>
+        <div class="cr8-stat-label">interactive experiences</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ojuju:wght@600;700&family=JetBrains+Mono:wght@500;600;700&display=swap">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_400_B64__) format('woff2');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_500_B64__) format('woff2');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_600_B64__) format('woff2');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url(data:font/woff2;base64,__SWITZER_700_B64__) format('woff2');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #F3ECDE; }
+    a { color: #17130F; text-decoration: none; }
+    a:hover { color: #B6502E; }
+    /* buttons keep their own text color on hover; the generic link tint above is for plain text links only */
+    a.btn-primary:hover, a.btn-ghost:hover { color: #17130F; }
+    a.btn-dark:hover { color: #F3ECDE; }
+    .sheet { width: 1200px; background: #F3ECDE; font-family: 'Switzer', sans-serif; color: #17130F; padding: 56px 60px; display: flex; flex-direction: column; gap: 52px; }
+    .sheet-label { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6455; margin: 0 0 18px 0; }
+    .row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .btn-primary { font-family: 'Switzer', sans-serif; font-weight: 600; font-size: 15px; background: #F5A623; color: #17130F; padding: 15px 26px; border-radius: 3px; }
+    .btn-ghost { font-family: 'Switzer', sans-serif; font-weight: 600; font-size: 15px; background: transparent; border: 1.5px solid #17130F; color: #17130F; padding: 13.5px 26px; border-radius: 3px; }
+    .btn-dark { font-family: 'Switzer', sans-serif; font-weight: 600; font-size: 15px; background: #17130F; color: #F3ECDE; padding: 15px 26px; border-radius: 3px; }
+    a.btn-primary:focus-visible, a.btn-ghost:focus-visible, a.btn-dark:focus-visible {
+      outline: none; box-shadow: 0 0 0 3px #F3ECDE, 0 0 0 6px #2C276C;
+    }
+
+    /* Motif: every ring shape on this sheet derives from the mark's own nested-ring construction */
+    .motif-row { display: flex; gap: 44px; align-items: center; flex-wrap: wrap; }
+    .motif-demo { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .motif-demo img { height: 48px; width: auto; }
+    .motif-caption { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: #6b6455; }
+    .motif-arrow { color: #B6A98F; font-size: 20px; }
+    .ring-divider-demo { display: flex; align-items: center; gap: 8px; width: 90px; }
+    .ring-divider-demo .line { flex: 1; height: 1px; background: #C9BFA6; }
+    .dot-ring { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #2C276C; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .dot-ring::after { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #2C276C; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .card { background: #17130F; border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; gap: 18px; position: relative; overflow: hidden; box-shadow: 0 18px 34px -22px rgba(23,19,15,0.55); border-top: 3px solid var(--accent); }
+    .card-head { display: flex; flex-direction: column; gap: 4px; }
+    .icon-badge { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--accent); position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .icon-badge::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; border: 1px solid var(--accent); opacity: 0.4; }
+    .card-icon { width: 26px; height: 26px; position: relative; }
+    .card-title { font-family: 'Ojuju', sans-serif; font-weight: 600; font-size: 21px; color: #F3ECDE; }
+    .card-desc { font-size: 14px; line-height: 1.55; color: #B9B2A4; }
+    .card-tag { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+    .stat-row { display: flex; gap: 56px; }
+    .stat-item { display: flex; flex-direction: column; gap: 6px; }
+    .stat-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 34px; }
+    .stat-label { font-size: 12px; color: #6b6455; }
+    .swatch-strip { display: flex; gap: 10px; }
+    .swatch { width: 96px; display: flex; flex-direction: column; gap: 6px; }
+    .swatch-chip { height: 56px; border-radius: 3px; }
+    .swatch-name { font-size: 11px; font-weight: 600; }
+    .swatch-hex { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 10px; color: #6b6455; }
+    .type-line { display: flex; align-items: baseline; gap: 16px; margin-bottom: 10px; }
+    .type-role { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #6b6455; width: 90px; flex-shrink: 0; }
+  </style>
+</helmet>
+
+<div class="sheet">
+
+  <div class="sheet-section">
+    <p class="sheet-label">Motif. The mark is built entirely from nested open rings. The system reuses that one shape for containers, focus states and dividers instead of inventing separate decoration for each.</p>
+    <div class="motif-row">
+      <div class="motif-demo">
+        <img src="cr8lab-icon.png" alt="source mark">
+        <span class="motif-caption">Source mark</span>
+      </div>
+      <span class="motif-arrow">&#8594;</span>
+      <div class="motif-demo">
+        <div class="icon-badge" style="--accent:#F5A623;">
+          <svg class="card-icon" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="14" stroke="#F5A623" stroke-width="2.5"/>
+            <circle cx="20" cy="20" r="5" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="motif-caption">Icon badge</span>
+      </div>
+      <div class="motif-demo">
+        <a class="btn-primary" href="#" style="box-shadow: 0 0 0 3px #F3ECDE, 0 0 0 6px #2C276C;">Focus state</a>
+        <span class="motif-caption">Keyboard focus</span>
+      </div>
+      <div class="motif-demo">
+        <div class="ring-divider-demo"><div class="line"></div><div class="dot-ring"></div><div class="line"></div></div>
+        <span class="motif-caption">Section divider</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <p class="sheet-label">Buttons</p>
+    <div class="row">
+      <a class="btn-primary" href="#">Explore the platform</a>
+      <a class="btn-ghost" href="#">Book a demo</a>
+      <a class="btn-dark" href="#">See the catalogue</a>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <p class="sheet-label">Product cards. Icons drawn for this system, not stock glyphs. Accent color encodes the product's register.</p>
+    <div class="cards">
+
+      <div class="card" style="--accent:#F5A623;">
+        <div class="icon-badge">
+          <svg class="card-icon" viewBox="0 0 40 40" fill="none">
+            <path d="M6 6 L6 14 M6 6 L14 6" stroke="#F5A623" stroke-width="2" stroke-linecap="round"/>
+            <path d="M34 6 L34 14 M34 6 L26 6" stroke="#F5A623" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 34 L6 26 M6 34 L14 34" stroke="#F5A623" stroke-width="2" stroke-linecap="round"/>
+            <path d="M34 34 L34 26 M34 34 L26 34" stroke="#F5A623" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="20" r="5" stroke="#F5A623" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-head">
+          <div class="card-tag">AR</div>
+          <div class="card-title">AR Experiences</div>
+        </div>
+        <div class="card-desc">Scan a page, a poster or a room, and watch the subject assemble itself in three dimensions in front of you.</div>
+      </div>
+
+      <div class="card" style="--accent:#8F87CF;">
+        <div class="icon-badge">
+          <svg class="card-icon" viewBox="0 0 40 40" fill="none">
+            <path d="M9 15 C9 12 11 10 14 10 L26 10 C29 10 31 12 31 15 L31 24 C31 27 29 29 26 29 L23 29 L20 33 L17 29 L14 29 C11 29 9 27 9 24 Z" stroke="#F3ECDE" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="16" cy="19" r="2.2" fill="#8F87CF"/>
+            <circle cx="24" cy="19" r="2.2" fill="#8F87CF"/>
+          </svg>
+        </div>
+        <div class="card-head">
+          <div class="card-tag">VR</div>
+          <div class="card-title">VR Learning</div>
+        </div>
+        <div class="card-desc">Places you can enter and move through, for headset and for browser, built for a class of thirty or one.</div>
+      </div>
+
+      <div class="card" style="--accent:#D97A50;">
+        <div class="icon-badge">
+          <svg class="card-icon" viewBox="0 0 40 40" fill="none">
+            <path d="M17 6 L17 15 L10 30 C9 32 10.5 34 13 34 L27 34 C29.5 34 31 32 30 30 L23 15 L23 6" stroke="#F3ECDE" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M14 6 L26 6" stroke="#F3ECDE" stroke-width="2" stroke-linecap="round"/>
+            <path d="M13.5 24 L26.5 24" stroke="#D97A50" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-head">
+          <div class="card-tag">LABS</div>
+          <div class="card-title">Virtual Science Labs</div>
+        </div>
+        <div class="card-desc">Practical experiments a student can run alone or as a class, with no equipment and no risk.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <p class="sheet-label">Stat treatment. Numerals in JetBrains Mono. Unconfirmed facts stay bracketed.</p>
+    <div class="stat-row">
+      <div class="stat-item"><div class="stat-num">250+</div><div class="stat-label">virtual experiments</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#B6502E">[40–50]%</div><div class="stat-label">engagement gain (needs source citation)</div></div>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <p class="sheet-label">Palette. Core five below, sampled from the existing mark, not invented. UI elsewhere uses lightened tints of Adire and Laterite where the full-strength hex would fail contrast on Ink.</p>
+    <div class="swatch-strip">
+      <div class="swatch"><div class="swatch-chip" style="background:#17130F"></div><div class="swatch-name">Ink</div><div class="swatch-hex">#17130F</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#F3ECDE"></div><div class="swatch-name">Bone</div><div class="swatch-hex">#F3ECDE</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#F5A623"></div><div class="swatch-name">Danfo</div><div class="swatch-hex">#F5A623</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#2C276C"></div><div class="swatch-name">Adire</div><div class="swatch-hex">#2C276C</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#B6502E"></div><div class="swatch-name">Laterite</div><div class="swatch-hex">#B6502E</div></div>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <p class="sheet-label">Type roles</p>
+    <div class="type-line"><span class="type-role">Display</span><span style="font-family:'Ojuju',sans-serif; font-weight:700; font-size:28px;">Ojuju · Aa Bb Cc 8</span></div>
+    <div class="type-line"><span class="type-role">Body</span><span style="font-family:'Switzer',sans-serif; font-weight:400; font-size:20px;">Switzer · Aa Bb Cc, reads at length</span></div>
+    <div class="type-line"><span class="type-role">Data</span><span style="font-family:'JetBrains Mono',monospace; font-weight:600; font-size:18px;">JetBrains Mono · 100+ 20,000 6</span></div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
