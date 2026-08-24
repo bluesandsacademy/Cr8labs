@@ -24,6 +24,7 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
   const linkColor = isDark ? "text-bone" : "text-body";
   const linkHoverColor = isDark ? "hover:text-white" : "hover:text-ink";
   const focusRing = isDark ? "focus-ring-dark" : "focus-ring-light";
+  const barColor = isDark ? "bg-bone" : "bg-ink";
 
   return (
     <nav className="relative z-10 flex items-center justify-between px-8 py-7 md:px-16">
@@ -41,19 +42,38 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
         </span>
       </Link>
 
+      {/* Nine top-level links plus a CTA don't fit md/lg widths without wrapping or
+          crowding, so the full row only appears from xl up; everything narrower than
+          that gets this toggle, not just phones. */}
       <button
         type="button"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className={`rounded-[3px] px-3 py-2 text-[13px] font-semibold uppercase tracking-wide md:hidden ${linkColor} ${focusRing}`}
+        className={`relative flex h-9 w-9 shrink-0 items-center justify-center rounded-[3px] xl:hidden ${focusRing}`}
       >
-        Menu
+        <span className="relative block h-4 w-5" aria-hidden="true">
+          <span
+            className={`absolute left-0 h-[1.6px] w-5 rounded-full transition-all duration-150 ease-out ${barColor} ${
+              open ? "top-1/2 -translate-y-1/2 rotate-45" : "top-0"
+            }`}
+          />
+          <span
+            className={`absolute left-0 top-1/2 h-[1.6px] w-5 -translate-y-1/2 rounded-full transition-opacity duration-150 ease-out ${barColor} ${
+              open ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`absolute left-0 h-[1.6px] w-5 rounded-full transition-all duration-150 ease-out ${barColor} ${
+              open ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-0"
+            }`}
+          />
+        </span>
       </button>
 
       <div
         data-testid="nav-links"
-        className={`${open ? "flex" : "hidden"} absolute left-0 right-0 top-full flex-col gap-5 border-t px-8 py-6 md:static md:flex md:flex-row md:items-center md:gap-6.5 md:border-none md:p-0 ${
+        className={`${open ? "flex animate-[nav-menu-in_180ms_ease-out]" : "hidden"} absolute left-0 right-0 top-full flex-col gap-5 border-t px-8 py-6 shadow-lg xl:static xl:flex xl:animate-none xl:flex-row xl:items-center xl:gap-6.5 xl:border-none xl:p-0 xl:shadow-none ${
           isDark ? "border-adire-light/30 bg-adire-dark" : "border-border-light bg-bone"
         }`}
       >
@@ -61,15 +81,21 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
           <Link
             key={link.href}
             href={link.href}
+            onClick={() => setOpen(false)}
             className={`rounded-[3px] text-[12px] font-semibold uppercase tracking-wide ${linkColor} ${linkHoverColor} ${focusRing}`}
           >
             {link.label}
           </Link>
         ))}
-        <Button href="/contact" variant={isDark ? "light" : "dark"} theme={theme}>
+        <Button
+          href="/contact"
+          variant={isDark ? "light" : "dark"}
+          theme={theme}
+          className="w-full xl:w-auto"
+        >
           Book a demo
         </Button>
-        <p className={`font-mono text-[11px] md:hidden ${isDark ? "text-adire-caption" : "text-muted"}`}>
+        <p className={`font-mono text-[11px] xl:hidden ${isDark ? "text-adire-caption" : "text-muted"}`}>
           Lagos, Nigeria. Building since [year].
         </p>
       </div>

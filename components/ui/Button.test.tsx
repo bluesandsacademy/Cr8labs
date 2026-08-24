@@ -33,4 +33,15 @@ describe("Button", () => {
     render(<Button href="/x" variant="light">Go</Button>);
     expect(screen.getByRole("link", { name: "Go" })).toHaveClass("bg-bone");
   });
+
+  it("merges an extra className on top of its own variant classes", () => {
+    render(
+      <Button href="/x" variant="primary" className="w-full">
+        Go
+      </Button>
+    );
+    const link = screen.getByRole("link", { name: "Go" });
+    expect(link).toHaveClass("w-full");
+    expect(link).toHaveClass("bg-danfo");
+  });
 });

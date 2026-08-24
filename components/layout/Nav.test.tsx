@@ -48,4 +48,29 @@ describe("Nav", () => {
     render(<Nav theme="dark" />);
     expect(screen.getByRole("link", { name: "Book a demo" })).toHaveClass("bg-bone");
   });
+
+  it("shows the full link row only from xl up, since nine links overflow md/lg widths", () => {
+    render(<Nav theme="light" />);
+    const list = screen.getByTestId("nav-links");
+    expect(list).toHaveClass("xl:flex");
+    expect(list.className).not.toMatch(/\bmd:flex\b/);
+    expect(list.className).not.toMatch(/\blg:flex\b/);
+  });
+
+  it("closes the mobile menu when a nav link is clicked", async () => {
+    render(<Nav theme="light" />);
+    await userEvent.click(screen.getByRole("button", { name: /menu/i }));
+    expect(screen.getByTestId("nav-links")).not.toHaveClass("hidden");
+    await userEvent.click(screen.getByRole("link", { name: "Platform" }));
+    expect(screen.getByTestId("nav-links")).toHaveClass("hidden");
+  });
+
+  it("renders a real toggle icon, not literal 'Menu' text, and it flips state via aria-label", async () => {
+    render(<Nav theme="light" />);
+    const toggle = screen.getByRole("button", { name: "Open menu" });
+    expect(toggle).not.toHaveTextContent("Menu");
+    expect(toggle.querySelectorAll("span > span")).toHaveLength(3);
+    await userEvent.click(toggle);
+    expect(screen.getByRole("button", { name: "Close menu" })).toBeInTheDocument();
+  });
 });

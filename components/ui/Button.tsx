@@ -25,17 +25,19 @@ export function Button({
   href,
   variant,
   theme = "light",
+  className,
   children,
 }: {
   href: string;
   variant: ButtonVariant;
   theme?: ButtonTheme;
+  className?: string;
   children: ReactNode;
 }) {
   return (
     <Link
       href={href}
-      className={`inline-block rounded-[3px] px-6.5 py-3.75 font-sans text-[15px] font-semibold transition-all duration-150 ease-out ${VARIANT_CLASSES[variant]} ${FOCUS_RING_CLASSES[theme]}`}
+      className={`inline-block rounded-[3px] px-6.5 py-3.75 text-center font-sans text-[15px] font-semibold transition-all duration-150 ease-out ${VARIANT_CLASSES[variant]} ${FOCUS_RING_CLASSES[theme]} ${className ?? ""}`}
     >
       {children}
     </Link>
