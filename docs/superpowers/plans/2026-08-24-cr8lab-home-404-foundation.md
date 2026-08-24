@@ -204,6 +204,55 @@ export const switzer = localFont({
 });
 ```
 
+- [ ] **Step 1.5: Mock `next/font/google` and `next/font/local` for tests**
+
+`next/font/google` and `next/font/local` are empty modules at runtime (0 bytes in `node_modules/next/font/*/index.js`); the real font-loading code only exists via Next's Turbopack/webpack compiler, which Vitest never runs. Importing `app/fonts.ts` under plain Vitest throws `TypeError: Ojuju is not a function`. Add mocks and alias them in:
+
+```typescript
+// test/mocks/next-font-google.ts
+type GoogleFontOptions = {
+  variable?: string;
+  weight?: string | string[];
+  subsets?: string[];
+  display?: string;
+};
+
+function createGoogleFontMock(name: string) {
+  return (options: GoogleFontOptions = {}) => ({
+    className: `__mock_${name}`,
+    variable: options.variable ?? `--font-${name.toLowerCase()}`,
+    style: { fontFamily: name },
+  });
+}
+
+export const Ojuju = createGoogleFontMock("Ojuju");
+export const JetBrains_Mono = createGoogleFontMock("JetBrains_Mono");
+```
+
+```typescript
+// test/mocks/next-font-local.ts
+type LocalFontOptions = {
+  src?: unknown;
+  variable?: string;
+  display?: string;
+};
+
+export default function localFont(options: LocalFontOptions = {}) {
+  return {
+    className: "__mock_local_font",
+    variable: options.variable ?? "--font-local",
+    style: { fontFamily: "mock-local-font" },
+  };
+}
+```
+
+Then add to `vitest.config.ts`'s `resolve.alias`:
+
+```typescript
+      "next/font/google": path.resolve(__dirname, "./test/mocks/next-font-google.ts"),
+      "next/font/local": path.resolve(__dirname, "./test/mocks/next-font-local.ts"),
+```
+
 - [ ] **Step 2: Write a test that the font objects expose the expected CSS variable names**
 
 `next/font` objects are only fully resolved by the Next.js compiler at build time, but their `variable` string is a static value we can assert on directly since it's the literal string we passed in; this catches a typo in the variable name (e.g. `--font-ojuju` vs `--font-ojjuju`) without needing a full Next.js build.
