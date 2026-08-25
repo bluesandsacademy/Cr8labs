@@ -101,6 +101,18 @@ body {
   }
 }
 
+/* Orbital motion with a per-element period (set --period inline). Kept as a
+   class rather than a Tailwind arbitrary value because the period varies per
+   orbit, and gated here so reduced-motion visitors get the system at rest. */
+@media (prefers-reduced-motion: no-preference) {
+  .orbit-spin {
+    animation: orbit var(--period, 60s) linear infinite;
+  }
+  .orbit-spin-reverse {
+    animation: orbit-reverse var(--period, 60s) linear infinite;
+  }
+}
+
 @keyframes nav-menu-in {
   from {
     opacity: 0;

@@ -45,25 +45,36 @@ const MODULES: { name: string; description: string }[] = [
   },
 ];
 
-/** Eight points on the dial's circumference, one per module, 45 degrees apart. */
-const DIAL_DOTS: { left: string; top: string; size: number }[] = [
-  { left: "50%", top: "3.2%", size: 12 },
-  { left: "83.1%", top: "16.9%", size: 9 },
-  { left: "96.8%", top: "50%", size: 14 },
-  { left: "83.1%", top: "83.1%", size: 9 },
-  { left: "50%", top: "96.8%", size: 12 },
-  { left: "16.9%", top: "83.1%", size: 9 },
-  { left: "3.2%", top: "50%", size: 14 },
-  { left: "16.9%", top: "16.9%", size: 9 },
+/**
+ * Four orbits, two modules each, at increasing radius (percent of the dial)
+ * and decreasing speed: the inner world turns in under a minute, the outer
+ * one takes more than two. Sizes vary like a real system; two planets carry
+ * a moon. Angles are start positions; the orbits rotate clockwise from there.
+ */
+type Planet = { module: number; angle: number; size: number; moon?: boolean };
+const ORBITS: { radius: number; period: number; dashed?: boolean; planets: Planet[] }[] = [
+  { radius: 30, period: 48, planets: [{ module: 0, angle: 300, size: 16 }, { module: 4, angle: 120, size: 11 }] },
+  { radius: 36.5, period: 74, dashed: true, planets: [{ module: 1, angle: 20, size: 20, moon: true }, { module: 5, angle: 200, size: 13 }] },
+  { radius: 42.5, period: 104, planets: [{ module: 2, angle: 240, size: 14 }, { module: 6, angle: 60, size: 24, moon: true }] },
+  { radius: 47.5, period: 140, planets: [{ module: 3, angle: 160, size: 17 }, { module: 7, angle: 340, size: 11 }] },
 ];
 
+/** Degrees of orbit a planet's trail covers behind it. */
+const TRAIL_DEG = 42;
+
+const point = (radius: number, angle: number) => {
+  const rad = (angle * Math.PI) / 180;
+  return { x: 50 + radius * Math.cos(rad), y: 50 + radius * Math.sin(rad) };
+};
+
 /**
- * "One platform. Many worlds." rendered literally: a dial built from the
- * mark's own ring geometry, eight points on its circumference (one per
- * module, sized like a small planetary system) around a central lens that
- * holds the platform-in-use image. The points orbit slowly, the dashed inner
- * ring turns the other way, and hovering a module in the list lights its
- * point on the dial. All motion is gated behind motion-safe.
+ * "One platform. Many worlds." rendered literally: a small planetary system
+ * built from the mark's own ring geometry. The central lens (the platform in
+ * use) is the sun, with a soft danfo corona; the eight modules are planets
+ * on four orbits, each shaded as a lit sphere in its accent, turning at its
+ * own period and trailing a soft comet tail along its orbit so the motion
+ * reads even in a still frame. Hovering a module in the list lights its
+ * planet. All motion is gated behind reduced-motion.
  */
 export function PlatformModules() {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -86,38 +97,112 @@ export function PlatformModules() {
       </div>
 
       <div className="mt-14 grid grid-cols-1 items-center gap-x-16 gap-y-12 lg:grid-cols-[0.85fr_1.15fr]">
-        {/* The dial. Hidden on small screens where the module list carries alone. */}
-        <div className="relative mx-auto hidden aspect-square w-full max-w-130 lg:block">
-          <div className="absolute inset-0 rounded-full border border-border" aria-hidden="true" />
+        {/* The system. Hidden on small screens where the module list carries alone. */}
+        <div
+          data-testid="platform-dial"
+          className="relative mx-auto hidden aspect-square w-full max-w-130 lg:block"
+          aria-hidden="true"
+        >
+          {/* Corona: the sun's light spills onto the inner orbits. */}
           <div
-            className="absolute inset-11 rounded-full border border-dashed border-border motion-safe:animate-[orbit-reverse_70s_linear_infinite]"
-            aria-hidden="true"
+            className="absolute inset-[14%] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(245,166,35,0.28) 0%, rgba(245,166,35,0.1) 42%, rgba(245,166,35,0) 70%)",
+            }}
           />
-          <div
-            className="absolute inset-0 motion-safe:animate-[orbit_90s_linear_infinite]"
-            aria-hidden="true"
-          >
-            {DIAL_DOTS.map((dot, i) => {
-              const accent = ACCENTS[i % ACCENTS.length];
-              const lit = hovered === i;
-              return (
-                <span
-                  key={i}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full transition-[box-shadow,scale] duration-300"
-                  style={{
-                    left: dot.left,
-                    top: dot.top,
-                    width: dot.size,
-                    height: dot.size,
-                    backgroundColor: accent,
-                    scale: lit ? 1.9 : 1,
-                    boxShadow: lit ? `0 0 0 6px ${accent}33, 0 0 22px ${accent}` : "none",
-                  }}
-                />
-              );
-            })}
-          </div>
-          <div className="absolute inset-[26%] rounded-full border-2 border-adire p-2.5">
+
+          {ORBITS.map((orbit) => (
+            <div key={orbit.radius} className="absolute inset-0">
+              <div
+                className={`absolute rounded-full border ${orbit.dashed ? "border-dashed" : ""}`}
+                style={{
+                  inset: `${50 - orbit.radius}%`,
+                  borderColor: `rgba(23,19,15,${0.16 - (orbit.radius - 30) * 0.004})`,
+                }}
+              />
+              <div className="orbit-spin absolute inset-0" style={{ ["--period" as string]: `${orbit.period}s` }}>
+                {/* Comet tails: a short arc of the orbit behind each planet,
+                    fading in toward it. Rotates with the planets. */}
+                <svg className="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100">
+                  <defs>
+                    {orbit.planets.map((planet) => {
+                      const accent = ACCENTS[planet.module % ACCENTS.length];
+                      const a = point(orbit.radius, planet.angle - TRAIL_DEG);
+                      const b = point(orbit.radius, planet.angle);
+                      return (
+                        <linearGradient
+                          key={planet.module}
+                          id={`trail-${planet.module}`}
+                          gradientUnits="userSpaceOnUse"
+                          x1={a.x}
+                          y1={a.y}
+                          x2={b.x}
+                          y2={b.y}
+                        >
+                          <stop offset="0" stopColor={accent} stopOpacity="0" />
+                          <stop offset="1" stopColor={accent} stopOpacity={hovered === planet.module ? 0.95 : 0.6} />
+                        </linearGradient>
+                      );
+                    })}
+                  </defs>
+                  {orbit.planets.map((planet) => {
+                    const a = point(orbit.radius, planet.angle - TRAIL_DEG);
+                    const b = point(orbit.radius, planet.angle);
+                    return (
+                      <path
+                        key={planet.module}
+                        d={`M ${a.x} ${a.y} A ${orbit.radius} ${orbit.radius} 0 0 1 ${b.x} ${b.y}`}
+                        fill="none"
+                        stroke={`url(#trail-${planet.module})`}
+                        strokeWidth={planet.size / 12}
+                        strokeLinecap="round"
+                      />
+                    );
+                  })}
+                </svg>
+
+                {orbit.planets.map((planet) => {
+                  const accent = ACCENTS[planet.module % ACCENTS.length];
+                  const lit = hovered === planet.module;
+                  const pos = point(orbit.radius, planet.angle);
+                  return (
+                    <span
+                      key={planet.module}
+                      className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full transition-[box-shadow,scale] duration-300"
+                      style={{
+                        left: `${pos.x}%`,
+                        top: `${pos.y}%`,
+                        width: planet.size,
+                        height: planet.size,
+                        scale: lit ? 1.5 : 1,
+                        background: `radial-gradient(circle at 32% 30%, color-mix(in oklab, ${accent}, white 58%) 0%, ${accent} 44%, color-mix(in oklab, ${accent}, black 42%) 100%)`,
+                        boxShadow: lit
+                          ? `0 0 0 6px ${accent}2e, 0 0 30px ${accent}`
+                          : `0 0 ${planet.size}px ${accent}55, inset -${planet.size / 8}px -${planet.size / 8}px ${planet.size / 4}px rgba(23,19,15,0.25)`,
+                      }}
+                    >
+                      {planet.moon && (
+                        <span className="orbit-spin-reverse absolute inset-0" style={{ ["--period" as string]: "7s" }}>
+                          <span
+                            className="absolute left-1/2 h-[5px] w-[5px] -translate-x-1/2 rounded-full"
+                            style={{
+                              top: -(planet.size * 0.5 + 6),
+                              background:
+                                "radial-gradient(circle at 35% 30%, #ded6c4 0%, #8c8272 55%, #453f35 100%)",
+                            }}
+                          />
+                        </span>
+                      )}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+
+          {/* The sun: the platform in use, in the system's standard double ring. */}
+          <div className="absolute inset-[26%] rounded-full border-2 border-adire p-2.5 shadow-[0_0_60px_-10px_rgba(245,166,35,0.55)]">
             <div className="relative h-full w-full overflow-hidden rounded-full">
               <Image
                 src="/brand/platform-scan.png"
