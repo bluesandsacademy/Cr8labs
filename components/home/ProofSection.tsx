@@ -66,7 +66,7 @@ export function ProofSection() {
             </div>
           </div>
           <span
-            className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-danfo"
+            className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-danfo motion-safe:animate-[pulse-soft_3.5s_ease-in-out_infinite]"
             aria-hidden="true"
           />
         </div>

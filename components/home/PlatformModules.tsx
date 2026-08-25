@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 
@@ -43,25 +46,28 @@ const MODULES: { name: string; description: string }[] = [
 ];
 
 /** Eight points on the dial's circumference, one per module, 45 degrees apart. */
-const DIAL_DOTS: { left: string; top: string }[] = [
-  { left: "50%", top: "3.2%" },
-  { left: "83.1%", top: "16.9%" },
-  { left: "96.8%", top: "50%" },
-  { left: "83.1%", top: "83.1%" },
-  { left: "50%", top: "96.8%" },
-  { left: "16.9%", top: "83.1%" },
-  { left: "3.2%", top: "50%" },
-  { left: "16.9%", top: "16.9%" },
+const DIAL_DOTS: { left: string; top: string; size: number }[] = [
+  { left: "50%", top: "3.2%", size: 12 },
+  { left: "83.1%", top: "16.9%", size: 9 },
+  { left: "96.8%", top: "50%", size: 14 },
+  { left: "83.1%", top: "83.1%", size: 9 },
+  { left: "50%", top: "96.8%", size: 12 },
+  { left: "16.9%", top: "83.1%", size: 9 },
+  { left: "3.2%", top: "50%", size: 14 },
+  { left: "16.9%", top: "16.9%", size: 9 },
 ];
 
 /**
  * "One platform. Many worlds." rendered literally: a dial built from the
- * mark's own ring geometry, eight accent points on its circumference (one per
- * module) around a central lens that holds the platform-in-use image. The
- * eight modules read alongside it; the dial is the section's identity, not a
- * repeated card grid.
+ * mark's own ring geometry, eight points on its circumference (one per
+ * module, sized like a small planetary system) around a central lens that
+ * holds the platform-in-use image. The points orbit slowly, the dashed inner
+ * ring turns the other way, and hovering a module in the list lights its
+ * point on the dial. All motion is gated behind motion-safe.
  */
 export function PlatformModules() {
+  const [hovered, setHovered] = useState<number | null>(null);
+
   return (
     <section className="relative overflow-hidden border-t border-border-light px-8 py-16 md:px-16 md:py-24">
       <div className="grid grid-cols-1 gap-x-16 gap-y-4 lg:grid-cols-[1fr_1.2fr]">
@@ -84,17 +90,33 @@ export function PlatformModules() {
         <div className="relative mx-auto hidden aspect-square w-full max-w-130 lg:block">
           <div className="absolute inset-0 rounded-full border border-border" aria-hidden="true" />
           <div
-            className="absolute inset-11 rounded-full border border-dashed border-border"
+            className="absolute inset-11 rounded-full border border-dashed border-border motion-safe:animate-[orbit-reverse_70s_linear_infinite]"
             aria-hidden="true"
           />
-          {DIAL_DOTS.map((dot, i) => (
-            <span
-              key={i}
-              className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{ left: dot.left, top: dot.top, backgroundColor: ACCENTS[i % ACCENTS.length] }}
-              aria-hidden="true"
-            />
-          ))}
+          <div
+            className="absolute inset-0 motion-safe:animate-[orbit_90s_linear_infinite]"
+            aria-hidden="true"
+          >
+            {DIAL_DOTS.map((dot, i) => {
+              const accent = ACCENTS[i % ACCENTS.length];
+              const lit = hovered === i;
+              return (
+                <span
+                  key={i}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full transition-[box-shadow,scale] duration-300"
+                  style={{
+                    left: dot.left,
+                    top: dot.top,
+                    width: dot.size,
+                    height: dot.size,
+                    backgroundColor: accent,
+                    scale: lit ? 1.9 : 1,
+                    boxShadow: lit ? `0 0 0 6px ${accent}33, 0 0 22px ${accent}` : "none",
+                  }}
+                />
+              );
+            })}
+          </div>
           <div className="absolute inset-[26%] rounded-full border-2 border-adire p-2.5">
             <div className="relative h-full w-full overflow-hidden rounded-full">
               <Image
@@ -112,12 +134,17 @@ export function PlatformModules() {
           {MODULES.map((module, i) => {
             const accent = ACCENTS[i % ACCENTS.length];
             return (
-              <div key={module.name} className="flex gap-4">
+              <div
+                key={module.name}
+                className="flex gap-4"
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+              >
                 {/* Ring-badge monogram: the module's own initial in the system's
                     standard ring frame, not a stock icon. */}
                 <div
-                  className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2"
-                  style={{ borderColor: accent }}
+                  className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 transition-transform duration-300"
+                  style={{ borderColor: accent, transform: hovered === i ? "scale(1.08)" : "scale(1)" }}
                 >
                   <div
                     className="absolute inset-1.5 rounded-full border opacity-40"

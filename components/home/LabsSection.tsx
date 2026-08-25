@@ -14,12 +14,13 @@ export function LabsSection() {
     <section className="relative flex min-h-[80dvh] flex-col justify-center overflow-hidden px-8 py-16 md:px-16 md:py-24">
       <div className="grid grid-cols-1 items-center gap-x-20 gap-y-12 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="relative order-last mx-auto w-full max-w-100 lg:order-first">
+          {/* The dashed orbits turn slowly in opposite directions: ideas still in motion. */}
           <div
-            className="pointer-events-none absolute -inset-6 rounded-full border-2 border-dashed border-adire-light/40"
+            className="pointer-events-none absolute -inset-6 rounded-full border-2 border-dashed border-adire-light/40 motion-safe:animate-[orbit_80s_linear_infinite]"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute -inset-12 rounded-full border border-dashed border-adire-light/20"
+            className="pointer-events-none absolute -inset-12 rounded-full border border-dashed border-adire-light/20 motion-safe:animate-[orbit-reverse_120s_linear_infinite]"
             aria-hidden="true"
           />
           <div className="relative aspect-square w-full overflow-hidden rounded-full">

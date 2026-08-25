@@ -35,18 +35,19 @@ export function CommunitySection() {
               className="object-cover"
             />
           </div>
+          {/* Satellites drift gently on their own periods, so the cluster reads as alive. */}
           <span
-            className="absolute -left-4 top-[12%] h-10 w-10 rounded-full bg-danfo"
+            className="absolute -left-4 top-[12%] h-10 w-10 rounded-full bg-danfo motion-safe:animate-[float_7s_ease-in-out_infinite]"
             aria-hidden="true"
           />
           <span
-            className="absolute -right-2 bottom-[16%] flex h-14 w-14 items-center justify-center rounded-full border-2 border-laterite"
+            className="absolute -right-2 bottom-[16%] flex h-14 w-14 items-center justify-center rounded-full border-2 border-laterite motion-safe:animate-[float_9s_ease-in-out_infinite] motion-safe:[animation-delay:-3s]"
             aria-hidden="true"
           >
             <span className="h-2 w-2 rounded-full bg-laterite" />
           </span>
           <span
-            className="absolute -bottom-3 left-[22%] h-6 w-6 rounded-full border-2 border-adire"
+            className="absolute -bottom-3 left-[22%] h-6 w-6 rounded-full border-2 border-adire motion-safe:animate-[float_6s_ease-in-out_infinite] motion-safe:[animation-delay:-1.5s]"
             aria-hidden="true"
           />
         </div>
