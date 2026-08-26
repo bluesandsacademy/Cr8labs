@@ -16,7 +16,9 @@ export function ImageBand({
   aspect?: string;
 }) {
   return (
-    <section className="px-8 py-6 md:px-16 md:py-8">
+    // Full section padding, not a sliver: a band often sits at a tone edge,
+    // and the 60px feather there must never cross the picture's caption.
+    <section className="px-8 py-16 md:px-16 md:py-20">
       <div className={`relative w-full overflow-hidden rounded-[6px] ${aspect}`}>
         {image ? (
           <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 90vw, 100vw" className="object-cover" />

@@ -13,7 +13,7 @@ export function ClosingBeat({
 }) {
   return (
     <section className="px-8 py-24 text-center md:px-16 md:py-32">
-      <p className="mx-auto max-w-160 font-display text-[28px] leading-[1.15] text-bone md:text-[38px]">
+      <p className="mx-auto max-w-160 break-words font-display text-[28px] leading-[1.15] text-bone md:text-[38px]">
         {text}
       </p>
       <div className="mt-9 flex justify-center">
