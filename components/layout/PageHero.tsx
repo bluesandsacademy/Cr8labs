@@ -19,7 +19,10 @@ export function PageHero({
   device?: ReactNode;
 }) {
   return (
-    <header className="relative flex min-h-[70dvh] items-center px-8 pb-16 pt-32 md:px-16 md:pb-20 md:pt-40">
+    // overflow-x-clip: a rotating orbit container (the planetary system) is a
+    // square whose corners sweep past its box; clip them rather than let them
+    // widen the page. Clip, not hidden, so nothing becomes a scroll container.
+    <header className="relative flex min-h-[70dvh] items-center overflow-x-clip px-8 pb-16 pt-32 md:px-16 md:pb-20 md:pt-40">
       <div
         className={`grid w-full grid-cols-1 items-center gap-y-12 ${device ? "gap-x-20 lg:grid-cols-[1.1fr_0.9fr]" : ""}`}
       >
