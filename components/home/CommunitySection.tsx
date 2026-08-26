@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { SatelliteCluster } from "@/components/ui/SatelliteCluster";
 
 /**
  * Community = ecosystem, so the image cluster is literally that: one large
@@ -25,32 +25,11 @@ export function CommunitySection() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-95">
-          <div className="relative aspect-square w-full overflow-hidden rounded-full">
-            <Image
-              src="/brand/community-creators.png"
-              alt="Three teenagers collaborating at a maker-space workbench under a warm pendant lamp, pointing at a phone on a small tripod beside a laptop, sketches and robot parts on the bench"
-              fill
-              sizes="(min-width: 1024px) 380px, 90vw"
-              className="object-cover"
-            />
-          </div>
-          {/* Satellites drift gently on their own periods, so the cluster reads as alive. */}
-          <span
-            className="absolute -left-4 top-[12%] h-10 w-10 rounded-full bg-danfo motion-safe:animate-[float_7s_ease-in-out_infinite]"
-            aria-hidden="true"
-          />
-          <span
-            className="absolute -right-2 bottom-[16%] flex h-14 w-14 items-center justify-center rounded-full border-2 border-laterite motion-safe:animate-[float_9s_ease-in-out_infinite] motion-safe:[animation-delay:-3s]"
-            aria-hidden="true"
-          >
-            <span className="h-2 w-2 rounded-full bg-laterite" />
-          </span>
-          <span
-            className="absolute -bottom-3 left-[22%] h-6 w-6 rounded-full border-2 border-adire motion-safe:animate-[float_6s_ease-in-out_infinite] motion-safe:[animation-delay:-1.5s]"
-            aria-hidden="true"
-          />
-        </div>
+        <SatelliteCluster
+          src="/brand/community-creators.png"
+          alt="Three teenagers collaborating at a maker-space workbench under a warm pendant lamp, pointing at a phone on a small tripod beside a laptop, sketches and robot parts on the bench"
+          sizes="(min-width: 1024px) 380px, 90vw"
+        />
       </div>
     </section>
   );
