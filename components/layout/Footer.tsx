@@ -49,6 +49,14 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
   },
 ];
 
+/** Phone layout: [Platform, Company] on the left, [Products, Get in touch] on the right. */
+const MOBILE_PAIRS: number[][] = [
+  [0, 2],
+  [1, 3],
+];
+/** Desktop keeps the copy deck's order regardless of the phone pairing. */
+const DESKTOP_ORDER = ["md:order-1", "md:order-2", "md:order-3", "md:order-4"];
+
 const LEGAL_LINKS = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
@@ -85,27 +93,40 @@ export function Footer() {
           </p>
         </div>
 
-        {/* On phones the four groups sit two-up, which halves the footer's
-            height without hiding a single link; from md they rejoin the outer
-            grid as their own columns. */}
-        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:contents">
-          {COLUMNS.map((column) => (
-            <div key={column.heading} className="flex flex-col gap-2.5 md:gap-3">
-              <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wide text-adire-caption">
-                {column.heading}
-              </h3>
-              <ul className="flex flex-col gap-2 md:gap-2.5">
-                {column.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="focus-ring-dark rounded-[3px] font-sans text-[13px] text-bone/85 hover:text-danfo"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+        {/* On phones the four groups sit in two columns that each stack their
+            own pair, so a short group is followed immediately by the next one
+            rather than by the dead space a shared grid row would leave. The
+            pairs are chosen to hold twelve links each (5+7 and 8+4), so both
+            columns end on the same line. From md the wrappers dissolve and the
+            groups rejoin the outer grid in the copy deck's order. */}
+        <div className="grid grid-cols-2 gap-x-6 md:contents">
+          {MOBILE_PAIRS.map((pair, p) => (
+            <div key={p} className="flex flex-col gap-8 md:contents">
+              {pair.map((index) => {
+                const column = COLUMNS[index];
+                return (
+                  <div
+                    key={column.heading}
+                    className={`flex flex-col gap-2.5 md:gap-3 ${DESKTOP_ORDER[index]}`}
+                  >
+                    <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wide text-adire-caption">
+                      {column.heading}
+                    </h3>
+                    <ul className="flex flex-col gap-2 md:gap-2.5">
+                      {column.links.map((link) => (
+                        <li key={link.href}>
+                          <Link
+                            href={link.href}
+                            className="focus-ring-dark rounded-[3px] font-sans text-[13px] text-bone/85 hover:text-danfo"
+                          >
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
