@@ -48,13 +48,21 @@ export default function WorkPage() {
             heading="Solution"
             body="CR8LAB developed an AR book series and a tablet based virtual science laboratory, designed for classrooms with unreliable connectivity and entry level devices. Original illustrated titles for ages 4 to 13 with a full 3D layer, [250]+ curriculum mapped experiments, teacher certification and onboarding, and a dashboard giving teachers class level evidence within the term."
             media={
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[4px]">
+              // The product itself, not a picture of a tablet: the AR Science
+              // Lab series with the tablet on its stand, as a packshot.
+              <div
+                className="relative aspect-[16/10] w-full overflow-hidden rounded-[4px]"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 55%, rgba(245,166,35,0.30) 0%, rgba(44,39,108,0.55) 45%, rgba(23,19,15,0.92) 100%)",
+                }}
+              >
                 <Image
-                  src="/brand/work-solution.jpg"
-                  alt="A tablet on a wooden stand showing an illustrated chemistry experiment, beside an open science picture book on a school desk in warm window light"
+                  src="/brand/products/ar-science-lab-kit.png"
+                  alt="The AR Science Lab kit: a fan of science titles, an open book, and a tablet on the Spotty stand showing water and carbon dioxide molecules rising off the page"
                   fill
                   sizes="(min-width: 1024px) 760px, 90vw"
-                  className="object-cover"
+                  className="object-contain p-[6%]"
                 />
               </div>
             }

@@ -5,6 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { ListBeat } from "@/components/ui/ListBeat";
 import { ClosingBeat } from "@/components/ui/ClosingBeat";
+import { ImageBand } from "@/components/ui/ImageBand";
 import { StackRings } from "@/components/platform/StackRings";
 import { StackList } from "@/components/platform/StackList";
 
@@ -27,6 +28,12 @@ export default function PlatformPage() {
       <div data-tone="light">
         <Reveal>
           <StackList />
+        </Reveal>
+        <Reveal>
+          <ImageBand
+            image={null}
+            placeholder="platform-stack.png, the book, phone, tablet and headset in a line, from above"
+          />
         </Reveal>
       </div>
 

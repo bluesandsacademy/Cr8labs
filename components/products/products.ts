@@ -23,7 +23,11 @@ export const PRODUCTS: Product[] = [
     ],
     cta: { label: "See the catalogue", href: "/contact?route=demo" },
     accent: "#F5A623",
-    image: null,
+    image: {
+      src: "/brand/products/books.png",
+      alt: "The Into the Community book set: an open illustrated title, a fan of further titles, and a tablet on the Spotty stand showing the page's scene in 3D with fish swimming out of it",
+      fit: "contain",
+    },
   },
   {
     slug: "ar",
@@ -55,7 +59,11 @@ export const PRODUCTS: Product[] = [
     ],
     cta: { label: "Explore VR", href: "/contact?route=demo" },
     accent: "#F5A623",
-    image: null,
+    image: {
+      src: "/brand/products/vr.jpg",
+      alt: "VR headsets resting on school desks beside notebooks in a bright classroom",
+      fit: "cover",
+    },
   },
   {
     slug: "labs",

@@ -4,6 +4,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { ListBeat } from "@/components/ui/ListBeat";
 import { SatelliteCluster } from "@/components/ui/SatelliteCluster";
+import { ImageBand } from "@/components/ui/ImageBand";
 import { Story } from "@/components/studio/Story";
 import { Team } from "@/components/studio/Team";
 import { Facts } from "@/components/studio/Facts";
@@ -34,6 +35,12 @@ export default function StudioPage() {
       <div data-tone="light">
         <Reveal>
           <Story />
+        </Reveal>
+        <Reveal>
+          <ImageBand
+            image={null}
+            placeholder="studio-floor.png, the studio from the doorway, the whole team at work"
+          />
         </Reveal>
       </div>
 

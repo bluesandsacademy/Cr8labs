@@ -12,8 +12,32 @@ export type Product = {
   keyPoints: string[];
   cta: { label: string; href: string };
   accent: string;
-  image: { src: string; alt: string } | null;
+  /** `contain` for a packshot with a transparent background (floats on a glow); `cover` for a photograph. */
+  image: { src: string; alt: string; fit: "contain" | "cover" } | null;
 };
+
+/** The glow behind a packshot: the product lit from within the world, on any tone. */
+const PACKSHOT_BACKDROP =
+  "radial-gradient(circle at 50% 55%, rgba(245,166,35,0.30) 0%, rgba(44,39,108,0.55) 45%, rgba(23,19,15,0.92) 100%)";
+
+export function ProductPicture({
+  image,
+  sizes,
+  className = "",
+}: {
+  image: NonNullable<Product["image"]>;
+  sizes: string;
+  className?: string;
+}) {
+  if (image.fit === "cover") {
+    return <Image src={image.src} alt={image.alt} fill sizes={sizes} className={`object-cover ${className}`} />;
+  }
+  return (
+    <div className="absolute inset-0" style={{ background: PACKSHOT_BACKDROP }}>
+      <Image src={image.src} alt={image.alt} fill sizes={sizes} className={`object-contain p-[9%] ${className}`} />
+    </div>
+  );
+}
 
 const TONE = {
   light: { name: "text-ink", line: "text-adire", body: "text-muted", chip: "border-border text-body", list: "light" as const, cta: "dark" as const },
@@ -27,7 +51,7 @@ export function ProductImage({ product, sizes }: { product: Product; sizes: stri
     <div className="relative">
       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[6px]">
         {product.image ? (
-          <Image src={product.image.src} alt={product.image.alt} fill sizes={sizes} className="object-cover" />
+          <ProductPicture image={product.image} sizes={sizes} />
         ) : (
           <MediaSlot className="h-full w-full" caption={`Placeholder: product-${product.slug}.png`} />
         )}

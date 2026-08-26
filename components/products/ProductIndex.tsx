@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { MediaSlot } from "@/components/ui/MediaSlot";
+import { ProductPicture } from "./ProductSection";
 import { PRODUCTS } from "./products";
 
 /**
@@ -15,12 +15,10 @@ export function ProductIndex() {
             <a href={`#${product.slug}`} className="group focus-ring-light block rounded-[6px]">
               <div className="relative aspect-square w-full overflow-hidden rounded-[6px]">
                 {product.image ? (
-                  <Image
-                    src={product.image.src}
-                    alt={product.image.alt}
-                    fill
+                  <ProductPicture
+                    image={product.image}
                     sizes="(min-width: 1024px) 22vw, 45vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 ) : (
                   <MediaSlot className="h-full w-full" caption={`product-${product.slug}.png`} />
