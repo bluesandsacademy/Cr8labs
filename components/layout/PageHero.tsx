@@ -103,9 +103,11 @@ export function PageHero({
           </p>
         </div>
 
-        <div ref={visualRef} className="relative mx-auto w-full max-w-105 lg:max-w-none lg:translate-x-[6%]">
+        <div ref={visualRef} className="relative mx-auto w-full max-w-105 lg:max-w-none">
           {image ? (
-            <div className="relative mx-auto aspect-square w-full max-w-[78vh]">
+            // The photograph's portal bleeds slightly off the right edge; a
+            // page's own device keeps its full width so labels never clip.
+            <div className="relative mx-auto aspect-square w-full max-w-[78vh] lg:translate-x-[6%]">
               {/* The portal: a thin ring and a slow dashed orbit around the photograph. */}
               <div className="pointer-events-none absolute -inset-[6%] rounded-full border border-adire-light/40" aria-hidden="true" />
               <div
