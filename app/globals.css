@@ -113,10 +113,20 @@ body {
   }
 }
 
-@keyframes nav-menu-in {
+/* Mobile menu takeover: the world fades up, then the links rise in one by
+   one (per-link delay is set inline). Both used via motion-safe: only. */
+@keyframes menu-in {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes menu-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
   }
   to {
     opacity: 1;
