@@ -3,7 +3,7 @@ import { InnerPage } from "@/components/layout/InnerPage";
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlanetarySystem } from "@/components/ui/PlanetarySystem";
-import { ProductIndex } from "@/components/products/ProductIndex";
+import { ProductRail } from "@/components/products/ProductRail";
 import { ProductSection } from "@/components/products/ProductSection";
 import { HardwareStrip } from "@/components/products/HardwareStrip";
 import { PRODUCTS } from "@/components/products/products";
@@ -45,14 +45,12 @@ export default function ProductsPage() {
       />
 
       {/* The shop window sits with the first pair on bone, so there is no
-          extra tone edge between the index and the first product. */}
+          extra tone edge between the rail and the first product. It is not
+          wrapped in Reveal: it pins, and a pinned element cannot live inside
+          a transformed ancestor. */}
       {groups.map((group, g) => (
         <div key={group.items[0]} data-tone={group.tone}>
-          {g === 0 && (
-            <Reveal>
-              <ProductIndex />
-            </Reveal>
-          )}
+          {g === 0 && <ProductRail />}
           {group.items.map((i) => (
             <Reveal key={PRODUCTS[i].slug}>
               <ProductSection product={PRODUCTS[i]} tone={group.tone} imageSide={i % 2 === 0 ? "left" : "right"} />
