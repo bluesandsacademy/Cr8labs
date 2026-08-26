@@ -11,6 +11,12 @@ describe("PageBackground", () => {
     expect(img.getAttribute("src")).toContain("hero-headset.png");
   });
 
+  it("renders no headset and no dive in the inner variant, keeping the glow world", () => {
+    render(<PageBackground variant="inner" />);
+    expect(document.querySelector('img[src*="hero-headset"]')).toBeNull();
+    expect(document.documentElement.dataset.tone).toBe("dark");
+  });
+
   it("sets the nav tone on the document root and clears it on unmount", () => {
     const { unmount } = render(<PageBackground />);
     expect(document.documentElement.dataset.tone).toBe("dark");

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { PortalArch } from "@/components/ui/PortalArch";
 
 const STATS: { value: string; label: string }[] = [
   { value: "[100]+", label: "schools" },
@@ -53,23 +53,11 @@ export function ProofSection() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-105">
-          <div className="rounded-t-full border-2 border-adire p-3">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-t-full">
-              <Image
-                src="/brand/proof-classroom.png"
-                alt="Three students sharing a tablet at a wooden desk in a real classroom, laughing together, with a chalkboard and warm window light behind them"
-                fill
-                sizes="(min-width: 1024px) 420px, 90vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-          <span
-            className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-danfo motion-safe:animate-[pulse-soft_3.5s_ease-in-out_infinite]"
-            aria-hidden="true"
-          />
-        </div>
+        <PortalArch
+          src="/brand/proof-classroom.png"
+          alt="Three students sharing a tablet at a wooden desk in a real classroom, laughing together, with a chalkboard and warm window light behind them"
+          sizes="(min-width: 1024px) 420px, 90vw"
+        />
       </div>
     </section>
   );

@@ -50,7 +50,11 @@ const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
  * `[data-scene]` children and stays a scrubbed GSAP timeline (single owner
  * per property). No GSAP `pin` anywhere.
  */
-export function PageBackground() {
+export function PageBackground({ variant = "home" }: { variant?: "home" | "inner" }) {
+  // "inner": the same world without the opening dive. No headset photo, no
+  // dive timeline; the inside-the-lens glow is simply there from the start
+  // and the tone masks behave exactly as on Home.
+  const isHome = variant === "home";
   const headsetRef = useRef<HTMLDivElement | null>(null);
   const glowRef = useRef<HTMLDivElement | null>(null);
   const vignetteRef = useRef<HTMLDivElement | null>(null);
@@ -188,30 +192,34 @@ export function PageBackground() {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden bg-adire-dark" aria-hidden="true">
       {/* What you dive toward. transform-origin sits on the ring-light's center. */}
-      <div ref={headsetRef} className="absolute inset-0" style={{ transformOrigin: "50% 48%" }}>
-        <Image
-          src="/brand/hero-headset.png"
-          alt="An unworn VR headset resting in darkness, concentric rings of warm golden light radiating outward from it into a dark, softly lit void"
-          fill
-          sizes="100vw"
-          priority
-          className="object-cover"
-        />
-      </div>
+      {isHome && (
+        <div ref={headsetRef} className="absolute inset-0" style={{ transformOrigin: "50% 48%" }}>
+          <Image
+            src="/brand/hero-headset.png"
+            alt="An unworn VR headset resting in darkness, concentric rings of warm golden light radiating outward from it into a dark, softly lit void"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover"
+          />
+        </div>
+      )}
 
       {/* What you arrive in: the same ring-light continued as an abstract glow. */}
       <div
         ref={glowRef}
-        className="absolute inset-0 opacity-0"
+        className={`absolute inset-0 ${isHome ? "opacity-0" : "opacity-100"}`}
         style={{
           background:
             "radial-gradient(circle at 50% 48%, rgba(245,166,35,0.32) 0%, rgba(44,39,108,0.6) 40%, rgba(23,19,15,0.98) 78%)",
         }}
       />
-      <div
-        ref={vignetteRef}
-        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,8,20,0.8)_0%,rgba(10,8,20,0.4)_45%,rgba(10,8,20,0.05)_70%)]"
-      />
+      {isHome && (
+        <div
+          ref={vignetteRef}
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,8,20,0.8)_0%,rgba(10,8,20,0.4)_45%,rgba(10,8,20,0.05)_70%)]"
+        />
+      )}
 
       {/* Tone layers, each masked to its own sections' extent with a feathered
           edge. Each carries a fixed ring so the world visibly holds still while
