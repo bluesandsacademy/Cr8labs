@@ -60,8 +60,8 @@ export function Footer() {
   return (
     <footer className="bg-ink text-bone">
       <RingDivider />
-      <div className="mx-auto grid max-w-360 grid-cols-1 gap-12 px-8 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] md:px-16">
-        <div className="flex flex-col gap-5">
+      <div className="mx-auto grid max-w-360 grid-cols-1 gap-9 px-8 py-11 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] md:gap-12 md:px-16 md:py-16">
+        <div className="flex flex-col gap-4 md:gap-5">
           <Link href="/" className="focus-ring-dark flex w-fit items-center gap-2.75 rounded-[3px]">
             <Image
               src="/brand/cr8lab-mark.png"
@@ -77,34 +77,41 @@ export function Footer() {
             spatial computing experiences and interactive stories. Made in Africa, built to
             travel.
           </p>
-          <p className="max-w-70 font-sans text-[13px] leading-relaxed text-adire-caption">
+          {/* The newsletter line is a promise, not a form; on phones it costs a
+              quarter-screen for no action, so it steps aside there. */}
+          <p className="hidden max-w-70 font-sans text-[13px] leading-relaxed text-adire-caption md:block">
             What we are building, once a month. Product releases, Labs projects, research
             notes, and the occasional honest account of what did not work.
           </p>
         </div>
 
-        {COLUMNS.map((column) => (
-          <div key={column.heading} className="flex flex-col gap-3">
-            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wide text-adire-caption">
-              {column.heading}
-            </h3>
-            <ul className="flex flex-col gap-2.5">
-              {column.links.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="focus-ring-dark rounded-[3px] font-sans text-[13px] text-bone/85 hover:text-danfo"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {/* On phones the four groups sit two-up, which halves the footer's
+            height without hiding a single link; from md they rejoin the outer
+            grid as their own columns. */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:contents">
+          {COLUMNS.map((column) => (
+            <div key={column.heading} className="flex flex-col gap-2.5 md:gap-3">
+              <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wide text-adire-caption">
+                {column.heading}
+              </h3>
+              <ul className="flex flex-col gap-2 md:gap-2.5">
+                {column.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="focus-ring-dark rounded-[3px] font-sans text-[13px] text-bone/85 hover:text-danfo"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="border-t border-adire-light/30 px-8 py-6 md:px-16">
+      <div className="border-t border-adire-light/30 px-8 py-5 md:px-16 md:py-6">
         <p className="font-sans text-[12px] leading-relaxed text-bone/60">
           © [2026] CR8LAB. [Registered entity name, RC number.]{" "}
           {LEGAL_LINKS.map((link, i) => (
