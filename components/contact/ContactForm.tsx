@@ -4,30 +4,11 @@ import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { submitContact, type ContactState } from "@/app/contact/actions";
 
-/** Every option list is the copy deck's, verbatim. */
-export const ROUTE_OPTIONS = [
-  "demo",
-  "partner",
-  "invest or fund",
-  "apply for a role",
-  "publish",
-  "research",
-  "press",
-  "something else",
-] as const;
+import { ROUTE_OPTIONS } from "./route-options";
+
+/** Every option list is the copy deck's, verbatim. Route options live in ./route-options so the server page can read them too. */
 const WHERE_OPTIONS = ["schools", "museum", "retail", "event", "headset", "online", "not sure"] as const;
 const BUDGET_OPTIONS = ["under $5k", "$5k to $20k", "$20k to $50k", "$50k+", "not sure yet"] as const;
-
-/** `?route=` values (from the site's own links) to the deck's option list. */
-export const ROUTE_PARAM_TO_OPTION: Record<string, (typeof ROUTE_OPTIONS)[number]> = {
-  demo: "demo",
-  partner: "partner",
-  fund: "invest or fund",
-  join: "apply for a role",
-  publish: "publish",
-  research: "research",
-  press: "press",
-};
 
 const INPUT =
   "w-full rounded-[3px] border-[1.5px] border-border bg-bone px-3.5 py-3 font-sans text-[15px] text-ink placeholder:text-disabled focus-ring-light focus:border-adire";

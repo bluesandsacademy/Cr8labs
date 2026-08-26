@@ -3,7 +3,8 @@ import { InnerPage } from "@/components/layout/InnerPage";
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { Routes, RoutesRing } from "@/components/contact/Routes";
-import { ContactForm, ROUTE_PARAM_TO_OPTION } from "@/components/contact/ContactForm";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { ROUTE_PARAM_TO_OPTION } from "@/components/contact/route-options";
 
 export const metadata: Metadata = {
   title: "Contact CR8LAB | Demos, Partnerships, Funding and Press",
