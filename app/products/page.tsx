@@ -3,6 +3,7 @@ import { InnerPage } from "@/components/layout/InnerPage";
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlanetarySystem } from "@/components/ui/PlanetarySystem";
+import { ProductIndex } from "@/components/products/ProductIndex";
 import { ProductSection } from "@/components/products/ProductSection";
 import { HardwareStrip } from "@/components/products/HardwareStrip";
 import { PRODUCTS } from "@/components/products/products";
@@ -43,11 +44,18 @@ export default function ProductsPage() {
         }
       />
 
-      {groups.map((group) => (
+      {/* The shop window sits with the first pair on bone, so there is no
+          extra tone edge between the index and the first product. */}
+      {groups.map((group, g) => (
         <div key={group.items[0]} data-tone={group.tone}>
+          {g === 0 && (
+            <Reveal>
+              <ProductIndex />
+            </Reveal>
+          )}
           {group.items.map((i) => (
-            <Reveal key={PRODUCTS[i].name}>
-              <ProductSection product={PRODUCTS[i]} tone={group.tone} />
+            <Reveal key={PRODUCTS[i].slug}>
+              <ProductSection product={PRODUCTS[i]} tone={group.tone} imageSide={i % 2 === 0 ? "left" : "right"} />
             </Reveal>
           ))}
           {group.items.includes(7) && (

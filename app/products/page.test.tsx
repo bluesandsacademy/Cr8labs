@@ -38,6 +38,22 @@ describe("Products page", () => {
     }
   });
 
+  it("opens with a shop window of eight tiles that link down to their products", () => {
+    render(<ProductsPage />);
+    for (const slug of ["books", "ar", "vr", "labs", "ai", "studio", "creator", "library"]) {
+      const tile = document.querySelector(`a[href="#${slug}"]`);
+      expect(tile).not.toBeNull();
+      expect(document.getElementById(slug)).not.toBeNull();
+    }
+  });
+
+  it("renders who each product is for as scannable chips, verbatim from the deck", () => {
+    render(<ProductsPage />);
+    expect(screen.getByText("homeschooling families")).toBeInTheDocument();
+    expect(screen.getByText("technical and vocational training")).toBeInTheDocument();
+    expect(screen.getByText("publishers and studios who licence assets directly")).toBeInTheDocument();
+  });
+
   it("keeps the hardware strip to two items and never mentions the Smart Blackboard", () => {
     render(<ProductsPage />);
     expect(screen.getByText("Virtual Science Lab tablet")).toBeInTheDocument();

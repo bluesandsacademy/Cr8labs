@@ -1,64 +1,105 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { MediaSlot } from "@/components/ui/MediaSlot";
 import { RingList } from "@/components/ui/RingList";
 
 export type Product = {
+  slug: string;
   name: string;
   oneLine: string;
   whatItIs: string;
-  whoFor: string;
+  audiences: string[];
   keyPoints: string[];
   cta: { label: string; href: string };
   accent: string;
+  image: { src: string; alt: string } | null;
 };
 
 const TONE = {
-  light: { name: "text-ink", line: "text-adire", body: "text-body", label: "text-muted", who: "text-ink", list: "light" as const, cta: "dark" as const },
-  adire: { name: "text-bone", line: "text-danfo", body: "text-bone/80", label: "text-adire-caption", who: "text-bone", list: "dark" as const, cta: "light" as const },
-  ink: { name: "text-bone", line: "text-danfo", body: "text-bone/80", label: "text-bone/55", who: "text-bone", list: "dark" as const, cta: "light" as const },
+  light: { name: "text-ink", line: "text-adire", body: "text-muted", chip: "border-border text-body", list: "light" as const, cta: "dark" as const },
+  adire: { name: "text-bone", line: "text-danfo", body: "text-bone/60", chip: "border-adire-light/40 text-bone/85", list: "dark" as const, cta: "light" as const },
+  ink: { name: "text-bone", line: "text-danfo", body: "text-bone/60", chip: "border-bone/20 text-bone/85", list: "dark" as const, cta: "light" as const },
 } as const;
 
+/** The product photograph in its frame, with the monogram badge on its corner. */
+export function ProductImage({ product, sizes }: { product: Product; sizes: string }) {
+  return (
+    <div className="relative">
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[6px]">
+        {product.image ? (
+          <Image src={product.image.src} alt={product.image.alt} fill sizes={sizes} className="object-cover" />
+        ) : (
+          <MediaSlot className="h-full w-full" caption={`Placeholder: product-${product.slug}.png`} />
+        )}
+      </div>
+      <span
+        className="absolute -left-4 -top-4 flex h-14 w-14 items-center justify-center rounded-full border-2 bg-bone"
+        style={{ borderColor: product.accent }}
+        aria-hidden="true"
+      >
+        <span className="absolute inset-2 rounded-full border opacity-40" style={{ borderColor: product.accent }} />
+        <span className="font-display text-[20px]" style={{ color: product.accent }}>
+          {product.name.replace("CR8LAB ", "")[0]}
+        </span>
+      </span>
+    </div>
+  );
+}
+
 /**
- * One product, in the deck's own structure: the name and one-line pinned on
- * lg beside what it is, who it is for, the key points as a ring list, and
- * the deck's call to action. The monogram is the product's initial in the
- * system's ring frame, as on Home.
+ * One product, built to be scanned: the photograph carries half the width,
+ * then name, one line, who it is for as chips, three points, the action.
+ * The deck's full paragraph is there for whoever reads on, set small and
+ * last. Image side alternates down the page.
  */
-export function ProductSection({ product, tone }: { product: Product; tone: keyof typeof TONE }) {
+export function ProductSection({
+  product,
+  tone,
+  imageSide,
+}: {
+  product: Product;
+  tone: keyof typeof TONE;
+  imageSide: "left" | "right";
+}) {
   const t = TONE[tone];
   return (
-    <section className="px-8 py-16 md:px-16 md:py-24">
-      <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-[1fr_1.4fr]">
-        <div className="self-start lg:sticky lg:top-28">
-          <div
-            className="relative mb-6 flex h-12 w-12 items-center justify-center rounded-full border-2"
-            style={{ borderColor: product.accent }}
-            aria-hidden="true"
-          >
-            <div className="absolute inset-1.5 rounded-full border opacity-40" style={{ borderColor: product.accent }} />
-            <span className="font-display text-[18px]" style={{ color: product.accent }}>
-              {product.name.replace("CR8LAB ", "")[0]}
-            </span>
-          </div>
-          <h2 className={`font-display text-[32px] leading-[1.06] md:text-[44px] ${t.name}`}>{product.name}</h2>
-          <p className={`mt-4 max-w-100 font-display text-[19px] leading-snug md:text-[22px] ${t.line}`}>
-            {product.oneLine}
-          </p>
+    // py-20 on phones: the monogram badge overhangs the image by 16px, and the
+    // image comes first there, so 80px keeps the badge clear of the 60px
+    // tone-edge band at the section's top.
+    <section id={product.slug} className="scroll-mt-24 px-8 py-20 md:px-16 md:py-24">
+      <div className="grid grid-cols-1 items-center gap-x-16 gap-y-10 lg:grid-cols-2">
+        <div className={imageSide === "right" ? "lg:order-last" : ""}>
+          <ProductImage product={product} sizes="(min-width: 1024px) 45vw, 90vw" />
         </div>
 
-        <div className="flex flex-col gap-8">
-          <p className={`font-sans text-[17px] leading-relaxed md:text-[19px] ${t.body}`}>{product.whatItIs}</p>
-          <div>
-            <p className={`mb-2 font-mono text-[11px] font-semibold uppercase tracking-widest ${t.label}`}>
-              Who it is for
-            </p>
-            <p className={`font-sans text-[16px] leading-relaxed md:text-[17px] ${t.who}`}>{product.whoFor}</p>
+        <div>
+          <h2 className={`font-display text-[34px] leading-[1.04] md:text-[48px] ${t.name}`}>{product.name}</h2>
+          <p className={`mt-4 max-w-120 font-display text-[21px] leading-snug md:text-[26px] ${t.line}`}>
+            {product.oneLine}
+          </p>
+
+          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Who it is for">
+            {product.audiences.map((audience) => (
+              <li
+                key={audience}
+                className={`rounded-full border px-3 py-1 font-mono text-[11px] uppercase tracking-wide ${t.chip}`}
+              >
+                {audience}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8">
+            <RingList items={product.keyPoints} tone={t.list} />
           </div>
-          <RingList items={product.keyPoints} tone={t.list} />
-          <div>
+
+          <div className="mt-9">
             <Button href={product.cta.href} variant={t.cta} theme={tone === "light" ? "light" : "dark"}>
               {product.cta.label}
             </Button>
           </div>
+
+          <p className={`mt-9 max-w-130 font-sans text-[14px] leading-relaxed ${t.body}`}>{product.whatItIs}</p>
         </div>
       </div>
     </section>
