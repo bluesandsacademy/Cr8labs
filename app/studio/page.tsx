@@ -3,7 +3,6 @@ import { InnerPage } from "@/components/layout/InnerPage";
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { ListBeat } from "@/components/ui/ListBeat";
-import { SatelliteCluster } from "@/components/ui/SatelliteCluster";
 import { ImageBand } from "@/components/ui/ImageBand";
 import { Story } from "@/components/studio/Story";
 import { Team } from "@/components/studio/Team";
@@ -23,13 +22,10 @@ export default function StudioPage() {
         kicker="Studio"
         title="The studio"
         lede="A Lagos team of artists, engineers, writers and teachers building in three dimensions."
-        device={
-          <SatelliteCluster
-            src="/brand/studio-team.jpg"
-            alt="Three people at desks in a small studio under a warm pendant lamp, a pegboard of sketches behind them and a 3D-printed model on the desk"
-            sizes="(min-width: 1024px) 380px, 90vw"
-          />
-        }
+        image={{
+          src: "/brand/studio-team.jpg",
+          alt: "Three people at desks in a small studio under a warm pendant lamp, a pegboard of sketches behind them and a 3D-printed model on the desk",
+        }}
       />
 
       <div data-tone="light">

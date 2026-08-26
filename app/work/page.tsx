@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { InnerPage } from "@/components/layout/InnerPage";
 import { PageHero } from "@/components/layout/PageHero";
 import Image from "next/image";
-import { PortalArch } from "@/components/ui/PortalArch";
 import { Reveal } from "@/components/ui/Reveal";
 import { CaseStudyHeader, CaseBeat, ImpactBeat } from "@/components/work/CaseStudy";
 import { FurtherWork } from "@/components/work/FurtherWork";
@@ -21,13 +20,10 @@ export default function WorkPage() {
         kicker="Work"
         title="Work"
         lede="Shipped, in daily use, and measured. Not concepts."
-        device={
-          <PortalArch
-            src="/brand/proof-classroom.png"
-            alt="Three students sharing a tablet at a wooden desk in a real classroom, laughing together, with a chalkboard and warm window light behind them"
-            sizes="(min-width: 1024px) 420px, 90vw"
-          />
-        }
+        image={{
+          src: "/brand/proof-classroom.png",
+          alt: "Three students sharing a tablet at a wooden desk in a real classroom, laughing together, with a chalkboard and warm window light behind them",
+        }}
       />
 
       <div data-tone="light">
