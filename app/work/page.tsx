@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { InnerPage } from "@/components/layout/InnerPage";
 import { PageHero } from "@/components/layout/PageHero";
+import Image from "next/image";
 import { PortalArch } from "@/components/ui/PortalArch";
-import { MediaSlot } from "@/components/ui/MediaSlot";
 import { Reveal } from "@/components/ui/Reveal";
 import { CaseStudyHeader, CaseBeat, ImpactBeat } from "@/components/work/CaseStudy";
 import { FurtherWork } from "@/components/work/FurtherWork";
@@ -48,10 +48,15 @@ export default function WorkPage() {
             heading="Solution"
             body="CR8LAB developed an AR book series and a tablet based virtual science laboratory, designed for classrooms with unreliable connectivity and entry level devices. Original illustrated titles for ages 4 to 13 with a full 3D layer, [250]+ curriculum mapped experiments, teacher certification and onboarding, and a dashboard giving teachers class level evidence within the term."
             media={
-              <MediaSlot
-                className="aspect-[16/10] w-full rounded-[4px]"
-                caption="Placeholder: work-solution.png, a tablet running a virtual chemistry experiment on a school desk beside an open AR book"
-              />
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[4px]">
+                <Image
+                  src="/brand/work-solution.jpg"
+                  alt="A tablet on a wooden stand showing an illustrated chemistry experiment, beside an open science picture book on a school desk in warm window light"
+                  fill
+                  sizes="(min-width: 1024px) 760px, 90vw"
+                  className="object-cover"
+                />
+              </div>
             }
           />
         </Reveal>
@@ -65,10 +70,15 @@ export default function WorkPage() {
             heading="The hard part"
             body="Every design decision was set by the worst case classroom rather than the best. Thirty children, one teacher, one shared connection that drops, tablets that must last a full school day, and content that has to run with the network off entirely. That constraint dictated asset budgets, texture sizes, download pack structure and every interaction we built."
             media={
-              <MediaSlot
-                className="aspect-[16/10] w-full rounded-[4px]"
-                caption="Placeholder: work-hard-part.png, a full classroom of thirty sharing a few tablets, one teacher, no network"
-              />
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[4px]">
+                <Image
+                  src="/brand/work-hard-part.jpg"
+                  alt="A crowded secondary school classroom, students at wooden desks sharing tablets in small groups, a teacher standing by the chalkboard at the front"
+                  fill
+                  sizes="(min-width: 1024px) 760px, 90vw"
+                  className="object-cover"
+                />
+              </div>
             }
           />
         </Reveal>
