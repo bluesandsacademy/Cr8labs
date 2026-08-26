@@ -7,8 +7,9 @@ are code, not copy, and are skipped.
 """
 import os, re, sys, datetime
 
-PAT = re.compile(r"\[[^\]\n]{1,220}\]")
+PAT = re.compile(r"(?<![\w.\])\)])\[[^\]\n]{1,220}\]")  # not an index, a type, a call result, or a chained bracket
 IS_COPY = re.compile(r"^\[(?:[A-Z₦$]|\d[\d,]*(?:\]|\s))")
+IS_ARRAY = re.compile(r"^\[\d+(?:, \d+)+\]$")  # a numeric array literal, not copy
 
 def find():
     rows = []
@@ -20,7 +21,7 @@ def find():
                 p = os.path.join(root, f)
                 for n, line in enumerate(open(p, encoding="utf-8"), 1):
                     for m in PAT.finditer(line):
-                        if IS_COPY.match(m.group(0)):
+                        if IS_COPY.match(m.group(0)) and not IS_ARRAY.match(m.group(0)):
                             rows.append((p, n, m.group(0)))
     return sorted(rows)
 

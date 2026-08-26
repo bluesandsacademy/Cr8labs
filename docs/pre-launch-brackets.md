@@ -10,9 +10,6 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 - line 51: `[8 to 18]`
 - line 51: `[X]`
 
-## `app/contact/page.tsx`
-- line 20: `[0]`
-
 ## `app/labs/page.tsx`
 - line 20: `[2026]`
 - line 20: `[2030]`
@@ -25,9 +22,6 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 - line 63: `[Confirm.]`
 - line 63: `[Google Workspace for Education, Microsoft Entra]`
 - line 75: `[X]`
-
-## `app/products/page.tsx`
-- line 52: `[0]`
 
 ## `app/research/page.tsx`
 - line 79: `[One line.]`
@@ -48,13 +42,6 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 - line 38: `[Source line for the laboratory gap figures]`
 - line 45: `[250]`
 
-## `components/home/PageBackground.tsx`
-- line 101: `[1]`
-- line 101: `[1]`
-
-## `components/home/PlatformModules.tsx`
-- line 106: `[0]`
-
 ## `components/home/ProofSection.tsx`
 - line 5: `[100]`
 - line 6: `[20,000]`
@@ -71,19 +58,11 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 ## `components/layout/Footer.tsx`
 - line 52: `[Platform, Company]`
 - line 52: `[Products, Get in touch]`
-- line 54: `[0, 2]`
-- line 55: `[1, 3]`
 - line 137: `[2026]`
 - line 137: `[Registered entity name, RC number.]`
 
-## `components/platform/StackRings.tsx`
-- line 20: `[190, 165, 140, 115, 90, 65, 40]`
-
 ## `components/products/HardwareStrip.tsx`
 - line 12: `[$150]`
-
-## `components/products/ProductSection.tsx`
-- line 66: `[0]`
 
 ## `components/products/products.ts`
 - line 22: `[Into the Community, Into the Curiosity Q, and the eight book AR Science Lab series]`
@@ -117,10 +96,6 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 - line 9: `[Name]`
 - line 9: `[One line.]`
 
-## `components/ui/StatChip.tsx`
-- line 18: `[1]`
-- line 19: `[2]`
-
 ## `components/work/CaseStudy.tsx`
 - line 76: `[100]`
 - line 76: `[6]`
@@ -130,4 +105,4 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 - line 80: `[X]`
 - line 103: `[LASRIC, NITDA, NTI, CcHUB, ReLearn]`
 
-Total: 82 placeholders in 23 files.
+Total: 71 placeholders in 16 files.
