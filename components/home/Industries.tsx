@@ -20,7 +20,7 @@ const SECTORS: { name: string; line: string }[] = [
   },
   {
     name: "Healthcare",
-    line: "Places and procedures you can step inside and practise, built for headset and for browser.",
+    line: "Environments a learner can enter and move through, built for headset and for browser.",
   },
   {
     name: "Manufacturing and industrial training",
@@ -32,7 +32,7 @@ const SECTORS: { name: string; line: string }[] = [
   },
   {
     name: "Tourism",
-    line: "Location based experiences for trails, campuses and events, in the visitor's own phone.",
+    line: "Location based experiences for events, campuses and trails, delivered in app or on the web.",
   },
   {
     name: "Government",
