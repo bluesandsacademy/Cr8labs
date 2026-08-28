@@ -37,6 +37,17 @@ export function PageHero({
   const textRef = useRef<HTMLDivElement | null>(null);
   const visualRef = useRef<HTMLDivElement | null>(null);
   const words = title.split(" ");
+  // The display clamp was tuned for a one- or two-word title ("Work", "The
+  // studio"). A full-sentence title ("Eight products. One library. One
+  // account.") at the same size wraps to four-plus giant lines and buries the
+  // lede below the fold, so longer titles step down in size and widen their
+  // wrap column to compensate.
+  const headlineSize =
+    words.length <= 2
+      ? { fontSize: "clamp(46px,7.4vw,108px)", maxWidth: "12ch" }
+      : words.length <= 5
+        ? { fontSize: "clamp(38px,5.6vw,80px)", maxWidth: "20ch" }
+        : { fontSize: "clamp(30px,4.2vw,58px)", maxWidth: "34ch" };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -85,7 +96,10 @@ export function PageHero({
               <p className="font-mono text-[11px] font-semibold uppercase tracking-widest text-danfo">{kicker}</p>
             </div>
           )}
-          <h1 className="max-w-[12ch] font-display text-[clamp(46px,7.4vw,108px)] leading-[0.98] tracking-tight text-bone">
+          <h1
+            className="font-display leading-[0.98] tracking-tight text-bone"
+            style={headlineSize}
+          >
             {words.map((word, i) => (
               <span key={i} className="inline-block whitespace-pre">
                 <span data-hero-word className="inline-block">
