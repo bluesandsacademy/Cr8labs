@@ -3,9 +3,11 @@
 :root {
   --color-ink: #17130f;
   --color-bone: #f3ecde;
-  --color-danfo: #f5a623;
+  --color-danfo: #ffeb59;
   --color-adire: #2c276c;
+  --color-adire-deep: #1a1748;
   --color-adire-dark: #211d54;
+  --color-adire-mid: #332d7c;
   --color-adire-light: #6e67b8;
   --color-adire-tint: #8f87cf;
   --color-adire-caption: #a39cc9;
@@ -26,7 +28,9 @@
   --color-bone: var(--color-bone);
   --color-danfo: var(--color-danfo);
   --color-adire: var(--color-adire);
+  --color-adire-deep: var(--color-adire-deep);
   --color-adire-dark: var(--color-adire-dark);
+  --color-adire-mid: var(--color-adire-mid);
   --color-adire-light: var(--color-adire-light);
   --color-adire-tint: var(--color-adire-tint);
   --color-adire-caption: var(--color-adire-caption);
@@ -98,6 +102,19 @@ body {
   50% {
     transform: translateX(-50%) scale(1.4);
     opacity: 0.65;
+  }
+}
+
+/* A sonar-style ping used behind the hero's video play control: each ring
+   expands and fades, staggered per-ring via animation-delay inline. */
+@keyframes ring-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
   }
 }
 

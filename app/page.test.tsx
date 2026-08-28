@@ -10,7 +10,8 @@ describe("Home page", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "The future of learning lives beyond the page"
     );
-    expect(screen.getByText("[100]+")).toBeInTheDocument();
+    // Appears twice: the hero's glance-stat chip and the full TrustBar below it.
+    expect(screen.getAllByText("100+").length).toBeGreaterThanOrEqual(2);
     expect(
       screen.getByText(
         "CR8LAB is a creative technology company building immersive learning platforms, spatial computing experiences and interactive stories. Made in Africa, built to travel."

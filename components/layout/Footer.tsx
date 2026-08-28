@@ -134,7 +134,7 @@ export function Footer() {
 
       <div className="border-t border-adire-light/30 px-8 py-5 md:px-16 md:py-6">
         <p className="font-sans text-[12px] leading-relaxed text-bone/60">
-          © [2026] CR8LAB. [Registered entity name, RC number.]{" "}
+          © [2026] CR8LAB, by ARPedia. [Registered entity name, RC number.]{" "}
           {LEGAL_LINKS.map((link, i) => (
             <span key={link.href}>
               {i > 0 && " · "}

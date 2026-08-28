@@ -3,9 +3,9 @@ import { titanOne, generalSans, jetbrainsMono } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CR8LAB | Creative Technology Company, Lagos",
+  title: "CR8LAB by ARPedia | Creative Technology Company, Lagos",
   description:
-    "CR8LAB builds immersive learning platforms, spatial computing experiences and interactive stories using AR, VR and AI. Original technology, made in Africa, built for global use.",
+    "CR8LAB, by ARPedia, is building the creative technology infrastructure that helps people turn ideas, stories, culture and talent into immersive digital experiences.",
 };
 
 // themeColor lives here, not on `metadata`, as of Next 14 (see AGENTS.md:

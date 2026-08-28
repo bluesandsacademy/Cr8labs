@@ -29,7 +29,7 @@ describe("Footer", () => {
   it("keeps the unconfirmed email and legal facts bracketed", () => {
     render(<Footer />);
     expect(screen.getByText("[hello@cr8lab.com]")).toBeInTheDocument();
-    expect(screen.getByText(/© \[2026\] CR8LAB\./)).toBeInTheDocument();
+    expect(screen.getByText(/© \[2026\] CR8LAB, by ARPedia\./)).toBeInTheDocument();
     expect(screen.getByText(/\[Registered entity name, RC number\.\]/)).toBeInTheDocument();
   });
 

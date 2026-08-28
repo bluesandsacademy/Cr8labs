@@ -2,7 +2,8 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Reveal } from "@/components/ui/Reveal";
 import { PageBackground } from "@/components/home/PageBackground";
-import { ImmersiveZone } from "@/components/home/ImmersiveZone";
+import { Hero } from "@/components/home/Hero";
+import { TrustBar } from "@/components/home/TrustBar";
 import { Manifesto } from "@/components/home/Manifesto";
 import { SectionTeaser } from "@/components/home/SectionTeaser";
 import { PlatformModules } from "@/components/home/PlatformModules";
@@ -33,9 +34,16 @@ export default function Home() {
       </div>
 
       <main className="relative z-10">
-        {/* The opening dive is its own scroll-driven sequence and isn't
-            wrapped in Reveal; everything after it fades and rises in. */}
-        <ImmersiveZone />
+        {/* The hero is its own self-contained panel, not part of the fixed
+            PageBackground world, so it isn't wrapped in Reveal either;
+            everything after it fades and rises in. */}
+        <Hero />
+
+        <div data-tone="light">
+          <Reveal>
+            <TrustBar theme="light" />
+          </Reveal>
+        </div>
 
         <div data-tone="light">
           <Reveal>
