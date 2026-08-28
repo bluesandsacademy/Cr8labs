@@ -1,16 +1,16 @@
-const STATS: { value: string; label: string }[] = [
-  { value: "[100]+", label: "schools" },
-  { value: "[20,000]+", label: "students" },
-  { value: "[6]", label: "countries" },
-  { value: "[250]+", label: "interactive experiences" },
+// Figures from cr8labb_3D_Immersive_Pitch.pptx (slide 8, "Traction"), the
+// company's own reported numbers as of the 2026 raise.
+export const STATS: { value: string; label: string }[] = [
+  { value: "100+", label: "institutions" },
+  { value: "100,000+", label: "users" },
+  { value: "6", label: "countries" },
+  { value: "150+", label: "interactive simulations" },
 ];
 
 /**
  * The arrival beat. On the home page this holds for a full viewport once the
  * dive is through, so it is set as a moment, not a strip: the trust line in
- * display type, numerals large. Stats stay bracketed until real figures are
- * supplied; the partner line is bracketed too, since each name needs
- * permission on file before it can be shown.
+ * display type, numerals large.
  */
 export function TrustBar({ theme = "light" }: { theme?: "light" | "dark" }) {
   const isDark = theme === "dark";
@@ -37,7 +37,7 @@ export function TrustBar({ theme = "light" }: { theme?: "light" | "dark" }) {
         Built for Africa. Designed for the world. Running on technology we own.
       </p>
 
-      {/* One column on phones: "[20,000]+" at display size is wider than half
+      {/* One column on phones: "100,000+" at display size is wider than half
           a 390px screen and pushed the whole page into horizontal scroll. */}
       <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 md:mt-14 md:grid-cols-4">
         {STATS.map((stat) => (
@@ -63,7 +63,7 @@ export function TrustBar({ theme = "light" }: { theme?: "light" | "dark" }) {
           isDark ? "text-bone/50" : "text-muted"
         }`}
       >
-        Working with [LASRIC, NITDA, NTI, CcHUB, ReLearn].
+        Working with LASRIC, NITDA, NTI, CcHUB and ReLearn.
       </p>
     </div>
   );

@@ -10,7 +10,7 @@ import { ClosingCta } from "@/components/home/ClosingCta";
 export const metadata: Metadata = {
   title: "Work | Shipped Immersive Projects | CR8LAB",
   description:
-    "Case studies from CR8LAB, including the science platform now running in [100]+ schools across [6] African countries.",
+    "Case studies from CR8LAB, including the science platform now running in 100+ schools across 6 African countries.",
 };
 
 export default function WorkPage() {

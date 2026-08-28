@@ -25,7 +25,7 @@ export function PressCareers() {
               learning platforms, spatial computing experiences and interactive storytelling. The
               company produces original 3D content, augmented and virtual reality experiences and
               platform technology in-house. Its technology powers Blue Sands, a science learning
-              platform used by [20,000]+ students across [6] African countries. CR8LAB works with
+              platform used by 100,000+ students across 6 African countries. CR8LAB works with
               schools, governments, publishers, museums and enterprise partners, and funds original
               research and IP through CR8LAB Labs.
             </blockquote>

@@ -21,13 +21,13 @@ describe("Work page", () => {
     ).toBeInTheDocument();
   });
 
-  it("keeps every impact figure bracketed and omits the quote slot", () => {
+  it("uses the deck-sourced impact figures and leaves the unsourced ones bracketed", () => {
     render(<WorkPage />);
-    for (const value of ["[100]", "[20,000]", "[250]"]) {
+    for (const value of ["100+", "100,000+", "150+"]) {
       expect(screen.getByText(value)).toBeInTheDocument();
     }
     expect(screen.getAllByText("[X]")).toHaveLength(2);
-    expect(screen.getByText(/Institutional work with \[LASRIC, NITDA, NTI, CcHUB, ReLearn\]/)).toBeInTheDocument();
+    expect(screen.getByText(/Institutional work with LASRIC, NITDA, NTI, CcHUB and ReLearn/)).toBeInTheDocument();
     expect(screen.queryByText(/Named quote/)).not.toBeInTheDocument();
   });
 

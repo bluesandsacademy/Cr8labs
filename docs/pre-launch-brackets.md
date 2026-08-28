@@ -1,6 +1,6 @@
 # Pre-launch: fill or cut every bracket
 
-The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live site are worse than a shorter page, and both funders will click through." Every bracketed placeholder still in rendered copy, by file and line, generated 2026-08-26. Regenerate with `python3 scripts/list-brackets.py --write`.
+The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live site are worse than a shorter page, and both funders will click through." Every bracketed placeholder still in rendered copy, by file and line, generated 2026-08-28. Regenerate with `python3 scripts/list-brackets.py --write`.
 
 ## `app/community/page.tsx`
 - line 19: `[Two]`
@@ -37,23 +37,11 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 - line 41: `[Kenyan CBC]`
 
 ## `app/work/page.tsx`
-- line 13: `[100]`
-- line 13: `[6]`
 - line 38: `[Source line for the laboratory gap figures]`
 - line 45: `[250]`
 
-## `components/home/ProofSection.tsx`
-- line 5: `[100]`
-- line 6: `[20,000]`
-- line 7: `[6]`
-
-## `components/home/TrustBar.tsx`
-- line 2: `[100]`
-- line 3: `[20,000]`
-- line 4: `[6]`
-- line 5: `[250]`
-- line 40: `[20,000]`
-- line 66: `[LASRIC, NITDA, NTI, CcHUB, ReLearn]`
+## `components/home/Hero.tsx`
+- line 10: `[STATS[0]`
 
 ## `components/layout/Footer.tsx`
 - line 52: `[Platform, Company]`
@@ -78,13 +66,8 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 - line 16: `[₦8,000]`
 
 ## `components/studio/Facts.tsx`
-- line 13: `[Unity, Unreal Engine, Blender, Maya, Substance, 8th Wall, ARKit, ARCore, WebXR, .NET and C# for platform services, Meta Quest hardware, photogrammetry rig.]`
-- line 18: `[LASRIC, NITDA, NTI, CcHUB, ReLearn.]`
-- line 23: `[List only awards, selections and fellowships you can evidence, with the year. If the list is short, a short true list is better than a padded one.]`
-
-## `components/studio/PressCareers.tsx`
-- line 28: `[20,000]`
-- line 28: `[6]`
+- line 15: `[Unity, Unreal Engine, Blender, Maya, Substance, 8th Wall, ARKit, ARCore, WebXR, .NET and C# for platform services, Meta Quest hardware, photogrammetry rig.]`
+- line 25: `[List only awards, selections and fellowships you can evidence, with the year. If the list is short, a short true list is better than a padded one.]`
 
 ## `components/studio/Team.tsx`
 - line 6: `[Name]`
@@ -97,12 +80,7 @@ The copy deck's checklist: "Fill or cut every bracket. Empty brackets on a live 
 - line 9: `[One line.]`
 
 ## `components/work/CaseStudy.tsx`
-- line 76: `[100]`
-- line 76: `[6]`
-- line 77: `[20,000]`
-- line 78: `[250]`
-- line 79: `[X]`
-- line 80: `[X]`
-- line 103: `[LASRIC, NITDA, NTI, CcHUB, ReLearn]`
+- line 81: `[X]`
+- line 82: `[X]`
 
-Total: 71 placeholders in 16 files.
+Total: 53 placeholders in 14 files.

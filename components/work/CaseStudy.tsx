@@ -72,10 +72,12 @@ export function CaseBeat({
   );
 }
 
+// The first three figures are from cr8labb_3D_Immersive_Pitch.pptx (slide 8,
+// "Traction"); the last two have no source yet and stay bracketed.
 const IMPACT: { value: string; label: string }[] = [
-  { value: "[100]+", label: "schools onboarded across [6] countries" },
-  { value: "[20,000]+", label: "students reached" },
-  { value: "[250]+", label: "experiments live" },
+  { value: "100+", label: "schools onboarded across 6 countries" },
+  { value: "100,000+", label: "students reached" },
+  { value: "150+", label: "simulations live" },
   { value: "[X]", label: "teachers certified" },
   { value: "[X] percent", label: "higher reported engagement in participating classrooms" },
 ];
@@ -100,7 +102,7 @@ export function ImpactBeat() {
             ))}
           </div>
           <p className="mt-10 border-t border-bone/15 pt-6 font-sans text-[15px] text-bone/75">
-            Institutional work with [LASRIC, NITDA, NTI, CcHUB, ReLearn]
+            Institutional work with LASRIC, NITDA, NTI, CcHUB and ReLearn
           </p>
         </div>
       </div>

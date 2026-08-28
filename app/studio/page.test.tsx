@@ -17,11 +17,11 @@ describe("Studio page", () => {
     expect(teamHeading.parentElement?.querySelector("img")).toBeNull();
   });
 
-  it("carries the boilerplate, the values and the bracketed facts verbatim", () => {
+  it("carries the boilerplate, the values and the facts verbatim", () => {
     render(<StudioPage />);
     expect(screen.getByText(/CR8LAB is a creative technology company based in Lagos, Nigeria/)).toBeInTheDocument();
     expect(screen.getByText("Say the number or say nothing. No claim we cannot evidence in a due diligence call.")).toBeInTheDocument();
-    expect(screen.getByText("[LASRIC, NITDA, NTI, CcHUB, ReLearn.]")).toBeInTheDocument();
+    expect(screen.getByText("LASRIC, NITDA, NTI, CcHUB and ReLearn.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Join the team" })).toHaveAttribute("href", "/contact?route=join");
   });
 });

@@ -1,6 +1,8 @@
 /**
  * How we work, technology, partners, recognition: the deck's four short
- * sections as a spec sheet of hairline rows. Bracketed lists stay bracketed.
+ * sections as a spec sheet of hairline rows. Partners is confirmed by
+ * cr8labb_3D_Immersive_Pitch.pptx; technology and recognition stay bracketed
+ * until sourced the same way.
  */
 const ROWS: { heading: string; body: string; accent: string }[] = [
   {
@@ -15,7 +17,7 @@ const ROWS: { heading: string; body: string; accent: string }[] = [
   },
   {
     heading: "Partners",
-    body: "[LASRIC, NITDA, NTI, CcHUB, ReLearn.]",
+    body: "LASRIC, NITDA, NTI, CcHUB and ReLearn.",
     accent: "#B6502E",
   },
   {

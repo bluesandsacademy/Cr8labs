@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/Button";
 import { PortalArch } from "@/components/ui/PortalArch";
 
+// Figures from cr8labb_3D_Immersive_Pitch.pptx (slide 8, "Traction"): Blue
+// Sands is the deployment those numbers describe (see the deck's own framing,
+// "Education was the proving ground").
 const STATS: { value: string; label: string }[] = [
-  { value: "[100]+", label: "schools" },
-  { value: "[20,000]+", label: "students" },
-  { value: "[6]", label: "countries" },
+  { value: "100+", label: "schools" },
+  { value: "100,000+", label: "students" },
+  { value: "6", label: "countries" },
 ];
 
 /**
@@ -12,7 +15,7 @@ const STATS: { value: string; label: string }[] = [
  * treatment. The photograph sits in a portal arch (a ring opened into a
  * doorway: the motif as a threshold into an actual classroom), framed by the
  * system's standard double-ring border, with the deployment stats as mono
- * chips under the copy. Stats stay bracketed until real figures are supplied.
+ * chips under the copy.
  */
 export function ProofSection() {
   return (
