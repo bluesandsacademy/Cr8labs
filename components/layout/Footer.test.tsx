@@ -10,35 +10,25 @@ describe("Footer", () => {
     expect(homeLink).toHaveAttribute("href", "/");
   });
 
-  it("renders the footer statement with the CR8LAB brand name", () => {
+  it("renders the sign-off line with the CR8LAB and ARPedia credit", () => {
     render(<Footer />);
-    expect(
-      screen.getByText(
-        "CR8LAB is a creative technology company building immersive learning platforms, spatial computing experiences and interactive stories. Made in Africa, built to travel."
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByText(/CR8LAB, by ARPedia · CREATE\. EXPERIMENT\. INNOVATE\./)).toBeInTheDocument();
   });
 
-  it("renders all four column headings", () => {
+  it("renders the quick links for the new page set", () => {
     render(<Footer />);
-    for (const heading of ["Platform", "Products", "Company", "Get in touch"]) {
-      expect(screen.getByRole("heading", { name: heading })).toBeInTheDocument();
+    for (const label of ["About", "Solutions", "Products", "Industries", "Contact"]) {
+      expect(screen.getByRole("link", { name: label })).toBeInTheDocument();
     }
   });
 
-  it("keeps the unconfirmed email and legal facts bracketed", () => {
+  it("renders the real contact details, not brackets", () => {
     render(<Footer />);
-    expect(screen.getByText("[hello@cr8lab.com]")).toBeInTheDocument();
-    expect(screen.getByText(/© \[2026\] CR8LAB, by ARPedia\./)).toBeInTheDocument();
-    expect(screen.getByText(/\[Registered entity name, RC number\.\]/)).toBeInTheDocument();
-  });
-
-  it("renders the newsletter line", () => {
-    render(<Footer />);
-    expect(
-      screen.getByText(
-        "What we are building, once a month. Product releases, Labs projects, research notes, and the occasional honest account of what did not work."
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "cr8labtech@gmail.com" })).toHaveAttribute(
+      "href",
+      "mailto:cr8labtech@gmail.com"
+    );
+    expect(screen.getByText("07034194669")).toBeInTheDocument();
+    expect(screen.getByText("Sangotedo, Lagos, Nigeria")).toBeInTheDocument();
   });
 });

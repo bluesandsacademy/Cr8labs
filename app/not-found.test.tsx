@@ -14,7 +14,7 @@ describe("404 page", () => {
 
   it("renders both CTAs", () => {
     render(<NotFound />);
-    expect(screen.getByRole("link", { name: "See the work" })).toHaveAttribute("href", "/work");
+    expect(screen.getByRole("link", { name: "See the work" })).toHaveAttribute("href", "/products");
     expect(screen.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
   });
 

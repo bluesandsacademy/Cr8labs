@@ -44,3 +44,7 @@ next-env.d.ts
 .superpowers/
 design/
 docs/superpowers/
+
+# raw asset drops (the ones actually used on the site are copied into
+# public/brand/ceo/ under descriptive names and committed from there)
+docs/assets/

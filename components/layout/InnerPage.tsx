@@ -1,25 +1,18 @@
 import type { ReactNode } from "react";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
-import { PageBackground } from "@/components/home/PageBackground";
 
 /**
- * Every page after Home lives in the same fixed world: the glow at rest, the
- * tone masks, the fixed nav that follows the tone beneath it, the footer.
- * Pages compose their sections inside, each wrapped in a `data-tone` div
- * exactly as on Home.
+ * Every page's shell: the sticky nav, the page's own sections (each paints
+ * its own background now, bluesandsk12-style), the footer. No fixed world
+ * background any more; that was CR8LAB's old architecture.
  */
 export function InnerPage({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-1 flex-col">
-      <PageBackground />
-      <div className="fixed inset-x-0 top-0 z-50">
-        <Nav theme="dark" />
-      </div>
-      <main className="relative z-10">
-        {children}
-        <Footer />
-      </main>
+      <Nav theme="light" />
+      <main className="relative z-10 flex-1">{children}</main>
+      <Footer />
     </div>
   );
 }
