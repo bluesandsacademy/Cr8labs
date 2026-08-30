@@ -3,29 +3,37 @@ import { render, screen } from "@testing-library/react";
 import { Hero } from "./Hero";
 
 describe("Hero", () => {
-  it("renders the headline with the accent phrase", () => {
+  it("renders the headline", () => {
     render(<Hero />);
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      "The future of learning lives beyond the page"
-    );
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Stories you can walk into.");
   });
 
-  it("renders the supporting body copy", () => {
+  it("renders the eyebrow and supporting body copy", () => {
     render(<Hero />);
+    expect(screen.getByText("Africa's Immersive Creative Technology Company")).toBeInTheDocument();
     expect(
       screen.getByText(
         (_, el) =>
           el?.tagName.toLowerCase() === "p" &&
           el.textContent ===
-            "CR8LAB builds experiences that join books, augmented reality, virtual reality, artificial intelligence and interactive storytelling into one platform. Knowledge you can hold, walk into and take apart."
+            "CR8LAB is a creative technology company. We build AR, VR, and 3D experiences for the institutions, publishers, and brands who own Africa's stories, knowledge, and culture."
       )
     ).toBeInTheDocument();
   });
 
   it("renders both hero CTAs", () => {
     render(<Hero />);
-    expect(screen.getByRole("link", { name: "Explore the platform" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Book a demo" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Book a demo" })).toHaveAttribute("href", "/contact");
+    expect(screen.getByRole("link", { name: "Partner with us" })).toHaveAttribute(
+      "href",
+      "/contact?route=partner#form"
+    );
+  });
+
+  it("renders no slider controls while there is only one headline to show", () => {
+    render(<Hero />);
+    expect(screen.queryByRole("button", { name: "Next headline" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Previous headline" })).toBeNull();
   });
 
   it("renders the video with a working source and a poster fallback", () => {
@@ -43,7 +51,7 @@ describe("Hero", () => {
 
   it("renders the two glance-stat figures from TrustBar's own data", () => {
     render(<Hero />);
-    expect(screen.getByText("100+")).toBeInTheDocument();
-    expect(screen.getByText("6")).toBeInTheDocument();
+    expect(screen.getByText("10+")).toBeInTheDocument();
+    expect(screen.getByText("3")).toBeInTheDocument();
   });
 });

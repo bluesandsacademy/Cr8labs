@@ -7,38 +7,38 @@ describe("Home page", () => {
     render(<Home />);
     // "CR8LAB" now appears in both the nav and the footer wordmark.
     expect(screen.getAllByText("CR8LAB").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      "The future of learning lives beyond the page"
-    );
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Stories you can walk into.");
     // Appears twice: the hero's glance-stat chip and the full TrustBar below it.
-    expect(screen.getAllByText("100+").length).toBeGreaterThanOrEqual(2);
-    expect(
-      screen.getByText(
-        "CR8LAB is a creative technology company building immersive learning platforms, spatial computing experiences and interactive stories. Made in Africa, built to travel."
-      )
-    ).toBeInTheDocument();
+    expect(screen.getAllByText("10+").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByText(/CR8LAB, by ARPedia · CREATE\. EXPERIMENT\. INNOVATE\./)).toBeInTheDocument();
   });
 
-  it("renders the rest of the docx home content between the immersive zone and the footer", () => {
+  it("renders the new Home sections between the hero and the footer", () => {
     render(<Home />);
     expect(
-      screen.getByRole("heading", { level: 2, name: "One platform. Many worlds." })
+      screen.getByRole("heading", { level: 2, name: "Africa has the stories. They are stuck flat." })
     ).toBeInTheDocument();
-    expect(screen.getByText("Interactive Books")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 2, name: "Where our work runs" })
+      screen.getByRole("heading", { level: 2, name: "One immersive engine. Every project runs on it." })
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 2, name: "AR brings the story to you. VR takes you to the story." })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Four formats. One production line." })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Built for anyone with something worth stepping into." })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Story in. Experience out. IP kept." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Buy the engine off the shelf." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "We have already proven the model." })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: "Built in Africa. Designed for African realities. Made for global use.",
+        name: "Creative capability and technology infrastructure in the same company.",
       })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", {
-        level: 2,
-        name: "The next generation will not learn the way the last one did",
-      })
+      screen.getByRole("heading", { level: 2, name: "Tell us what you want people to step into." })
     ).toBeInTheDocument();
   });
 

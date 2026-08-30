@@ -2,30 +2,17 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Industries } from "./Industries";
 
-const TILES = [
-  "Education",
-  "Museums and culture",
-  "Publishing",
-  "Healthcare",
-  "Manufacturing and industrial training",
-  "Retail and brands",
-  "Tourism",
-  "Government",
-  "Creative and cultural industries",
-];
+const TILES = ["Education", "Culture and publishing", "Brands and enterprise", "Training and simulation"];
 
 describe("Industries", () => {
-  it("renders the section heading and intro", () => {
+  it("renders the section heading", () => {
     render(<Industries />);
-    expect(screen.getByRole("heading", { level: 2, name: "Where our work runs" })).toBeInTheDocument();
     expect(
-      screen.getByText(
-        "We started in classrooms because that is the hardest room to hold. The same technology now runs in galleries, showrooms, training centres and campaigns."
-      )
+      screen.getByRole("heading", { level: 2, name: "Built for anyone with something worth stepping into." })
     ).toBeInTheDocument();
   });
 
-  it("renders all nine industry tiles", () => {
+  it("renders all four sector tiles", () => {
     render(<Industries />);
     for (const tile of TILES) {
       expect(screen.getByText(tile)).toBeInTheDocument();

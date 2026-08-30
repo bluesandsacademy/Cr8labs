@@ -1,32 +1,23 @@
 /**
- * The belief statement gets a manifesto treatment: one oversized display
- * sentence with the operative phrase in adire, body copy hanging off it, and a
- * giant open-ring fragment bleeding off the left edge (the mark's "C" at
- * architectural scale). No card, no columns-of-equal-weight: a statement.
+ * The belief statement in bluesandsk12's "lead stat" card language (see
+ * challenge.jsx): the whole thing sits inside one solid rounded card with a
+ * flat offset shadow, not loose text over a ring decoration.
  */
 export function Manifesto() {
   return (
-    <section className="relative overflow-hidden border-t border-border-light px-8 py-20 md:px-16 md:py-32">
-      <div
-        className="pointer-events-none absolute -left-64 top-1/2 h-150 w-150 -translate-y-1/2 rounded-full border-[26px] border-adire/6"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -left-64 top-1/2 h-150 w-150 -translate-y-1/2 scale-75 rounded-full border-[3px] border-adire/10"
-        aria-hidden="true"
-      />
-
-      <div className="relative">
-        <p className="max-w-270 font-display text-[34px] leading-[1.14] text-ink md:text-[54px] md:leading-[1.08]">
-          Learning should never be limited to <span className="text-adire">words on a page</span>
-        </p>
-        <p className="ml-auto mt-10 max-w-170 font-sans text-[17px] leading-relaxed text-body md:mt-14 md:text-[19px]">
-          Every child deserves to see an idea move. To run an experiment without a laboratory that
-          costs more than the school. To stand inside a place they will never fly to, and a century
-          they will never live in. To finish the lesson believing they could build something
-          themselves. That belief is the whole reason CR8LAB exists, and it is the test every
-          product here has to pass.
-        </p>
+    <section className="relative section-y overflow-hidden" style={{ background: "#F6F8FB" }}>
+      <div className="relative page-frame">
+        <div className="rounded-[2rem] bg-adire-dark p-8 shadow-[0_14px_0_rgba(23,19,15,0.12)] sm:p-12 lg:p-16">
+          <p className="max-w-4xl font-display text-2xl leading-[1.2] text-bone sm:text-3xl lg:text-4xl">
+            We build the layer between a story and <span className="text-danfo">an experience</span>
+          </p>
+          <p className="mt-8 max-w-2xl font-sans text-base font-semibold leading-relaxed text-bone/75 sm:text-lg">
+            The world has incredible stories, knowledge, and culture. Most of it still lives on paper,
+            flat screens and static displays. We bring them into three dimensions, using Augmented
+            Reality (AR), Virtual Reality (VR), Artificial Intelligence and interactive storytelling.
+            Because the future isn&apos;t just digital. It&apos;s immersive.
+          </p>
+        </div>
       </div>
     </section>
   );

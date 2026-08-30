@@ -1,25 +1,29 @@
 import { Button } from "@/components/ui/Button";
 
+/** Ported from bluesandsk12's final-cta.jsx: a warm gradient band, centered copy, stacked buttons. */
 export function ClosingCta() {
   return (
-    // No background or glow of its own: the page's fixed ink tone layer carries
-    // the closing echo of the hero's ring-light, held still behind this copy.
-    <section className="relative flex min-h-[80dvh] flex-col justify-center overflow-hidden px-8 py-24 text-center md:px-16 md:py-32">
-      <div className="relative mx-auto max-w-160">
-        <h2 className="font-display text-[32px] font-semibold leading-tight text-bone md:text-[44px]">
-          The next generation will not learn the way the last one did
-        </h2>
-        <p className="mx-auto mt-5 max-w-135 font-sans text-[17px] leading-relaxed text-bone">
-          Whether you run a school, a ministry, a museum, a publishing house or a fund, the
-          conversation starts the same way. Tell us what you want people to be able to do.
-        </p>
-        <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5">
-          <Button href="/contact" variant="primary">
-            Book a demo
-          </Button>
-          <Button href="/contact?route=partner" variant="ghost" theme="dark">
-            Partner with us
-          </Button>
+    <section
+      className="relative section-y overflow-hidden text-center"
+      style={{ background: "linear-gradient(180deg, #FFF6D6 0%, #FFE8A3 100%)" }}
+    >
+      <div className="relative page-frame">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="font-display text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl">
+            Tell us what you want people to step into.
+          </h2>
+          <p className="mx-auto mt-5 max-w-lg font-sans text-lg font-semibold leading-relaxed text-body">
+            Pilots, partnerships, licensing or investment. Start with a conversation about the material
+            you already have.
+          </p>
+          <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Button href="/contact" variant="primary">
+              Start a project
+            </Button>
+            <Button href="/contact?route=demo#form" variant="dark">
+              Book a demo
+            </Button>
+          </div>
         </div>
       </div>
     </section>

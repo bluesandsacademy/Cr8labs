@@ -8,29 +8,26 @@ describe("WhyCr8lab", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: "Built in Africa. Designed for African realities. Made for global use.",
+        name: "Creative capability and technology infrastructure in the same company.",
       })
     ).toBeInTheDocument();
   });
 
-  it("renders all three pillars with their lead sentence as a distinct heading", () => {
+  it("renders all four pillars with their lead sentence as a distinct heading", () => {
     render(<WhyCr8lab />);
+    expect(screen.getByRole("heading", { level: 3, name: "African market insight" })).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 3, name: "We build the technology, not the integration." })
+      screen.getByRole("heading", { level: 3, name: "Content and IP we already own" })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 3, name: "We design for the low end first." })
+      screen.getByRole("heading", { level: 3, name: "AI and XR capability in-house" })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 3, name: "We ship products, not pilots." })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Offline craft" })).toBeInTheDocument();
   });
 
   it("renders the rest of each pillar's copy", () => {
     render(<WhyCr8lab />);
-    expect(
-      screen.getByText(/The 3D assets, the engine work, the content library/)
-    ).toBeInTheDocument();
-    expect(screen.getByText(/A campaign lasts six weeks\./)).toBeInTheDocument();
+    expect(screen.getByText(/We build for the classrooms, budgets, devices/)).toBeInTheDocument();
+    expect(screen.getByText(/Most studios cannot ship this\./)).toBeInTheDocument();
   });
 });

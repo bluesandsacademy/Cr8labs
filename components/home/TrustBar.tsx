@@ -1,10 +1,11 @@
-// Figures from cr8labb_3D_Immersive_Pitch.pptx (slide 8, "Traction"), the
-// company's own reported numbers as of the 2026 raise.
+// The site's own proof-bar figures, superseding the pitch-deck numbers this
+// replaced: five stats instead of four, so the grid below runs to 5 columns.
 export const STATS: { value: string; label: string }[] = [
-  { value: "100+", label: "institutions" },
-  { value: "100,000+", label: "users" },
-  { value: "6", label: "countries" },
+  { value: "$20K+", label: "revenue generated" },
+  { value: "10,000+", label: "users reached" },
   { value: "150+", label: "interactive simulations" },
+  { value: "10+", label: "institutions deployed" },
+  { value: "3", label: "states in Nigeria" },
 ];
 
 /**
@@ -37,9 +38,9 @@ export function TrustBar({ theme = "light" }: { theme?: "light" | "dark" }) {
         Built for Africa. Designed for the world. Running on technology we own.
       </p>
 
-      {/* One column on phones: "100,000+" at display size is wider than half
+      {/* One column on phones: "10,000+" at display size is wider than half
           a 390px screen and pushed the whole page into horizontal scroll. */}
-      <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 md:mt-14 md:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 md:mt-14 lg:grid-cols-5">
         {STATS.map((stat) => (
           <div key={stat.label} className="flex min-w-0 flex-col gap-2">
             <div

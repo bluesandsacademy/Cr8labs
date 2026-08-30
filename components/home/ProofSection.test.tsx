@@ -3,17 +3,20 @@ import { render, screen } from "@testing-library/react";
 import { ProofSection } from "./ProofSection";
 
 describe("ProofSection", () => {
-  it("renders the heading, deck-sourced stats and CTA", () => {
+  it("renders the heading, body and backing line", () => {
+    render(<ProofSection />);
+    expect(screen.getByText("We have already proven the model.")).toBeInTheDocument();
+    expect(screen.getByText(/Education was the proving ground/)).toBeInTheDocument();
+    expect(screen.getByText("Backed and deployed with LASRIC, NITDA and NTI.")).toBeInTheDocument();
+  });
+
+  it("renders the four shipped-not-prototyped proof points", () => {
     render(<ProofSection />);
     expect(
-      screen.getByText(/Most companies in this category show a demo/)
+      screen.getByText("Immersive AR and VR experiences built and shipped, not prototyped")
     ).toBeInTheDocument();
-    expect(screen.getByText("100")).toBeInTheDocument();
-    expect(screen.getByText("100,000")).toBeInTheDocument();
-    expect(screen.getByText("6")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Read the case study" })).toHaveAttribute(
-      "href",
-      "/work"
-    );
+    expect(
+      screen.getByText("Offline and low connectivity builds that run with no network at all")
+    ).toBeInTheDocument();
   });
 });

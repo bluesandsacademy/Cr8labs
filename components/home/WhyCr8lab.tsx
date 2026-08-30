@@ -1,56 +1,55 @@
-const PILLARS: { lead: string; rest: string; accent: string }[] = [
-  {
-    lead: "We build the technology, not the integration.",
-    rest: "The 3D assets, the engine work, the content library and the platform are ours. That is why we can change them, price them in naira, and licence them out.",
-    accent: "#F5A623",
-  },
-  {
-    lead: "We design for the low end first.",
-    rest: "If it runs well on a mid range Android over a weak connection with the power off, it runs beautifully everywhere else. Most competitors design in reverse and never arrive.",
-    accent: "#2C276C",
-  },
-  {
-    lead: "We ship products, not pilots.",
-    rest: "A campaign lasts six weeks. A school term does not care about your roadmap.",
-    accent: "#B6502E",
-  },
+import { MapPin, Layers, Cpu, WifiOff } from "lucide-react";
+
+const PILLARS = [
+  { lead: "African market insight", rest: "We build for the classrooms, budgets, devices and networks that actually exist here, not the ones in the brief.", accent: "#FFEB59", icon: MapPin },
+  { lead: "Content and IP we already own", rest: "A working library of 3D assets, characters and simulations that we reuse instead of rebuilding.", accent: "#2C276C", icon: Layers },
+  { lead: "AI and XR capability in-house", rest: "Story, 3D, engineering and AI under one roof. Nothing brokered out, nothing waiting on a vendor.", accent: "#B6502E", icon: Cpu },
+  { lead: "Offline craft", rest: "Full immersive experiences that run with no network at all. Most studios cannot ship this.", accent: "#6E67B8", icon: WifiOff },
 ];
 
 export function WhyCr8lab() {
   return (
-    <section className="relative overflow-hidden border-t border-border-light px-8 py-16 md:px-16 md:py-20">
+    <section className="relative section-y overflow-hidden" style={{ background: "#FFFBF0" }}>
       <div
-        className="pointer-events-none absolute -bottom-48 -right-24 h-120 w-120 rounded-full border-9 border-laterite/5"
+        className="pointer-events-none absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-laterite/15 blur-3xl"
         aria-hidden="true"
       />
 
-      <div className="relative max-w-200">
-        <h2 className="font-display text-[34px] font-semibold leading-[1.08] text-ink md:text-[46px]">
-          Built in Africa. Designed for African realities. Made for global use.
-        </h2>
-      </div>
+      <div className="relative page-frame">
+        <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+          <span className="inline-block font-mono text-xs font-bold uppercase tracking-[0.14em] text-adire/70 sm:text-sm">
+            Our advantage
+          </span>
+          <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl lg:text-5xl">
+            Creative capability and technology infrastructure in the same company.
+          </h2>
+        </div>
 
-      <div className="relative mt-12 grid grid-cols-1 gap-10 md:grid-cols-3">
-        {PILLARS.map((pillar) => (
-          <div key={pillar.lead}>
-            {/* Not a 01/02/03 marker - these three don't run in any order that
-                matters, so numbering them would claim a sequence that isn't
-                there. A ring-dot rule instead, same device as every eyebrow. */}
-            <div className="mb-4 flex items-center gap-2.5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          {PILLARS.map((pillar) => (
+            <div
+              key={pillar.lead}
+              className="rounded-[1.8rem] border-4 bg-white p-6 shadow-[0_8px_0_rgba(23,19,15,0.08)] transition-transform duration-200 hover:-translate-y-2"
+              style={{ borderColor: pillar.accent }}
+            >
               <span
-                className="relative flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border-[1.5px]"
-                style={{ borderColor: pillar.accent }}
+                className="flex h-12 w-12 items-center justify-center rounded-2xl shadow-md"
+                style={{ backgroundColor: pillar.accent }}
+                aria-hidden="true"
               >
-                <span className="h-1 w-1 rounded-full" style={{ backgroundColor: pillar.accent }} />
+                <pillar.icon
+                  className="h-6 w-6"
+                  style={{ color: pillar.accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
+                  strokeWidth={2.2}
+                />
               </span>
-              <div className="h-px flex-1 bg-border" />
+              <h3 className="mt-4 font-display text-base font-bold leading-snug text-ink">{pillar.lead}</h3>
+              <p className="mt-2.5 font-sans text-sm font-semibold leading-relaxed text-body">
+                {pillar.rest}
+              </p>
             </div>
-            <h3 className="font-display text-[19px] font-semibold leading-snug text-ink">
-              {pillar.lead}
-            </h3>
-            <p className="mt-3 font-sans text-[15px] leading-relaxed text-body">{pillar.rest}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

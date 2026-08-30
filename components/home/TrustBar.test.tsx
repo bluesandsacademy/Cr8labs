@@ -10,16 +10,18 @@ describe("TrustBar", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders all four deck-sourced stats, unbracketed", () => {
+  it("renders all five proof-bar stats", () => {
     render(<TrustBar />);
-    expect(screen.getByText("100+")).toBeInTheDocument();
-    expect(screen.getByText("100,000+")).toBeInTheDocument();
-    expect(screen.getByText("6")).toBeInTheDocument();
+    expect(screen.getByText("$20K+")).toBeInTheDocument();
+    expect(screen.getByText("10,000+")).toBeInTheDocument();
     expect(screen.getByText("150+")).toBeInTheDocument();
-    expect(screen.getByText("institutions")).toBeInTheDocument();
-    expect(screen.getByText("users")).toBeInTheDocument();
-    expect(screen.getByText("countries")).toBeInTheDocument();
+    expect(screen.getByText("10+")).toBeInTheDocument();
+    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.getByText("revenue generated")).toBeInTheDocument();
+    expect(screen.getByText("users reached")).toBeInTheDocument();
     expect(screen.getByText("interactive simulations")).toBeInTheDocument();
+    expect(screen.getByText("institutions deployed")).toBeInTheDocument();
+    expect(screen.getByText("states in Nigeria")).toBeInTheDocument();
   });
 
   it("names the confirmed institutional partners", () => {
@@ -29,14 +31,14 @@ describe("TrustBar", () => {
 
   it("uses bone text on the dark theme instead of ink, since it now sits on a dark background", () => {
     render(<TrustBar theme="dark" />);
-    const stat = screen.getByText("100+");
+    const stat = screen.getByText("$20K+");
     expect(stat).toHaveClass("text-bone");
     expect(stat).not.toHaveClass("text-ink");
   });
 
   it("defaults to the light theme", () => {
     render(<TrustBar />);
-    const stat = screen.getByText("100+");
+    const stat = screen.getByText("$20K+");
     expect(stat).toHaveClass("text-ink");
   });
 });

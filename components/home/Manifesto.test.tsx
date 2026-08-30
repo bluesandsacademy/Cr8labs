@@ -5,7 +5,7 @@ import { Manifesto } from "./Manifesto";
 describe("Manifesto", () => {
   it("renders the belief statement and its supporting copy", () => {
     render(<Manifesto />);
-    expect(screen.getByText(/Learning should never be limited to/)).toBeInTheDocument();
-    expect(screen.getByText(/That belief is the whole reason CR8LAB exists/)).toBeInTheDocument();
+    expect(screen.getByText(/We build the layer between a story and/)).toBeInTheDocument();
+    expect(screen.getByText(/Because the future isn't just digital/)).toBeInTheDocument();
   });
 });

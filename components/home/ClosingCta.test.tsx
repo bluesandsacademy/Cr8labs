@@ -8,19 +8,22 @@ describe("ClosingCta", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: "The next generation will not learn the way the last one did",
+        name: "Tell us what you want people to step into.",
       })
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Whether you run a school, a ministry, a museum, a publishing house or a fund, the conversation starts the same way. Tell us what you want people to be able to do."
+        "Pilots, partnerships, licensing or investment. Start with a conversation about the material you already have."
       )
     ).toBeInTheDocument();
   });
 
   it("renders both closing CTAs", () => {
     render(<ClosingCta />);
-    expect(screen.getByRole("link", { name: "Book a demo" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Partner with us" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Start a project" })).toHaveAttribute("href", "/contact");
+    expect(screen.getByRole("link", { name: "Book a demo" })).toHaveAttribute(
+      "href",
+      "/contact?route=demo#form"
+    );
   });
 });
