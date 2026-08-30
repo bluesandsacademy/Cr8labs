@@ -9,23 +9,12 @@ export type ContactState =
 
 /** The copy deck's own form error. */
 const SEND_FAILED =
-  "That did not send. Try again, or write to hello@cr8lab.com and we will pick it up from there.";
+  "That did not send. Try again, or write to cr8labtech@gmail.com and we will pick it up from there.";
 
-/** The deck's thank-you copy, sent to the person who wrote in. */
-const THANK_YOU =
-  "Got it. We are reading it now. If we need more before we can be useful, we will ask one or two questions rather than send the form back.";
+/** The site's own confirmation copy, sent to the person who wrote in. */
+const THANK_YOU = "Thank you. We reply to every enquiry within two working days.";
 
-const FIELDS = [
-  "name",
-  "organisation",
-  "email",
-  "route",
-  "message",
-  "where",
-  "timeline",
-  "budget",
-  "extra",
-] as const;
+const FIELDS = ["name", "organisation", "email", "phone", "route", "message"] as const;
 
 const text = (formData: FormData, key: string) => String(formData.get(key) ?? "").trim();
 

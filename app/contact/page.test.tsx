@@ -3,30 +3,23 @@ import { render, screen } from "@testing-library/react";
 import ContactPage from "./page";
 
 describe("Contact page", () => {
-  it("opens with the deck's hero and all seven routes", async () => {
+  it("opens with the site's own hero", async () => {
     render(await ContactPage({ searchParams: Promise.resolve({}) }));
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Start here");
-    for (const name of [
-      "Book a demo",
-      "Partner with us",
-      "Fund innovation",
-      "Join the team",
-      "Become a publisher",
-      "Research collaboration",
-      "Media enquiries",
-    ]) {
-      expect(screen.getByRole("heading", { name })).toBeInTheDocument();
-    }
-    expect(screen.getByText(/We answer press within \[one\] working day\./)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Let us build it together.");
   });
 
   it("preselects the form's route from ?route=", async () => {
     render(await ContactPage({ searchParams: Promise.resolve({ route: "fund" }) }));
-    expect(screen.getByLabelText("I am here to")).toHaveValue("invest or fund");
+    expect(screen.getByLabelText("I am contacting about")).toHaveValue("Investment");
   });
 
-  it("keeps the direct details bracketed", async () => {
+  it("renders the real contact details, not brackets", async () => {
     render(await ContactPage({ searchParams: Promise.resolve({}) }));
-    expect(screen.getByText(/\[hello@cr8lab\.com\] · \[phone\] · \[office address\], Lagos, Nigeria/)).toBeInTheDocument();
+    const emailLinks = screen.getAllByRole("link", { name: "cr8labtech@gmail.com" });
+    expect(emailLinks.length).toBeGreaterThanOrEqual(1);
+    for (const link of emailLinks) {
+      expect(link).toHaveAttribute("href", "mailto:cr8labtech@gmail.com");
+    }
+    expect(screen.getAllByText("Sangotedo, Lagos, Nigeria").length).toBeGreaterThanOrEqual(1);
   });
 });

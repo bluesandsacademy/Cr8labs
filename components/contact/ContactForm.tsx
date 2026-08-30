@@ -6,12 +6,8 @@ import { submitContact, type ContactState } from "@/app/contact/actions";
 
 import { ROUTE_OPTIONS } from "./route-options";
 
-/** Every option list is the copy deck's, verbatim. Route options live in ./route-options so the server page can read them too. */
-const WHERE_OPTIONS = ["schools", "museum", "retail", "event", "headset", "online", "not sure"] as const;
-const BUDGET_OPTIONS = ["under $5k", "$5k to $20k", "$20k to $50k", "$50k+", "not sure yet"] as const;
-
 const INPUT =
-  "w-full rounded-[3px] border-[1.5px] border-border bg-bone px-3.5 py-3 font-sans text-[15px] text-ink placeholder:text-disabled focus-ring-light focus:border-adire";
+  "w-full rounded-2xl border-[1.5px] border-border bg-white px-3.5 py-3 font-sans text-[15px] text-ink placeholder:text-disabled focus-ring-light focus:border-adire";
 const LABEL = "mb-2 block font-sans text-[13px] font-semibold text-ink";
 const ERROR = "mt-2 font-sans text-[12px] text-laterite-text";
 
@@ -47,7 +43,7 @@ function Submit() {
     <button
       type="submit"
       disabled={pending}
-      className="focus-ring-light inline-flex items-center gap-3 rounded-[3px] bg-danfo px-6.5 py-3.75 font-sans text-[15px] font-semibold text-ink shadow-[0_10px_24px_-12px_rgba(245,166,35,0.55)] transition-all duration-150 ease-out hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-70"
+      className="focus-ring-light inline-flex items-center gap-3 rounded-2xl bg-danfo px-6.5 py-3.75 font-display text-[15px] font-bold text-ink shadow-[0_6px_0_var(--color-adire-dark)] transition-all duration-150 ease-out hover:translate-y-[3px] hover:shadow-[0_3px_0_var(--color-adire-dark)] disabled:translate-y-0 disabled:opacity-70"
     >
       {pending && (
         <span
@@ -61,9 +57,9 @@ function Submit() {
 }
 
 /**
- * The deck's form, every field and option verbatim, submitting to the
- * server action. `initialRoute` preselects "I am here to" from the URL.
- * The thank-you renders in place on success.
+ * The site's own form: Name, Organisation, Email, Phone, "I am contacting
+ * about", "Tell us about your project". `initialRoute` preselects the
+ * dropdown from the URL. The confirmation renders in place on success.
  */
 export function ContactForm({
   initialRoute,
@@ -82,11 +78,9 @@ export function ContactForm({
 
   if (state.status === "success") {
     return (
-      <div className="border-l-2 border-success pl-6" role="status">
-        <p className="font-display text-[26px] leading-tight text-ink md:text-[32px]">Got it. We are reading it now.</p>
-        <p className="mt-4 max-w-120 font-sans text-[16px] leading-relaxed text-body">
-          If we need more before we can be useful, we will ask one or two questions rather than send
-          the form back.
+      <div className="rounded-[1.8rem] border-4 border-danfo bg-bone p-7 lg:p-9" role="status">
+        <p className="font-display text-[26px] leading-tight text-ink md:text-[32px]">
+          Thank you. We reply to every enquiry within two working days.
         </p>
       </div>
     );
@@ -112,11 +106,16 @@ export function ContactForm({
         </Field>
       </div>
 
-      <Field label="Email" name="email" error={fields.email}>
-        <input id="email" name="email" type="email" autoComplete="email" className={INPUT} aria-invalid={!!fields.email} aria-describedby={fields.email ? "email-error" : undefined} />
-      </Field>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <Field label="Email" name="email" error={fields.email}>
+          <input id="email" name="email" type="email" autoComplete="email" className={INPUT} aria-invalid={!!fields.email} aria-describedby={fields.email ? "email-error" : undefined} />
+        </Field>
+        <Field label="Phone" name="phone">
+          <input id="phone" name="phone" type="tel" autoComplete="tel" className={INPUT} />
+        </Field>
+      </div>
 
-      <Field label="I am here to" name="route">
+      <Field label="I am contacting about" name="route">
         <select id="route" name="route" defaultValue={initialRoute ?? ""} className={INPUT}>
           <option value="" disabled>
             Choose one
@@ -129,43 +128,8 @@ export function ContactForm({
         </select>
       </Field>
 
-      <Field label="Tell us what you want people to be able to do" name="message" error={fields.message}>
+      <Field label="Tell us about your project" name="message" error={fields.message}>
         <textarea id="message" name="message" rows={6} className={INPUT} aria-invalid={!!fields.message} aria-describedby={fields.message ? "message-error" : undefined} />
-      </Field>
-
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Field label="Where will this run?" name="where">
-          <select id="where" name="where" defaultValue="" className={INPUT}>
-            <option value="" disabled>
-              Choose one
-            </option>
-            {WHERE_OPTIONS.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </Field>
-        <Field label="Timeline" name="timeline">
-          <input id="timeline" name="timeline" type="text" placeholder="date, or not fixed" className={INPUT} />
-        </Field>
-      </div>
-
-      <Field label="Budget range" name="budget">
-        <select id="budget" name="budget" defaultValue="" className={INPUT}>
-          <option value="" disabled>
-            Choose one
-          </option>
-          {BUDGET_OPTIONS.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </Field>
-
-      <Field label="Anything else, including links" name="extra">
-        <textarea id="extra" name="extra" rows={3} className={INPUT} />
       </Field>
 
       {state.status === "error" && state.message && (
@@ -177,8 +141,7 @@ export function ContactForm({
       <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <Submit />
         <p className="max-w-95 font-sans text-[13px] leading-relaxed text-muted">
-          We reply within [two] working days. If your project is not right for us we will say so, and
-          point you somewhere better.
+          We reply to every enquiry within two working days.
         </p>
       </div>
     </form>

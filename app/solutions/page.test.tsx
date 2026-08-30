@@ -1,38 +1,35 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import SolutionsPage from "./page";
 
 describe("Solutions page", () => {
-  it("opens with the deck's hero and puts the problem first", () => {
+  it("opens with the site's own hero", () => {
     render(<SolutionsPage />);
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Solutions");
-    expect(screen.getByText(/Every section below states the problem first/)).toBeInTheDocument();
-    const labels = screen.getAllByText("problem");
-    expect(labels).toHaveLength(10);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "We build worlds people step into, not content they scroll past."
+    );
+    const main = within(screen.getByRole("main"));
+    expect(main.getByRole("link", { name: "Book a demo" })).toHaveAttribute("href", "/contact");
+    expect(main.getByRole("link", { name: "Partner with us" })).toHaveAttribute(
+      "href",
+      "/contact?route=partner#form"
+    );
   });
 
-  it("renders all ten sectors, each reachable from the ring", () => {
+  it("links all four industry cards to their sub-pages", () => {
     render(<SolutionsPage />);
-    for (const name of [
-      "Schools",
-      "Parents and families",
-      "Governments and ministries",
-      "Publishers",
-      "Museums, galleries and heritage",
-      "NGOs and development partners",
-      "Corporate and industrial training",
-      "Universities",
-      "Science centres and libraries",
-      "Creators and studios",
-    ]) {
-      expect(screen.getByRole("heading", { level: 2, name })).toBeInTheDocument();
-    }
-    expect(document.querySelectorAll('a[href^="#"]')).toHaveLength(10);
-  });
-
-  it("keeps the deck's figures bracketed", () => {
-    render(<SolutionsPage />);
-    expect(screen.getByText(/from \[₦8,000\] a term\./)).toBeInTheDocument();
-    expect(screen.getByText(/\[40 to 50\] percent/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Education/ })).toHaveAttribute("href", "/solutions/education");
+    expect(screen.getByRole("link", { name: /Culture and publishing/ })).toHaveAttribute(
+      "href",
+      "/solutions/culture-and-publishing"
+    );
+    expect(screen.getByRole("link", { name: /Brands and enterprise/ })).toHaveAttribute(
+      "href",
+      "/solutions/brands-and-enterprise"
+    );
+    expect(screen.getByRole("link", { name: /Training and simulation/ })).toHaveAttribute(
+      "href",
+      "/solutions/training-and-simulation"
+    );
   });
 });

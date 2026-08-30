@@ -6,27 +6,25 @@
  * would silently return undefined; that is exactly what happened before.
  */
 
-/** Every option is the copy deck's, verbatim. */
+/** Every option is the site's own dropdown list for "I am contacting about", verbatim. */
 export const ROUTE_OPTIONS = [
-  "demo",
-  "partner",
-  "invest or fund",
-  "apply for a role",
-  "publish",
-  "research",
-  "press",
-  "something else",
+  "A commissioned project",
+  "Buying products for a school",
+  "Institutional or bulk order",
+  "Partnership or licensing",
+  "Investment",
+  "Press",
+  "Something else",
 ] as const;
 
 export type RouteOption = (typeof ROUTE_OPTIONS)[number];
 
-/** `?route=` values (from the site's own links) to the deck's option list. */
+/** `?route=` values (from the site's own links) to the dropdown's option list. */
 export const ROUTE_PARAM_TO_OPTION: Record<string, RouteOption> = {
-  demo: "demo",
-  partner: "partner",
-  fund: "invest or fund",
-  join: "apply for a role",
-  publish: "publish",
-  research: "research",
-  press: "press",
+  demo: "A commissioned project",
+  partner: "Partnership or licensing",
+  fund: "Investment",
+  school: "Buying products for a school",
+  bulk: "Institutional or bulk order",
+  press: "Press",
 };

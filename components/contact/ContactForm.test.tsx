@@ -5,30 +5,28 @@ import { ContactForm } from "./ContactForm";
 import type { ContactState } from "@/app/contact/actions";
 
 describe("ContactForm", () => {
-  it("renders every field and option list from the deck", () => {
+  it("renders every field and option from the site's own list", () => {
     render(<ContactForm />);
-    for (const label of [
-      "Name",
-      "Organisation",
-      "Email",
-      "I am here to",
-      "Tell us what you want people to be able to do",
-      "Where will this run?",
-      "Timeline",
-      "Budget range",
-      "Anything else, including links",
-    ]) {
+    for (const label of ["Name", "Organisation", "Email", "Phone", "I am contacting about", "Tell us about your project"]) {
       expect(screen.getByLabelText(label)).toBeInTheDocument();
     }
-    for (const option of ["invest or fund", "apply for a role", "something else", "headset", "not sure", "$20k to $50k", "not sure yet"]) {
+    for (const option of [
+      "A commissioned project",
+      "Buying products for a school",
+      "Institutional or bulk order",
+      "Partnership or licensing",
+      "Investment",
+      "Press",
+      "Something else",
+    ]) {
       expect(screen.getByRole("option", { name: option })).toBeInTheDocument();
     }
-    expect(screen.getByText(/We reply within \[two\] working days\./)).toBeInTheDocument();
+    expect(screen.getByText("We reply to every enquiry within two working days.")).toBeInTheDocument();
   });
 
   it("preselects the route it is given", () => {
-    render(<ContactForm initialRoute="partner" />);
-    expect(screen.getByLabelText("I am here to")).toHaveValue("partner");
+    render(<ContactForm initialRoute="Partnership or licensing" />);
+    expect(screen.getByLabelText("I am contacting about")).toHaveValue("Partnership or licensing");
   });
 
   it("shows field errors returned by the action", async () => {
@@ -43,18 +41,20 @@ describe("ContactForm", () => {
     expect(screen.getByText("Enter an email address.")).toBeInTheDocument();
   });
 
-  it("shows the deck's thank-you in place on success", async () => {
+  it("shows the confirmation message in place on success", async () => {
     const action = async (): Promise<ContactState> => ({ status: "success" });
     render(<ContactForm action={action} />);
     await userEvent.click(screen.getByRole("button", { name: "Send" }));
-    expect(await screen.findByText("Got it. We are reading it now.")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Thank you. We reply to every enquiry within two working days.")
+    ).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Send" })).not.toBeInTheDocument();
   });
 
-  it("shows the deck's send-failure copy when delivery fails", async () => {
+  it("shows the send-failure copy when delivery fails", async () => {
     const action = async (): Promise<ContactState> => ({
       status: "error",
-      message: "That did not send. Try again, or write to hello@cr8lab.com and we will pick it up from there.",
+      message: "That did not send. Try again, or write to cr8labtech@gmail.com and we will pick it up from there.",
     });
     render(<ContactForm action={action} />);
     await userEvent.click(screen.getByRole("button", { name: "Send" }));
