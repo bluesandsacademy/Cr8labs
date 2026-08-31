@@ -1,54 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Download, RotateCw, Play } from "lucide-react";
 import { InnerPage } from "@/components/layout/InnerPage";
 import { SimpleHero } from "@/components/ui/SimpleHero";
-import { RingList } from "@/components/ui/RingList";
 import { Button } from "@/components/ui/Button";
+import { PRODUCTS } from "@/components/products/products-data";
 
 export const metadata: Metadata = {
   title: "Immersive Learning Products",
   description: "Explore CR8LABB's AR books, VR experiences and interactive learning products.",
 };
-
-const PRODUCTS = [
-  {
-    name: "Into the Community",
-    format: "AR",
-    price: "from $250",
-    body: "Five vivid AR stories about the places we live in. Users scan the page, and the community stands up in front of them: the market, the clinic, the road, the people who keep it all running. Built for early years and lower primary, and also to keep the kids busy at home while parents are busy with other chores.",
-    includes: "Printed book set, Spotty camera, smart tablet, AR app licence, offline content pack, markers.",
-    image: { src: "/brand/ceo/into-the-community.png", alt: "A child wearing a VR headset beside a tablet on a carved stand with a fan of AR storybooks open in front of her" },
-    accent: "#FFEB59",
-  },
-  {
-    name: "Into the Curiosity Q",
-    format: "AR",
-    price: "from $350",
-    body: "Vivid virtual experiences that make big ideas click. The questions children ask, and adults struggle to answer, rendered as things they can watch happen and take apart. Built for upper primary and lower secondary.",
-    includes: "Printed book set, Spotty camera, smart tablet, AR app licence, offline content pack, markers.",
-    image: { src: "/brand/ceo/into-the-curiosity-q.png", alt: "A child wearing a VR headset with a tablet on a carved stand showing an AR savanna storybook experience, surrounded by AR animal cards" },
-    accent: "#2C276C",
-  },
-  {
-    name: "AR Science Lab",
-    format: "AR",
-    price: "from $450",
-    body: "An eight-book AR science series across four subjects. Full practical procedure, apparatus students assemble themselves, and experiments that fail properly when done wrong. This is the laboratory for schools that will never build one.",
-    includes: "Printed book set, Spotty camera, smart tablet, AR app licence, offline content pack, markers.",
-    image: { src: "/brand/ceo/ar-science-lab.png", alt: "A field guide, binoculars and lab test tubes beside two tablets showing wildlife AR and surgical simulation apps, with a child wearing a VR headset" },
-    accent: "#B6502E",
-  },
-  {
-    name: "Experience Africa",
-    format: "VR",
-    price: "from $500",
-    body: "Headset-led virtual worlds, shipped as a ready-to-run VR kit. Walk through African heritage sites, ecosystems and reconstructions in full presence, with nothing else in view. Set it up in a classroom, a gallery, an exhibition stand or a training room and run a session without technical support.",
-    includes: "Headsets, preloaded offline content library, charging and storage case, self-help training session.",
-    image: { src: "/brand/ceo/experience-africa.png", alt: "A child wearing a VR headset beside a tablet on a carved stand showing an AR royal-kingdom storybook experience, surrounded by AR animal cards" },
-    accent: "#6E67B8",
-  },
-];
 
 const HOW_IT_WORKS = [
   { step: "1. Set up", body: "Download the ARpedia app, mount your charged tablet in the Spotty stand on a flat, well lit table, and plug in the built in cable.", icon: Download },
@@ -66,50 +28,73 @@ export default function ProductsPage() {
         secondaryCta={{ label: "See our work", href: "/about" }}
       />
 
-      <section className="relative section-y overflow-hidden bg-white">
-        <div className="relative page-frame">
-          <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+      <section className="relative overflow-hidden bg-white pt-10">
+        <div className="page-frame">
+          <div className="grid grid-cols-2 divide-x divide-border overflow-hidden rounded-2xl border border-border sm:grid-cols-4">
+            {[
+              { stat: "Runs fully offline", note: "No network needed" },
+              { stat: "No subscription", note: "One kit, yours" },
+              { stat: "10+ institutions", note: "Already deployed" },
+              { stat: "Setup in ~5 min", note: "Three steps" },
+            ].map((item) => (
+              <div key={item.stat} className="px-4 py-4 text-center">
+                <p className="font-display text-sm font-bold leading-tight text-ink">{item.stat}</p>
+                <p className="mt-1 font-sans text-xs font-semibold text-muted">{item.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Image-led entry points: the real buying happens on each kit's own
+          page, so this stays a clean, large-photo grid, not a wall of text. */}
+      <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+        <div className="page-frame">
+          <div className="mb-12 text-center lg:mb-16">
             <span className="inline-block font-mono text-xs font-bold uppercase tracking-[0.14em] text-adire/70 sm:text-sm">
               The product line
             </span>
-            <h2 className="mt-3 font-display text-3xl leading-tight text-ink sm:text-4xl">
+            <h2 className="mx-auto mt-3 max-w-2xl font-display text-3xl leading-tight text-ink sm:text-4xl">
               Four kits. One immersive engine.
             </h2>
             <p className="mx-auto mt-4 max-w-xl font-sans text-lg font-semibold text-body">
-              Print, AR and VR bundles for schools, museums, institutions and families. Every kit runs
-              on the same app, the same 3D library and the same offline runtime as our commissioned work.
+              Print, AR and VR bundles for schools, museums, institutions and families. Every kit runs on
+              the same app, the same 3D library and the same offline runtime as our commissioned work.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
             {PRODUCTS.map((product) => (
-              <div
-                key={product.name}
-                className="overflow-hidden rounded-[1.8rem] border-4 bg-bone shadow-[0_8px_0_rgba(23,19,15,0.08)]"
-                style={{ borderColor: product.accent }}
+              <Link
+                key={product.slug}
+                href={`/products/${product.slug}`}
+                className="focus-ring-light group block overflow-hidden rounded-[1.8rem] bg-bone shadow-[0_1px_0_rgba(23,19,15,0.06),0_16px_36px_-20px_rgba(23,19,15,0.3)] transition-transform duration-200 hover:-translate-y-2"
               >
-                <div className="relative aspect-[4/3] w-full">
-                  <Image src={product.image.src} alt={product.image.alt} fill sizes="(min-width: 1024px) 560px, 90vw" className="object-cover" />
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  <Image
+                    src={product.image.src}
+                    alt={product.image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 620px, 92vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
-                <div className="p-6 lg:p-7">
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="font-display text-xl font-bold leading-tight text-ink">{product.name}</h3>
+                <div className="flex items-center justify-between gap-4 p-6 lg:p-7">
+                  <div>
                     <span
-                      className="shrink-0 rounded-full px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide"
-                      style={{ backgroundColor: product.accent, color: product.accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
+                      className="mb-2 inline-block rounded-full px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wide"
+                      style={{ backgroundColor: `${product.accent}26`, color: product.accent }}
                     >
-                      {product.format}
+                      {product.format} kit
                     </span>
+                    <h3 className="font-display text-xl font-bold leading-tight text-ink">{product.name}</h3>
+                    <p className="mt-1 font-mono text-sm font-bold text-laterite-text">{product.price}</p>
                   </div>
-                  <p className="mt-1 font-mono text-sm font-bold text-laterite-text">{product.price}</p>
-                  <p className="mt-3 font-sans text-sm font-semibold leading-relaxed text-body">
-                    {product.body}
-                  </p>
-                  <p className="mt-4 font-sans text-xs font-semibold uppercase tracking-wide text-muted">
-                    Includes: {product.includes}
-                  </p>
+                  <span className="focus-ring-light shrink-0 rounded-full bg-ink px-5 py-2.5 font-sans text-sm font-bold text-bone">
+                    Buy now
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -117,21 +102,7 @@ export default function ProductsPage() {
 
       <section className="relative section-y overflow-hidden" style={{ background: "#F6F8FB" }}>
         <div className="relative page-frame">
-          <h2 className="mx-auto max-w-xl text-center font-display text-2xl leading-snug text-ink sm:text-3xl">
-            Every kit ships complete.
-          </h2>
-          <div className="mx-auto mt-8 max-w-xl">
-            <RingList
-              items={[
-                "Print, device licence and offline content in one box",
-                "Runs with no network for the full term",
-                "Teacher guide and setup session included",
-                "Volume pricing for schools, museums, art galleries, and distributors",
-              ]}
-            />
-          </div>
-
-          <div className="mx-auto mt-14 max-w-2xl rounded-[1.8rem] border-4 border-adire bg-white p-7 text-center shadow-[0_8px_0_rgba(23,19,15,0.08)] lg:p-9">
+          <div className="mx-auto max-w-2xl rounded-[1.8rem] border-4 border-adire bg-white p-7 text-center shadow-[0_8px_0_rgba(23,19,15,0.08)] lg:p-9">
             <h3 className="font-display text-xl leading-snug text-ink">
               Buying for a school, a museum, a gallery, or a distribution network?
             </h3>
