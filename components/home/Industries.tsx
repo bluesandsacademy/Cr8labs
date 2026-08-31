@@ -12,7 +12,9 @@ const SCRIM =
 const SECTORS = [
   {
     name: "Education",
-    tagline: "Laboratories with no building required",
+    // Each tagline is the exact H1 from that sector's own Solutions page —
+    // not a shortened paraphrase, which is what this line held before.
+    tagline: "Laboratories, field trips and practicals with no building required.",
     line: "Schools, universities and ministries. Laboratories, field trips and practicals that no budget or building could otherwise deliver.",
     image: {
       src: "/brand/ceo/into-the-community.png",
@@ -21,7 +23,7 @@ const SECTORS = [
   },
   {
     name: "Culture and publishing",
-    tagline: "Collections people can enter",
+    tagline: "Collections people can enter, not just look at.",
     line: "Museums, publishers, archives and tourism boards. Collections and titles that visitors can enter instead of observe.",
     image: {
       src: "/brand/ceo/kemet-heritage-family.png",
@@ -30,13 +32,13 @@ const SECTORS = [
   },
   {
     name: "Brands and enterprise",
-    tagline: "Let customers hold the product",
+    tagline: "Let customers hold the product before they own it.",
     line: "Agencies, retailers and consumer brands. Products, activations and stores that customers can hold, configure and walk through.",
     image: null,
   },
   {
     name: "Training and simulation",
-    tagline: "Practice without the real-world cost",
+    tagline: "Practice the thing that is too costly to practise.",
     line: "Employers, health services and technical operators. Repeatable practice on the tasks that carry real cost when they go wrong.",
     image: {
       src: "/brand/ceo/training-simulation.png",
