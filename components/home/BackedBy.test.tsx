@@ -6,7 +6,7 @@ describe("BackedBy", () => {
   it("renders the caption and every confirmed institutional partner", () => {
     render(<BackedBy />);
     expect(screen.getByText("Backed and deployed with")).toBeInTheDocument();
-    for (const partner of ["LASRIC", "NITDA", "NTI", "CcHUB", "ReLearn"]) {
+    for (const partner of ["LASRIC", "NITDA", "NTI"]) {
       expect(screen.getByText(partner)).toBeInTheDocument();
     }
   });

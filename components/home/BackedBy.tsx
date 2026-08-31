@@ -1,4 +1,4 @@
-const PARTNERS = ["LASRIC", "NITDA", "NTI", "CcHUB", "ReLearn"];
+const PARTNERS = ["LASRIC", "NITDA", "NTI"];
 
 /**
  * Its own band, not a footnote inside another section — the credibility
