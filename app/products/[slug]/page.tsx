@@ -64,7 +64,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="lg:sticky lg:top-28">
               <span
                 className="inline-block rounded-full px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide"
-                style={{ backgroundColor: `${product.accent}26`, color: product.accent }}
+                style={{
+                  backgroundColor: `${product.accent}26`,
+                  color: product.accent === "#FFEB59" ? "#17130F" : product.accent,
+                }}
               >
                 {product.format} kit
               </span>

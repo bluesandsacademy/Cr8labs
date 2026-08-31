@@ -83,7 +83,10 @@ export default function ProductsPage() {
                   <div>
                     <span
                       className="mb-2 inline-block rounded-full px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wide"
-                      style={{ backgroundColor: `${product.accent}26`, color: product.accent }}
+                      style={{
+                        backgroundColor: `${product.accent}26`,
+                        color: product.accent === "#FFEB59" ? "#17130F" : product.accent,
+                      }}
                     >
                       {product.format} kit
                     </span>
