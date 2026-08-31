@@ -75,34 +75,40 @@ export function CardGrid({
             );
 
             if (card.image) {
+              // Full-bleed: the photo is the whole card, not a box with a
+              // text panel bolted underneath. Text sits on a bottom scrim,
+              // the way Circle and Oura Ring do it — nothing left to crop
+              // awkwardly since the image just fills the card at rest.
               return (
                 <div
                   key={card.name}
-                  className="group overflow-hidden rounded-[1.8rem] bg-white shadow-[0_1px_0_rgba(23,19,15,0.06),0_16px_36px_-20px_rgba(23,19,15,0.3)] transition-transform duration-200 hover:-translate-y-2"
+                  className="group relative aspect-[4/5] overflow-hidden rounded-[1.8rem] shadow-[0_16px_36px_-20px_rgba(23,19,15,0.35)] transition-transform duration-200 hover:-translate-y-2"
                 >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <Image
-                      src={card.image.src}
-                      alt={card.image.alt}
-                      fill
-                      sizes="(min-width: 1024px) 320px, 90vw"
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  <Image
+                    src={card.image.src}
+                    alt={card.image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 320px, 90vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{ background: "linear-gradient(to top, rgba(23,19,15,0.88) 0%, rgba(23,19,15,0.3) 45%, transparent 70%)" }}
+                  />
+                  <span
+                    className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-xl shadow-md"
+                    style={{ backgroundColor: accent }}
+                    aria-hidden="true"
+                  >
+                    <card.icon
+                      className="h-5 w-5"
+                      style={{ color: accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
+                      strokeWidth={2.2}
                     />
-                    <span
-                      className="absolute bottom-3 left-3 flex h-11 w-11 items-center justify-center rounded-xl shadow-md"
-                      style={{ backgroundColor: accent }}
-                      aria-hidden="true"
-                    >
-                      <card.icon
-                        className="h-5.5 w-5.5"
-                        style={{ color: accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
-                        strokeWidth={2.2}
-                      />
-                    </span>
-                  </div>
-                  <div className="p-6 lg:p-7">
-                    <h3 className="font-display text-lg font-bold leading-tight text-ink">{card.name}</h3>
-                    <p className="mt-1 font-sans text-sm font-semibold leading-relaxed text-body">
+                  </span>
+                  <div className="absolute inset-x-0 bottom-0 p-6">
+                    <h3 className="font-display text-lg font-bold leading-tight text-bone">{card.name}</h3>
+                    <p className="mt-1 font-sans text-sm font-semibold leading-relaxed text-bone/80">
                       {card.body}
                     </p>
                   </div>

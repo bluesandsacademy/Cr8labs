@@ -286,7 +286,11 @@ export function Hero() {
 
       <div className="h-1.75 w-full bg-danfo lg:h-auto lg:w-1.75" aria-hidden="true" />
 
-      <div data-hero-video className="relative flex-1 overflow-hidden lg:min-h-dvh">
+      {/* flex-1 alone only sizes a flex item against a bounded container; the
+          section is auto-height below lg, so without an explicit ratio here
+          the video collapsed to near-nothing on phones. aspect-video gives it
+          real height there; lg:aspect-auto hands sizing back to flex-1/min-h-dvh. */}
+      <div data-hero-video className="relative aspect-video flex-1 overflow-hidden lg:aspect-auto lg:min-h-dvh">
         <video
           ref={videoRef}
           className="h-full w-full object-cover"
@@ -339,9 +343,12 @@ export function Hero() {
           </span>
         </button>
 
+        {/* Desktop only: on mobile this duplicated TrustBar's own stats one
+            scroll further down and sat on top of the video, the one thing
+            this section exists to show clearly. */}
         <div
           data-hero-stat
-          className="absolute inset-x-5 bottom-5 flex items-center gap-4 rounded-[12px] border border-bone/15 bg-ink/45 px-5 py-3.5 backdrop-blur-md lg:inset-x-auto lg:bottom-9 lg:left-0 lg:-translate-x-1/2"
+          className="absolute inset-x-auto bottom-9 left-0 hidden -translate-x-1/2 items-center gap-4 rounded-[12px] border border-bone/15 bg-ink/45 px-5 py-3.5 backdrop-blur-md lg:flex"
         >
           {HERO_STATS.map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-4">

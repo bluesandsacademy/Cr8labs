@@ -1,15 +1,13 @@
-import { Users, HelpCircle, FlaskConical, Glasses } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { PRODUCTS } from "@/components/products/products-data";
 
-// Names from the Home teaser, one-liners are each product's own opening
-// sentence from the Products page section further down the same brief.
-const PRODUCTS = [
-  { name: "Into the Community", line: "Five vivid AR stories about the places we live in.", accent: "#FFEB59", icon: Users },
-  { name: "Into the Curiosity Q", line: "Vivid virtual experiences that make big ideas click.", accent: "#2C276C", icon: HelpCircle },
-  { name: "AR Science Lab", line: "An eight-book AR science series across four subjects.", accent: "#B6502E", icon: FlaskConical },
-  { name: "Experience Africa", line: "Headset-led virtual worlds, shipped as a ready-to-run VR kit.", accent: "#6E67B8", icon: Glasses },
-];
-
+/**
+ * Real product photos, shown whole (object-contain, same rule as each
+ * product's own page: never crop the thing we're trying to sell), on a
+ * bigger two-up card so there's room for the full image at a real size.
+ */
 export function ProductsTeaser() {
   return (
     <section className="relative section-y overflow-hidden" style={{ background: "#FFFBF0" }}>
@@ -28,31 +26,44 @@ export function ProductsTeaser() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {PRODUCTS.map((product) => (
-            <div
-              key={product.name}
-              className="rounded-[1.8rem] border-4 bg-white p-6 shadow-[0_8px_0_rgba(23,19,15,0.08)] transition-transform duration-200 hover:-translate-y-2"
-              style={{ borderColor: product.accent }}
+            <Link
+              key={product.slug}
+              href={`/products/${product.slug}`}
+              className="focus-ring-light group block overflow-hidden rounded-[1.8rem] bg-white shadow-[0_1px_0_rgba(23,19,15,0.06),0_16px_36px_-20px_rgba(23,19,15,0.3)] transition-transform duration-200 hover:-translate-y-2"
             >
-              <span
-                className="flex h-12 w-12 items-center justify-center rounded-2xl shadow-md"
-                style={{ backgroundColor: product.accent }}
-                aria-hidden="true"
+              <div
+                className="relative aspect-[4/3] w-full"
+                style={{ background: `${product.accent}14` }}
               >
-                <product.icon
-                  className="h-6 w-6"
-                  style={{ color: product.accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
-                  strokeWidth={2.2}
+                <Image
+                  src={product.image.src}
+                  alt={product.image.alt}
+                  fill
+                  sizes="(min-width: 1024px) 620px, 92vw"
+                  className="object-contain p-6 transition-transform duration-300 group-hover:scale-[1.03]"
                 />
-              </span>
-              <h3 className="mt-4 font-display text-base font-bold leading-tight text-ink">
-                {product.name}
-              </h3>
-              <p className="mt-2 font-sans text-sm font-semibold leading-relaxed text-body">
-                {product.line}
-              </p>
-            </div>
+              </div>
+              <div className="flex items-center justify-between gap-4 p-6 lg:p-7">
+                <div>
+                  <span
+                    className="mb-2 inline-block rounded-full px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wide"
+                    style={{
+                      backgroundColor: `${product.accent}26`,
+                      color: product.accent === "#FFEB59" ? "#17130F" : product.accent,
+                    }}
+                  >
+                    {product.format} kit
+                  </span>
+                  <h3 className="font-display text-xl font-bold leading-tight text-ink">{product.name}</h3>
+                  <p className="mt-1 font-mono text-sm font-bold text-laterite-text">{product.price}</p>
+                </div>
+                <span className="focus-ring-light shrink-0 rounded-full bg-ink px-5 py-2.5 font-sans text-sm font-bold text-bone">
+                  View details
+                </span>
+              </div>
+            </Link>
           ))}
         </div>
 
