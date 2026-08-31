@@ -19,11 +19,12 @@ describe("Products page", () => {
     expect(screen.getByText("from $500")).toBeInTheDocument();
   });
 
-  it("links each kit's card through to its own product page", () => {
+  it("links each kit's card through to its own product page, with a clear click-through CTA", () => {
     render(<ProductsPage />);
     const heading = screen.getByRole("heading", { name: "Experience Africa" });
     const card = heading.closest("a");
     expect(card).toHaveAttribute("href", "/products/experience-africa");
+    expect(screen.getAllByText("View details")).toHaveLength(4);
   });
 
   it("renders the how-it-works steps", () => {

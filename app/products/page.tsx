@@ -90,8 +90,9 @@ export default function ProductsPage() {
                     <h3 className="font-display text-xl font-bold leading-tight text-ink">{product.name}</h3>
                     <p className="mt-1 font-mono text-sm font-bold text-laterite-text">{product.price}</p>
                   </div>
-                  <span className="focus-ring-light shrink-0 rounded-full bg-ink px-5 py-2.5 font-sans text-sm font-bold text-bone">
-                    Buy now
+                  <span className="focus-ring-light inline-flex shrink-0 items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 font-sans text-sm font-bold text-bone transition-transform duration-200 group-hover:translate-x-1">
+                    View details
+                    <span aria-hidden="true">→</span>
                   </span>
                 </div>
               </Link>
