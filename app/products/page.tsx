@@ -104,10 +104,34 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="relative section-y overflow-hidden" style={{ background: "#F6F8FB" }}>
+      {/* See it in action: real product-demo footage from the CEO drop that
+          nothing on the site was using yet, in the PayPal/Mailchimp-style
+          rounded video card researched on Mobbin. */}
+      <section className="relative overflow-hidden bg-white pb-16 sm:pb-20 lg:pb-24">
+        <div
+          className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-danfo/15 blur-3xl"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-adire/10 blur-3xl"
+          aria-hidden="true"
+        />
         <div className="relative page-frame">
-          <div className="mx-auto max-w-2xl rounded-[1.8rem] border-4 border-adire bg-white p-7 text-center shadow-[0_8px_0_rgba(23,19,15,0.08)] lg:p-9">
-            <h3 className="font-display text-xl leading-snug text-ink">
+          <span className="mx-auto block text-center font-mono text-xs font-bold uppercase tracking-[0.14em] text-adire/70 sm:text-sm">
+            See it in action
+          </span>
+          <div className="relative mx-auto mt-8 aspect-video max-w-4xl overflow-hidden rounded-[1.8rem] bg-adire-dark shadow-[0_20px_48px_-16px_rgba(23,19,15,0.4)]">
+            <video className="h-full w-full object-cover" autoPlay muted loop playsInline aria-hidden="true">
+              <source src="/brand/ceo/product-demo-1.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden border-y border-border bg-white">
+        <div className="page-frame flex flex-col items-start justify-between gap-6 py-10 sm:flex-row sm:items-center sm:py-12">
+          <div className="max-w-xl">
+            <h3 className="font-display text-xl leading-snug text-ink sm:text-2xl">
               Buying for a school, a museum, a gallery, or a distribution network?
             </h3>
             <p className="mt-3 font-sans text-sm font-semibold leading-relaxed text-body">
@@ -115,20 +139,24 @@ export default function ProductsPage() {
               and a named point of contact for the deployment. Tell us the number of users and we will
               come back with pricing and a rollout plan.
             </p>
-            <div className="mt-6">
-              <Button href="/contact" variant="primary">
-                Request organization pricing
-              </Button>
-            </div>
           </div>
+          <Button href="/contact" variant="primary" className="shrink-0">
+            Request organization pricing
+          </Button>
+        </div>
+      </section>
 
-          <p className="mx-auto mt-8 max-w-2xl text-center font-sans text-xs text-muted">
+      <section className="relative overflow-hidden bg-white">
+        <div className="page-frame">
+          <p className="max-w-2xl py-6 text-center font-sans text-xs text-muted sm:mx-auto">
             Prices shown in USD. Naira pricing at checkout, inclusive of 7.5% VAT. Payment by card or
             transfer through Paystack. Delivery across Nigeria, with export shipping quoted on request.
           </p>
         </div>
       </section>
 
+      {/* How it works: a top-rule stepper instead of the border-4 boxed-icon
+          card — the same lazy pattern flagged elsewhere on the site. */}
       <section className="relative section-y overflow-hidden bg-adire-dark">
         <div className="relative page-frame">
           <div className="mx-auto mb-12 max-w-xl text-center lg:mb-16">
@@ -138,22 +166,12 @@ export default function ProductsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8">
             {HOW_IT_WORKS.map((item, i) => {
               const accent = ["#FFEB59", "#B6502E", "#6E67B8"][i];
               return (
-                <div
-                  key={item.step}
-                  className="rounded-[1.6rem] border-4 bg-adire-mid p-6 text-center shadow-[0_8px_0_rgba(0,0,0,0.25)]"
-                  style={{ borderColor: accent }}
-                >
-                  <span
-                    className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl shadow-md"
-                    style={{ backgroundColor: accent }}
-                    aria-hidden="true"
-                  >
-                    <item.icon className="h-6 w-6" style={{ color: accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }} strokeWidth={2.2} />
-                  </span>
+                <div key={item.step} className="border-t-2 pt-6" style={{ borderColor: accent }}>
+                  <item.icon className="h-6 w-6" style={{ color: accent }} strokeWidth={2.2} aria-hidden="true" />
                   <h3 className="mt-4 font-display text-base font-bold text-bone">{item.step}</h3>
                   <p className="mt-2 font-sans text-sm font-semibold leading-relaxed text-bone/70">
                     {item.body}

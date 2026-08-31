@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
-import { BookOpen, Wifi, Layers, Rocket } from "lucide-react";
+import Image from "next/image";
 import { InnerPage } from "@/components/layout/InnerPage";
 import { SimpleHero } from "@/components/ui/SimpleHero";
-import { CardGrid } from "@/components/ui/CardGrid";
 
 export const metadata: Metadata = {
   title: "About CR8LABB",
   description:
     "Learn how CR8LABB is building Africa's leading immersive technology company using AR, VR and AI to transform storytelling and learning.",
 };
+
+// Editorial numbered list, ported from Studio Freight's own principles
+// section researched on Mobbin: no icon squares, no border-4 card chrome —
+// just a rule, an index and text. Same weight for every belief.
+const BELIEFS = [
+  { name: "The story belongs to its source", body: "We do rights and cultural review before we model anything. Ownership of the underlying material stays where it started." },
+  { name: "Build for the network that exists", body: "Offline first is not a limitation we work around. It is the constraint that made the product good." },
+  { name: "Own the assets", body: "Every project adds to a library we keep. That is what makes the next one affordable." },
+  { name: "Ship it, do not demo it", body: "A pilot that does not survive the term is a failure regardless of how well it presented." },
+];
 
 const TEAM = [
   { name: "Nelly Essien", role: "Co-Founder and CEO", bio: "Leads strategy, partnerships and institutional relationships across the group.", accent: "#FFEB59" },
@@ -23,9 +32,12 @@ export default function AboutPage() {
     <InnerPage>
       <SimpleHero title="Building the Future of African Immersive Technology" />
 
+      {/* Who we are, paired with real studio footage instead of a wall of
+          centered text — the product-demo footage the CEO dropped in but
+          nothing on the site was using yet. */}
       <section className="relative section-y overflow-hidden bg-white">
-        <div className="relative page-frame">
-          <div className="mx-auto max-w-3xl text-center">
+        <div className="relative page-frame grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div>
             <span className="inline-block font-mono text-xs font-bold uppercase tracking-[0.14em] text-adire/70 sm:text-sm">
               Who we are
             </span>
@@ -37,41 +49,78 @@ export default function AboutPage() {
               We&apos;re not simply producing projects. We&apos;re building reusable technology and digital
               assets that make immersive content faster, more affordable and accessible across Africa.
             </p>
+
+            <div className="mt-10 divide-y divide-border border-y border-border">
+              <div className="py-6">
+                <h2 className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-adire/70">
+                  Our mission
+                </h2>
+                <p className="mt-2 font-display text-lg leading-snug text-ink">
+                  To help Africa create, own and commercialize immersive digital experiences.
+                </p>
+              </div>
+              <div className="py-6">
+                <h2 className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-laterite-text">
+                  Our vision
+                </h2>
+                <p className="mt-2 font-display text-lg leading-snug text-ink">
+                  To become the infrastructure powering immersive storytelling across Africa.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-5 sm:grid-cols-2">
-            <div className="rounded-[1.8rem] border-4 border-danfo bg-bone p-7 shadow-[0_8px_0_rgba(23,19,15,0.08)]">
-              <h2 className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-adire/70">
-                Our mission
-              </h2>
-              <p className="mt-3 font-display text-xl leading-snug text-ink">
-                To help Africa create, own and commercialize immersive digital experiences.
-              </p>
-            </div>
-            <div className="rounded-[1.8rem] border-4 border-adire bg-adire-dark p-7 shadow-[0_8px_0_rgba(23,19,15,0.15)]">
-              <h2 className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-danfo">
-                Our vision
-              </h2>
-              <p className="mt-3 font-display text-xl leading-snug text-bone">
-                To become the infrastructure powering immersive storytelling across Africa.
-              </p>
-            </div>
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.8rem] bg-adire-dark shadow-[0_16px_40px_-12px_rgba(23,19,15,0.35)] lg:aspect-[3/4]">
+            <video
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-hidden="true"
+            >
+              <source src="/brand/ceo/product-demo-2.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </section>
 
-      <CardGrid
-        eyebrow="What we believe"
-        heading="Four rules everything else follows."
-        background="#F6F8FB"
-        columns={4}
-        cards={[
-          { name: "The story belongs to its source", body: "We do rights and cultural review before we model anything. Ownership of the underlying material stays where it started.", icon: BookOpen },
-          { name: "Build for the network that exists", body: "Offline first is not a limitation we work around. It is the constraint that made the product good.", icon: Wifi },
-          { name: "Own the assets", body: "Every project adds to a library we keep. That is what makes the next one affordable.", icon: Layers },
-          { name: "Ship it, do not demo it", body: "A pilot that does not survive the term is a failure regardless of how well it presented.", icon: Rocket },
-        ]}
-      />
+      {/* What we believe: an editorial numbered list researched on Mobbin
+          (Studio Freight's principles section) — no icon squares, no
+          border-4 boxes, every belief carries the same weight. */}
+      <section className="relative section-y overflow-hidden" style={{ background: "#F6F8FB" }}>
+        <div className="relative page-frame">
+          <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+            <span className="inline-block font-mono text-xs font-bold uppercase tracking-[0.14em] text-adire/70 sm:text-sm">
+              What we believe
+            </span>
+            <h2 className="mt-3 font-display text-3xl leading-tight text-ink sm:text-4xl lg:text-5xl">
+              Four rules everything else follows.
+            </h2>
+          </div>
+
+          <div className="mx-auto max-w-3xl divide-y divide-border border-t border-border">
+            {BELIEFS.map((belief, i) => (
+              <div
+                key={belief.name}
+                className="grid grid-cols-1 gap-3 py-8 sm:grid-cols-[4.5rem_1fr] sm:gap-8 lg:py-10"
+              >
+                <span className="font-display text-3xl leading-none text-adire/60 sm:text-4xl">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-display text-xl font-bold leading-tight text-ink">
+                    {belief.name}
+                  </h3>
+                  <p className="mt-2 max-w-xl font-sans text-base font-semibold leading-relaxed text-body">
+                    {belief.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="relative section-y overflow-hidden bg-adire-dark">
         <div
@@ -89,25 +138,35 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {/* A real photo of the studio in production, not a stand-in —
+              the only actual team photo the CEO drop included. */}
+          <div className="relative mx-auto mb-12 aspect-[16/8] max-w-4xl overflow-hidden rounded-[1.8rem] shadow-[0_16px_40px_-12px_rgba(0,0,0,0.5)] lg:mb-16">
+            <Image
+              src="/brand/studio-team.jpg"
+              alt="Two CR8LAB production artists at their desks, backs to camera, working on 3D models under a warm studio lamp"
+              fill
+              sizes="(min-width: 1024px) 960px, 92vw"
+              className="object-cover"
+            />
+          </div>
+
+          <div className="mx-auto grid max-w-4xl grid-cols-1 gap-x-10 sm:grid-cols-2">
             {TEAM.map((member) => (
-              <div
-                key={member.name}
-                className="rounded-[1.8rem] border-4 bg-adire-mid p-6 shadow-[0_8px_0_rgba(0,0,0,0.25)]"
-                style={{ borderColor: member.accent }}
-              >
+              <div key={member.name} className="flex items-start gap-4 border-t border-white/10 py-6">
                 <span
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl font-display text-xl font-bold shadow-md"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl font-display text-base font-bold"
                   style={{ backgroundColor: member.accent, color: member.accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
                   aria-hidden="true"
                 >
                   {member.name[0]}
                 </span>
-                <h3 className="mt-4 font-display text-lg font-bold leading-tight text-bone">{member.name}</h3>
-                <p className="mt-0.5 font-mono text-xs uppercase tracking-wide text-danfo">{member.role}</p>
-                <p className="mt-2 font-sans text-sm font-semibold leading-relaxed text-bone/70">
-                  {member.bio}
-                </p>
+                <div>
+                  <h3 className="font-display text-lg font-bold leading-tight text-bone">{member.name}</h3>
+                  <p className="mt-0.5 font-mono text-xs uppercase tracking-wide text-danfo">{member.role}</p>
+                  <p className="mt-2 font-sans text-sm font-semibold leading-relaxed text-bone/70">
+                    {member.bio}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { InnerPage } from "@/components/layout/InnerPage";
 
 export const metadata: Metadata = {
@@ -116,19 +115,6 @@ export default function IndustriesPage() {
                 </p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative section-y overflow-hidden text-center" style={{ background: "#FFFBF0" }}>
-        <div className="page-frame">
-          <h2 className="mx-auto max-w-xl font-display text-2xl leading-snug text-ink sm:text-3xl">
-            Don&apos;t see your industry? The engine is the same either way.
-          </h2>
-          <div className="mt-8">
-            <Button href="/contact" variant="primary">
-              Tell us what you&apos;re building
-            </Button>
           </div>
         </div>
       </section>
