@@ -2,35 +2,33 @@ import type { LucideIcon } from "lucide-react";
 import { FileText, Box, Move, Mic, Smartphone } from "lucide-react";
 import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
 
-const ACCENTS = ["#FFEB59", "#2C276C", "#B6502E", "#6E67B8", "#F5A623"];
+// No lemon here: a thin icon stroke in #FFEB59 on this section's white/pale
+// background is the same near-invisible contrast failure the site's other
+// lemon-on-light bugs were. Five accents, none of them lemon.
+const ACCENTS = ["#2C276C", "#B6502E", "#6E67B8", "#8F87CF", "#F5A623"];
 
-const STEPS: { number: string; name: string; body: string; icon: LucideIcon }[] = [
+const STEPS: { name: string; body: string; icon: LucideIcon }[] = [
   {
-    number: "01",
     name: "Story and script",
     body: "Research, rights and narrative design, done with the institution or the community the story belongs to.",
     icon: FileText,
   },
   {
-    number: "02",
     name: "3D worlds and characters",
     body: "Modelling, rigging, animation and environment production. Assets we own and reuse.",
     icon: Box,
   },
   {
-    number: "03",
     name: "Spatial interaction",
     body: "Pick up, rotate, walk through, trigger, solve. The world responds to the person in it.",
     icon: Move,
   },
   {
-    number: "04",
     name: "AI and voice",
     body: "Characters that answer, narrate and adapt to the user in real time.",
     icon: Mic,
   },
   {
-    number: "05",
     name: "Distribution",
     body: "Phone, tablet, headset, web and full offline packages for low connectivity environments.",
     icon: Smartphone,
@@ -38,12 +36,13 @@ const STEPS: { number: string; name: string; body: string; icon: LucideIcon }[] 
 ];
 
 /**
- * The solution: same copy and step data NumberedSteps rendered as a 5-up
- * grid, now paired with the CEO's second demo clip (product-demo-1.mp4 is
- * on Products; this is the other one) so the section shows the engine
- * running while it describes the five layers. Video sits sticky on the
- * left, the steps run as a single column on the right — a plain 5-across
- * grid doesn't fit next to it.
+ * The solution: same copy and step data NumberedSteps used to render as a
+ * bordered-box, icon-square, numbered 5-up grid — replaced here, since a
+ * grid like that doesn't fit next to a video anyway, and the bordered-box
+ * card plus numeral is exactly the pattern the rest of the site is moving
+ * away from. Video sticky on the left (the CEO's second demo clip;
+ * product-demo-1.mp4 is on Products); on the right, a plain divided list —
+ * a coloured icon glyph, bold name, body — no numerals, no boxes.
  */
 export function SolutionSection() {
   return (
@@ -76,32 +75,22 @@ export function SolutionSection() {
             </div>
           </div>
 
-          <ol className="flex flex-col gap-4">
+          <ol className="flex flex-col divide-y divide-border border-t border-border">
             {STEPS.map((step, i) => {
               const accent = ACCENTS[i % ACCENTS.length];
               return (
-                <li
-                  key={step.number}
-                  className="flex items-start gap-4 rounded-[1.6rem] border-4 bg-white p-5 shadow-[0_8px_0_rgba(23,19,15,0.08)] sm:p-6"
-                  style={{ borderColor: accent }}
-                >
-                  <span
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl shadow-md"
-                    style={{ backgroundColor: accent }}
+                <li key={step.name} className="flex items-start gap-4 py-6 sm:py-7">
+                  <step.icon
+                    className="mt-1 h-6 w-6 shrink-0"
+                    style={{ color: accent }}
+                    strokeWidth={2.2}
                     aria-hidden="true"
-                  >
-                    <step.icon
-                      className="h-6 w-6"
-                      style={{ color: accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
-                      strokeWidth={2.2}
-                    />
-                  </span>
+                  />
                   <div>
-                    <p className="font-mono text-xs font-bold text-muted">{step.number}</p>
-                    <h3 className="mt-0.5 font-display text-base font-bold leading-tight text-ink">
+                    <h3 className="font-display text-lg font-bold leading-tight text-ink">
                       {step.name}
                     </h3>
-                    <p className="mt-1 font-sans text-sm font-semibold leading-snug text-body">
+                    <p className="mt-1.5 font-sans text-sm font-semibold leading-relaxed text-body">
                       {step.body}
                     </p>
                   </div>
