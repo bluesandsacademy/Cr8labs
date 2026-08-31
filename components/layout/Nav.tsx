@@ -62,7 +62,7 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
           <span className="font-display text-xl font-bold text-ink">CR8LAB</span>
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex lg:gap-1.5" data-testid="nav-links-desktop">
+        <ul className="hidden items-center gap-1 lg:flex lg:gap-1.5" data-testid="nav-links-desktop">
           {NAV_LINKS.map((link) => (
             <li key={link.name}>
               <Link
@@ -76,7 +76,7 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
           ))}
         </ul>
 
-        <div className="hidden md:flex">
+        <div className="hidden lg:flex">
           <Button href="/contact" variant={theme === "dark" ? "primary" : "dark"}>
             Book a demo
           </Button>
@@ -87,13 +87,13 @@ export function Nav({ theme = "light" }: { theme?: "light" | "dark" }) {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-ink/12 bg-white text-ink transition-colors hover:text-adire md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-ink/12 bg-white text-ink transition-colors hover:text-adire lg:hidden"
         >
           {open ? <X className="h-6 w-6" strokeWidth={2.5} /> : <Menu className="h-6 w-6" strokeWidth={2.5} />}
         </button>
       </nav>
 
-      <div data-testid="nav-links" className={`${open ? "" : "hidden"} border-t border-adire/10 bg-bone md:hidden`}>
+      <div data-testid="nav-links" className={`${open ? "" : "hidden"} border-t border-adire/10 bg-bone lg:hidden`}>
         <nav className="space-y-1 px-4 py-4">
           {NAV_LINKS.map((link) => (
             <Link

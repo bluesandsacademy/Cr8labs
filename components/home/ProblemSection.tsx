@@ -1,9 +1,8 @@
-// A second, deliberately different attempt at this section: not a card grid
-// (that's Industries' language, not this one's), not a plain numbered list
-// either (too quiet to match the rest of the page). Oversized ghost numerals
-// carry the editorial weight instead — no icon, no photo, no box, just scale
-// contrast — on adire-dark so the lemon numeral reads at full strength
-// rather than the near-invisible lemon-on-white the first draft shipped with.
+// No numerals anywhere on this section (standing instruction, repeated
+// several times) — not even the oversized ghost-numeral version this held
+// before. The headline itself carries the weight a number used to: a wide
+// two-column row per problem, bold name on the left, body on the right,
+// nothing else marking the item.
 const PROBLEMS = [
   {
     name: "Locked in static formats",
@@ -49,23 +48,18 @@ export function ProblemSection() {
           </p>
         </div>
 
-        <div className="mx-auto max-w-4xl divide-y divide-bone/10">
-          {PROBLEMS.map((problem, i) => (
-            <div key={problem.name} className="relative flex items-center gap-2 py-8 sm:gap-8 sm:py-10">
-              <span
-                className="pointer-events-none select-none font-display text-[64px] leading-none text-danfo/[0.14] sm:text-[96px] lg:text-[120px]"
-                aria-hidden="true"
-              >
-                0{i + 1}
-              </span>
-              <div className="relative -ml-6 sm:-ml-10 lg:-ml-14">
-                <h3 className="font-display text-xl font-bold leading-snug text-bone sm:text-2xl">
-                  {problem.name}
-                </h3>
-                <p className="mt-2 max-w-md font-sans text-base font-semibold leading-relaxed text-bone/70">
-                  {problem.body}
-                </p>
-              </div>
+        <div className="mx-auto max-w-4xl divide-y divide-bone/10 border-t border-bone/10">
+          {PROBLEMS.map((problem) => (
+            <div
+              key={problem.name}
+              className="grid grid-cols-1 gap-3 py-8 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] sm:gap-10 lg:py-10"
+            >
+              <h3 className="font-display text-xl font-bold leading-snug text-bone sm:text-2xl">
+                {problem.name}
+              </h3>
+              <p className="max-w-md font-sans text-base font-semibold leading-relaxed text-bone/70">
+                {problem.body}
+              </p>
             </div>
           ))}
         </div>

@@ -5,6 +5,7 @@ import { Download, RotateCw, Play } from "lucide-react";
 import { InnerPage } from "@/components/layout/InnerPage";
 import { SimpleHero } from "@/components/ui/SimpleHero";
 import { Button } from "@/components/ui/Button";
+import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
 import { PRODUCTS } from "@/components/products/products-data";
 
 export const metadata: Metadata = {
@@ -121,9 +122,11 @@ export default function ProductsPage() {
             See it in action
           </span>
           <div className="relative mx-auto mt-8 aspect-video max-w-4xl overflow-hidden rounded-[1.8rem] bg-adire-dark shadow-[0_20px_48px_-16px_rgba(23,19,15,0.4)]">
-            <video className="h-full w-full object-cover" autoPlay muted loop playsInline aria-hidden="true">
-              <source src="/brand/ceo/product-demo-1.mp4" type="video/mp4" />
-            </video>
+            <BackgroundVideo
+              src="/brand/ceo/product-demo-1.mp4"
+              rate={0.5}
+              className="h-full w-full object-cover"
+            />
           </div>
         </div>
       </section>

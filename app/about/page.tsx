@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { InnerPage } from "@/components/layout/InnerPage";
 import { SimpleHero } from "@/components/ui/SimpleHero";
 
@@ -85,9 +84,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* What we believe: an editorial numbered list researched on Mobbin
-          (Studio Freight's principles section) — no icon squares, no
-          border-4 boxes, every belief carries the same weight. */}
+      {/* What we believe: no numerals anywhere (repeated, standing
+          instruction), no icon squares, no border-4 boxes. A small solid
+          colour mark carries the per-item accent instead of an index —
+          never lemon here, this section sits on a light background. */}
       <section className="relative section-y overflow-hidden" style={{ background: "#F6F8FB" }}>
         <div className="relative page-frame">
           <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
@@ -100,24 +100,26 @@ export default function AboutPage() {
           </div>
 
           <div className="mx-auto max-w-3xl divide-y divide-border border-t border-border">
-            {BELIEFS.map((belief, i) => (
-              <div
-                key={belief.name}
-                className="grid grid-cols-1 gap-3 py-8 sm:grid-cols-[4.5rem_1fr] sm:gap-8 lg:py-10"
-              >
-                <span className="font-display text-3xl leading-none text-adire/60 sm:text-4xl">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-display text-xl font-bold leading-tight text-ink">
-                    {belief.name}
-                  </h3>
-                  <p className="mt-2 max-w-xl font-sans text-base font-semibold leading-relaxed text-body">
-                    {belief.body}
-                  </p>
+            {BELIEFS.map((belief, i) => {
+              const accent = ["#2C276C", "#B6502E", "#6E67B8", "#8F87CF"][i % 4];
+              return (
+                <div key={belief.name} className="flex gap-5 py-8 lg:py-10">
+                  <span
+                    className="mt-2.5 h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: accent }}
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <h3 className="font-display text-xl font-bold leading-tight text-ink">
+                      {belief.name}
+                    </h3>
+                    <p className="mt-2 max-w-xl font-sans text-base font-semibold leading-relaxed text-body">
+                      {belief.body}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -136,18 +138,6 @@ export default function AboutPage() {
               Founders who have shipped immersive technology into real classrooms since 2022, with
               commercial and operating leadership alongside them.
             </p>
-          </div>
-
-          {/* A real photo of the studio in production, not a stand-in —
-              the only actual team photo the CEO drop included. */}
-          <div className="relative mx-auto mb-12 aspect-[16/8] max-w-4xl overflow-hidden rounded-[1.8rem] shadow-[0_16px_40px_-12px_rgba(0,0,0,0.5)] lg:mb-16">
-            <Image
-              src="/brand/studio-team.jpg"
-              alt="Two CR8LAB production artists at their desks, backs to camera, working on 3D models under a warm studio lamp"
-              fill
-              sizes="(min-width: 1024px) 960px, 92vw"
-              className="object-cover"
-            />
           </div>
 
           <div className="mx-auto grid max-w-4xl grid-cols-1 gap-x-10 sm:grid-cols-2">

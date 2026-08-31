@@ -18,45 +18,50 @@ export function TrustBar({ theme = "light" }: { theme?: "light" | "dark" }) {
 
   return (
     <div className={`px-8 py-11 md:px-16 ${isDark ? "" : "bg-bone"}`}>
-      <div className="mb-6 flex items-center gap-3">
-        <span
-          className={`relative flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border-[1.5px] ${
-            isDark ? "border-danfo" : "border-adire"
+      {/* Every other section on the site caps its content at page-frame's
+          80rem; this one didn't, so on wide monitors the headline hugged
+          the left edge and the five stats sprawled edge to edge. */}
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-6 flex items-center gap-3">
+          <span
+            className={`relative flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border-[1.5px] ${
+              isDark ? "border-danfo" : "border-adire"
+            }`}
+            aria-hidden="true"
+          >
+            <span className={`h-1 w-1 rounded-full ${isDark ? "bg-danfo" : "bg-adire"}`} />
+          </span>
+          <span className={`h-px w-16 ${isDark ? "bg-bone/25" : "bg-border"}`} aria-hidden="true" />
+        </div>
+
+        <p
+          className={`max-w-200 font-display text-[26px] leading-[1.15] md:text-[38px] ${
+            isDark ? "text-bone" : "text-ink"
           }`}
-          aria-hidden="true"
         >
-          <span className={`h-1 w-1 rounded-full ${isDark ? "bg-danfo" : "bg-adire"}`} />
-        </span>
-        <span className={`h-px w-16 ${isDark ? "bg-bone/25" : "bg-border"}`} aria-hidden="true" />
-      </div>
+          Built for Africa. Designed for the world. Running on technology we own.
+        </p>
 
-      <p
-        className={`max-w-200 font-display text-[26px] leading-[1.15] md:text-[38px] ${
-          isDark ? "text-bone" : "text-ink"
-        }`}
-      >
-        Built for Africa. Designed for the world. Running on technology we own.
-      </p>
-
-      {/* One column on phones: "10,000+" at display size is wider than half
-          a 390px screen and pushed the whole page into horizontal scroll. */}
-      <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 md:mt-14 lg:grid-cols-5">
-        {STATS.map((stat) => (
-          <div key={stat.label} className="flex min-w-0 flex-col gap-2">
-            <div
-              className={`font-mono text-[36px] font-bold leading-none md:text-[52px] ${
-                isDark ? "text-bone" : "text-ink"
-              }`}
-            >
-              {stat.value}
+        {/* One column on phones: "10,000+" at display size is wider than half
+            a 390px screen and pushed the whole page into horizontal scroll. */}
+        <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 md:mt-14 lg:grid-cols-5">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="flex min-w-0 flex-col gap-2">
+              <div
+                className={`font-mono text-[36px] font-bold leading-none md:text-[52px] ${
+                  isDark ? "text-bone" : "text-ink"
+                }`}
+              >
+                {stat.value}
+              </div>
+              <div
+                className={`font-sans text-[13px] tracking-wide ${isDark ? "text-bone/60" : "text-muted"}`}
+              >
+                {stat.label}
+              </div>
             </div>
-            <div
-              className={`font-sans text-[13px] tracking-wide ${isDark ? "text-bone/60" : "text-muted"}`}
-            >
-              {stat.label}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
