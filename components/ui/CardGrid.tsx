@@ -78,16 +78,15 @@ export function CardGrid({
               return (
                 <div
                   key={card.name}
-                  className="overflow-hidden rounded-[1.8rem] border-4 bg-white shadow-[0_8px_0_rgba(23,19,15,0.08)] transition-transform duration-200 hover:-translate-y-2"
-                  style={{ borderColor: accent }}
+                  className="group overflow-hidden rounded-[1.8rem] bg-white shadow-[0_1px_0_rgba(23,19,15,0.06),0_16px_36px_-20px_rgba(23,19,15,0.3)] transition-transform duration-200 hover:-translate-y-2"
                 >
-                  <div className="relative aspect-[4/3] w-full">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={card.image.src}
                       alt={card.image.alt}
                       fill
                       sizes="(min-width: 1024px) 320px, 90vw"
-                      className="object-cover"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <span
                       className="absolute bottom-3 left-3 flex h-11 w-11 items-center justify-center rounded-xl shadow-md"
