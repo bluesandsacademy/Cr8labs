@@ -24,11 +24,6 @@ describe("TrustBar", () => {
     expect(screen.getByText("states in Nigeria")).toBeInTheDocument();
   });
 
-  it("names the confirmed institutional partners", () => {
-    render(<TrustBar />);
-    expect(screen.getByText("Working with LASRIC, NITDA, NTI, CcHUB and ReLearn.")).toBeInTheDocument();
-  });
-
   it("uses bone text on the dark theme instead of ink, since it now sits on a dark background", () => {
     render(<TrustBar theme="dark" />);
     const stat = screen.getByText("$20K+");

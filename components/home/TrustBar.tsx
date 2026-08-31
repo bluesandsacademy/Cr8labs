@@ -58,14 +58,6 @@ export function TrustBar({ theme = "light" }: { theme?: "light" | "dark" }) {
           </div>
         ))}
       </div>
-
-      <p
-        className={`mt-10 font-mono text-[11px] uppercase tracking-widest md:mt-14 ${
-          isDark ? "text-bone/50" : "text-muted"
-        }`}
-      >
-        Working with LASRIC, NITDA, NTI, CcHUB and ReLearn.
-      </p>
     </div>
   );
 }

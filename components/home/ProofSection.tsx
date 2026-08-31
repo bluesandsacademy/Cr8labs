@@ -56,10 +56,6 @@ export function ProofSection() {
             </div>
           ))}
         </div>
-
-        <p className="mt-8 text-center font-mono text-xs uppercase tracking-widest text-muted">
-          Backed and deployed with LASRIC, NITDA and NTI.
-        </p>
       </div>
     </section>
   );

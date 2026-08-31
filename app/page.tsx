@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BookOpen, Boxes, Landmark, Users, FileText, Box, Move, Mic, Smartphone, Shapes, ShieldCheck, FileSearch, Hammer, Settings2, TrendingUp } from "lucide-react";
+import { BookOpen, Landmark, FileText, Box, Move, Mic, Smartphone, Shapes, ShieldCheck, FileSearch, Hammer, Settings2, TrendingUp } from "lucide-react";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Reveal } from "@/components/ui/Reveal";
@@ -7,7 +7,9 @@ import { CardGrid } from "@/components/ui/CardGrid";
 import { NumberedSteps } from "@/components/ui/NumberedSteps";
 import { Hero } from "@/components/home/Hero";
 import { TrustBar } from "@/components/home/TrustBar";
+import { BackedBy } from "@/components/home/BackedBy";
 import { Manifesto } from "@/components/home/Manifesto";
+import { ProblemSection } from "@/components/home/ProblemSection";
 import { ArVrSection } from "@/components/home/ArVrSection";
 import { Industries } from "@/components/home/Industries";
 import { ProductsTeaser } from "@/components/home/ProductsTeaser";
@@ -43,39 +45,15 @@ export default function Home() {
         </Reveal>
 
         <Reveal>
+          <BackedBy />
+        </Reveal>
+
+        <Reveal>
           <Manifesto />
         </Reveal>
 
         <Reveal>
-          <CardGrid
-            eyebrow="The problem"
-            heading="Africa has the stories. They are stuck flat."
-            intro="The continent holds enormous narrative, cultural and scientific capital. Almost all of it sits in formats that can only be read or watched, never entered."
-            columns={4}
-            cards={[
-              {
-                name: "Locked in static formats",
-                body: "Books, archives, museum collections and curricula stay two dimensional. The experience ends at the page or the display case.",
-                icon: BookOpen,
-              },
-              {
-                name: "Immersive tech is out of reach",
-                body: "AR, VR and 3D production demand studios, engines and specialists that most institutions and creators cannot staff.",
-                icon: Boxes,
-              },
-              {
-                name: "Culture is under digitised",
-                body: "African heritage, language and history are barely represented in 3D, so the global immersive canon is being written without us.",
-                icon: Landmark,
-              },
-              {
-                name: "Audiences moved first",
-                body: "Younger audiences already expect to interact, not observe. Flat content loses them before the story lands.",
-                icon: Users,
-              },
-            ]}
-            closing="The gap is not content. The gap is dimension."
-          />
+          <ProblemSection />
         </Reveal>
 
         <Reveal>
