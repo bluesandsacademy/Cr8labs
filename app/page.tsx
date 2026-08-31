@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BookOpen, Landmark, FileText, Box, Move, Mic, Smartphone, Shapes, ShieldCheck, FileSearch, Hammer, Settings2, TrendingUp } from "lucide-react";
+import { BookOpen, Landmark, Smartphone, Shapes, ShieldCheck, FileSearch, Hammer, Settings2, TrendingUp } from "lucide-react";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,6 +10,7 @@ import { TrustBar } from "@/components/home/TrustBar";
 import { BackedBy } from "@/components/home/BackedBy";
 import { Manifesto } from "@/components/home/Manifesto";
 import { ProblemSection } from "@/components/home/ProblemSection";
+import { SolutionSection } from "@/components/home/SolutionSection";
 import { ArVrSection } from "@/components/home/ArVrSection";
 import { Industries } from "@/components/home/Industries";
 import { ProductsTeaser } from "@/components/home/ProductsTeaser";
@@ -57,44 +58,7 @@ export default function Home() {
         </Reveal>
 
         <Reveal>
-          <NumberedSteps
-            eyebrow="The solution"
-            heading="One immersive engine. Every project runs on it."
-            intro="Every experience we ship is built from the same five layers. We built them once and we reuse them across every industry we serve."
-            steps={[
-              {
-                number: "01",
-                name: "Story and script",
-                body: "Research, rights and narrative design, done with the institution or the community the story belongs to.",
-                icon: FileText,
-              },
-              {
-                number: "02",
-                name: "3D worlds and characters",
-                body: "Modelling, rigging, animation and environment production. Assets we own and reuse.",
-                icon: Box,
-              },
-              {
-                number: "03",
-                name: "Spatial interaction",
-                body: "Pick up, rotate, walk through, trigger, solve. The world responds to the person in it.",
-                icon: Move,
-              },
-              {
-                number: "04",
-                name: "AI and voice",
-                body: "Characters that answer, narrate and adapt to the user in real time.",
-                icon: Mic,
-              },
-              {
-                number: "05",
-                name: "Distribution",
-                body: "Phone, tablet, headset, web and full offline packages for low connectivity environments.",
-                icon: Smartphone,
-              },
-            ]}
-            closing="Same engine for a classroom, a museum, a broadcaster and a brand."
-          />
+          <SolutionSection />
         </Reveal>
 
         <Reveal>
