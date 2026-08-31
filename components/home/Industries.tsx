@@ -34,7 +34,10 @@ const SECTORS = [
     name: "Brands and enterprise",
     tagline: "Let customers hold the product before they own it.",
     line: "Agencies, retailers and consumer brands. Products, activations and stores that customers can hold, configure and walk through.",
-    image: null,
+    image: {
+      src: "/brand/enterprise.jpg",
+      alt: "Four enterprise team members reviewing data visualisations across several monitors in a server room, one holding a laptop and another a tablet",
+    },
   },
   {
     name: "Training and simulation",
