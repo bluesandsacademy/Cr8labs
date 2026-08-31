@@ -12,6 +12,10 @@ export default function TrainingAndSimulationSolutionPage() {
     <SolutionPage
       title="Practice the thing that is too costly to practise."
       lede="For employers, health services, technical operators and vocational institutes. Repeatable simulation of the procedures where mistakes are expensive, dangerous or irreversible."
+      image={{
+        src: "/brand/ceo/training-simulation.png",
+        alt: "Medical staff wearing VR headsets practising a surgical simulation, with a trainee reviewing a scored training dashboard on a tablet",
+      }}
       problemHeading="The tasks that most need rehearsal are the ones nobody can afford to rehearse."
       problemBody="Real equipment is in use. Real sites are hazardous. Real patients are not practice. So training becomes a slide deck and a signature, and the first live attempt is the first real attempt."
       whatWeDoHeading="What we do."

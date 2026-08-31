@@ -12,6 +12,10 @@ export default function CultureAndPublishingSolutionPage() {
     <SolutionPage
       title="Collections people can enter, not just look at."
       lede="For museums, publishers, archives, heritage bodies and tourism boards. We rebuild sites, artefacts and titles in 3D so the audience can walk in from anywhere, or go deeper while standing in front of the real thing."
+      image={{
+        src: "/brand/ceo/kemet-heritage-family.png",
+        alt: "A family wearing VR headsets in front of a heritage site, viewing a 3D reconstruction of an ancient temple on a tablet",
+      }}
       problemHeading="African heritage is barely represented in three dimensions."
       problemBody="The global immersive canon is being built right now, and Africa is almost absent from it. Meanwhile the collections that do exist reach only the people who can travel to them, and the titles that do exist compete with a phone the reader is already holding."
       whatWeDoHeading="We keep the artefact and add the dimension."

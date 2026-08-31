@@ -12,6 +12,10 @@ export default function EducationSolutionPage() {
     <SolutionPage
       title="Laboratories, field trips and practicals with no building required."
       lede="For schools, universities, ministries and training institutes. Students do the experiment, walk the site and handle the equipment, on the devices the school already has."
+      image={{
+        src: "/brand/ceo/into-the-community.png",
+        alt: "A girl wearing a VR headset beside a tablet on a carved stand, exploring an AR book experience",
+      }}
       problemHeading="Practical learning is the first thing a tight budget cuts."
       problemBody="Laboratories cost more than most schools will ever have. Field trips cost more than most parents will approve. Equipment breaks, consumables run out, and the students who need the practical most are the ones who never get near it. So science gets taught from a diagram and examined from memory."
       whatWeDoHeading="We put the laboratory on the desk."

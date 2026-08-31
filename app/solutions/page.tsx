@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { GraduationCap, Landmark, Briefcase, ShieldCheck } from "lucide-react";
 import { InnerPage } from "@/components/layout/InnerPage";
@@ -11,10 +12,38 @@ export const metadata: Metadata = {
 };
 
 const SOLUTIONS = [
-  { name: "Education", href: "/solutions/education", line: "Laboratories, field trips and practicals with no building required.", icon: GraduationCap, accent: "#FFEB59" },
-  { name: "Culture and publishing", href: "/solutions/culture-and-publishing", line: "Collections people can enter, not just look at.", icon: Landmark, accent: "#2C276C" },
-  { name: "Brands and enterprise", href: "/solutions/brands-and-enterprise", line: "Let customers hold the product before they own it.", icon: Briefcase, accent: "#B6502E" },
-  { name: "Training and simulation", href: "/solutions/training-and-simulation", line: "Practice the thing that is too costly to practise.", icon: ShieldCheck, accent: "#6E67B8" },
+  {
+    name: "Education",
+    href: "/solutions/education",
+    line: "Laboratories, field trips and practicals with no building required.",
+    icon: GraduationCap,
+    accent: "#FFEB59",
+    image: { src: "/brand/ceo/into-the-community.png", alt: "A girl wearing a VR headset beside a tablet on a carved stand, exploring an AR book experience" },
+  },
+  {
+    name: "Culture and publishing",
+    href: "/solutions/culture-and-publishing",
+    line: "Collections people can enter, not just look at.",
+    icon: Landmark,
+    accent: "#2C276C",
+    image: { src: "/brand/ceo/kemet-heritage-family.png", alt: "A family wearing VR headsets in front of a heritage site, viewing a 3D reconstruction of an ancient temple on a tablet" },
+  },
+  {
+    name: "Brands and enterprise",
+    href: "/solutions/brands-and-enterprise",
+    line: "Let customers hold the product before they own it.",
+    icon: Briefcase,
+    accent: "#B6502E",
+    image: null,
+  },
+  {
+    name: "Training and simulation",
+    href: "/solutions/training-and-simulation",
+    line: "Practice the thing that is too costly to practise.",
+    icon: ShieldCheck,
+    accent: "#6E67B8",
+    image: { src: "/brand/ceo/training-simulation.png", alt: "Medical staff wearing VR headsets practising a surgical simulation, with a trainee reviewing a scored training dashboard on a tablet" },
+  },
 ];
 
 export default function SolutionsPage() {
@@ -41,33 +70,78 @@ export default function SolutionsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {SOLUTIONS.map((solution) => (
-              <Link
-                key={solution.href}
-                href={solution.href}
-                className="focus-ring-light block rounded-[1.8rem] border-4 bg-bone p-6 shadow-[0_8px_0_rgba(23,19,15,0.08)] transition-transform duration-200 hover:-translate-y-2"
-                style={{ borderColor: solution.accent }}
-              >
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {SOLUTIONS.map((solution) => {
+              const iconChip = (
                 <span
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl shadow-md"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl shadow-md"
                   style={{ backgroundColor: solution.accent }}
                   aria-hidden="true"
                 >
                   <solution.icon
-                    className="h-7 w-7"
+                    className="h-5.5 w-5.5"
                     style={{ color: solution.accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
                     strokeWidth={2.2}
                   />
                 </span>
-                <h3 className="mt-5 font-display text-lg font-bold leading-tight text-ink">
-                  {solution.name}
-                </h3>
-                <p className="mt-2 font-sans text-sm font-semibold leading-relaxed text-body">
-                  {solution.line}
-                </p>
-              </Link>
-            ))}
+              );
+
+              if (solution.image) {
+                return (
+                  <Link
+                    key={solution.href}
+                    href={solution.href}
+                    className="focus-ring-light group block overflow-hidden rounded-[1.8rem] bg-bone shadow-[0_1px_0_rgba(23,19,15,0.06),0_16px_36px_-20px_rgba(23,19,15,0.3)] transition-transform duration-200 hover:-translate-y-2"
+                  >
+                    <div className="relative aspect-[4/3] w-full overflow-hidden">
+                      <Image
+                        src={solution.image.src}
+                        alt={solution.image.alt}
+                        fill
+                        sizes="(min-width: 1024px) 320px, 90vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute bottom-3 left-3">{iconChip}</div>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-display text-lg font-bold leading-tight text-ink">
+                        {solution.name}
+                      </h3>
+                      <p className="mt-2 font-sans text-sm font-semibold leading-relaxed text-body">
+                        {solution.line}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              }
+
+              return (
+                <Link
+                  key={solution.href}
+                  href={solution.href}
+                  className="focus-ring-light block rounded-[1.8rem] border-4 bg-bone p-6 shadow-[0_8px_0_rgba(23,19,15,0.08)] transition-transform duration-200 hover:-translate-y-2"
+                  style={{ borderColor: solution.accent }}
+                >
+                  <span
+                    className="flex h-14 w-14 items-center justify-center rounded-2xl shadow-md"
+                    style={{ backgroundColor: solution.accent }}
+                    aria-hidden="true"
+                  >
+                    <solution.icon
+                      className="h-7 w-7"
+                      style={{ color: solution.accent === "#FFEB59" ? "#17130F" : "#F3ECDE" }}
+                      strokeWidth={2.2}
+                    />
+                  </span>
+                  <h3 className="mt-5 font-display text-lg font-bold leading-tight text-ink">
+                    {solution.name}
+                  </h3>
+                  <p className="mt-2 font-sans text-sm font-semibold leading-relaxed text-body">
+                    {solution.line}
+                  </p>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
